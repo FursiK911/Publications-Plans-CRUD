@@ -14,8 +14,9 @@ class CreatePublicationPlansTable extends Migration
     public function up()
     {
         Schema::create('publication_plans', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->bigIncrements('id');
-            $table->bigInteger('discipline_id')->unsigned();
+            $table->unsignedInteger('discipline_id');
             $table->foreign('discipline_id')->references('id')->on('disciplines');
             $table->string('name_of_publication');
             $table->unsignedInteger('author_id');
