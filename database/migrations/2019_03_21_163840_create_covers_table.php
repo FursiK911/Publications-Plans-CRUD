@@ -15,7 +15,7 @@ class CreateCoversTable extends Migration
     {
         Schema::create('covers', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('cover_type');
         });
     }

@@ -15,7 +15,7 @@ class CreateMonthsOfSubmissionTable extends Migration
     {
         Schema::create('months_of_submission', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('month_name');
         });
     }

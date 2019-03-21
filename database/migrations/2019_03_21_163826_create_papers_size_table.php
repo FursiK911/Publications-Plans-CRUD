@@ -15,7 +15,7 @@ class CreatePapersSizeTable extends Migration
     {
         Schema::create('papers_size', function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('format_name');
         });
     }
