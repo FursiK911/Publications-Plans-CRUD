@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePapersSizeTable extends Migration
+class TypeOfPublication extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreatePapersSizeTable extends Migration
      */
     public function up()
     {
-        Schema::create('papers_size', function (Blueprint $table) {
+        Schema::create('type_of_publication', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('format_name');
+            $table->string('type_publication_name');
         });
     }
 
@@ -27,6 +27,7 @@ class CreatePapersSizeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('papers_size');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('type_of_publication');
     }
 }
