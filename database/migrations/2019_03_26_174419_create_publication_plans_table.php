@@ -21,8 +21,6 @@ class CreatePublicationPlansTable extends Migration
             $table->unsignedInteger('type_publication_id');
             $table->foreign('type_publication_id')->references('id')->on('type_of_publication');
             $table->string('name_of_publication');
-            $table->unsignedInteger('author_id');
-            $table->foreign('author_id')->references('id')->on('users');
             $table->unsignedInteger('paper_size_id');
             $table->foreign('paper_size_id')->references('id')->on('papers_sizes');
             $table->integer('number_of_pages');
@@ -32,6 +30,7 @@ class CreatePublicationPlansTable extends Migration
             $table->unsignedInteger('month_of_submission_id');
             $table->foreign('month_of_submission_id')->references('id')->on('month_of_submissions');
             $table->string('phone_number');
+            $table->timestamps();
         });
     }
 

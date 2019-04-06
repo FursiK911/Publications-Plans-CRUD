@@ -24,11 +24,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::resource('plans', 'PublicationPlanController');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
