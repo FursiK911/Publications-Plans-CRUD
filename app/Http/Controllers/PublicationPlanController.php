@@ -23,14 +23,40 @@ class PublicationPlanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         $users = DB::table('users_publications')
             ->join('users', 'users_publications.user_id', '=', 'users.id')
             ->join('publication_plans', 'publication_plans.id', '=', 'users_publications.plan_id')
             ->select('users.id', 'users_publications.plan_id', 'users.name')
             ->get();
+
+
+        //sorting data
+        $select_sort = $request->input('type_sort');
+        switch ($select_sort) {
+            case 1:
+                $order_by = 'created_at';
+                $direction = 'desc';
+                break;
+            case 2:
+                $order_by = 'created_at';
+                $direction = 'asc';
+                break;
+            case 3:
+                $order_by = 'updated_at';
+                $direction = 'desc';
+                break;
+            case 4:
+                $order_by = 'updated_at';
+                $direction = 'asc';
+                break;
+            default:
+                $order_by = 'created_at';
+                $direction = 'desc';
+                break;
+        }
+
 
         // get all the plans with foreign key
         $plans = DB::table('publication_plans')
@@ -42,6 +68,7 @@ class PublicationPlanController extends Controller
             ->select('publication_plans.id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publication_plans.name_of_publication',
                 'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type',
                 'month_of_submissions.month_name', 'phone_number')
+            ->orderBy($order_by, $direction)
             ->get();
 
 
@@ -49,7 +76,7 @@ class PublicationPlanController extends Controller
         // load the view and pass the plans
         return view('plans.index')->with([
         'plans' => $plans,
-        'users' => $users
+        'users' => $users,
         ]);
     }
 
@@ -98,7 +125,6 @@ class PublicationPlanController extends Controller
             'number_of_copies' => 'required|numeric',
             'cover_id' => 'required',
             'month_of_submission_id' => 'required|numeric',
-            'phone_number' => 'required|numeric'
         ]);
 
         // store

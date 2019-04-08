@@ -1,28 +1,48 @@
 <!-- app/views/plans/create.blade.php -->
+@extends('plans.layouts.layout')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Look! I'm CRUDding</title>
-    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"> -->
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
-</head>
-<body>
-<div class="container">
+@section('head')
+    @parent
+    <title>Создать новый план</title>
+@endsection
 
-    <nav class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url('plans') }}">Plan Alert</a>
+@section('title_content')
+    <h1 class="text-center">Создать новый план</h1>
+@endsection
+
+
+@section('navbar')
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="{{ url('plans') }}">
+            <img class="img_logo" src="img/logo.png" width="50" height="50" alt="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <label class="btn btn-secondary">
+                        <a class="nav-link" href="{{ url('plans') }}">Показать все планы</a>
+                    </label>
+                </li>
+                <li class="nav-item">
+                    <label class="btn btn-secondary active">
+                        <a class="nav-link" href="{{ url('/plans/create') }}">Создать новый план</a>
+                    </label>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0 text-light border-light" type="submit">Search</button>
+            </form>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="{{ url('plans') }}">View All Plans</a></li>
-            <li><a href="{{ url('plans/create') }}">Create a Plan</a>
-        </ul>
     </nav>
+@endsection
 
-    <h1>Create a Plan</h1>
-
+@section('message')
+    <!-- will be used to show any messages -->
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -32,7 +52,9 @@
             </ul>
         </div>
     @endif
+@endsection
 
+@section('content')
     <form action="{{ action('PublicationPlanController@store') }}" method="POST">
 
         {{ csrf_field() }}
@@ -75,68 +97,74 @@
                         <option value="{{ $value->id }}">{{ $value->name }}</option>
                     @endforeach
                 </select>
-        </div>
-
-        <div class="form-group">
-            <label>Формат бумаги</label>
-            <div class="row-fluid">
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="paper_size_id">
-                    <option disabled>Выберите формат бумаги</option>
-                    @foreach($papers_size as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->format_name }}</option>
-                    @endforeach
-                </select>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Кл-во страниц</label>
-            <input type="text" name="number_of_pages">
-        </div>
-
-        <div class="form-group">
-            <label>Тираж</label>
-            <input type="text" name="number_of_copies">
-        </div>
-
-        <div class="form-group">
-            <label>Обложка</label>
-            <div class="row-fluid">
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="cover_id">
-                    <option disabled>Выберите обложку</option>
-                    @foreach($cover as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->cover_type }}</option>
-                    @endforeach
-                </select>
+            <div class="form-group">
+                <label>Формат бумаги</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="paper_size_id">
+                        <option disabled>Выберите формат бумаги</option>
+                        @foreach($papers_size as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->format_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Месяц выпуска</label>
-            <div class="row-fluid">
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="month_of_submission_id">
-                    <option disabled>Выберите месяц</option>
-                    @foreach($months as $key => $value)
-                        <option value="{{ $value->id }}">{{ $value->month_name }}</option>
-                    @endforeach
-                </select>
+            <div class="form-group">
+                <label>Кл-во страниц</label>
+                <input type="text" name="number_of_pages">
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Номер телефона</label>
-            <input type="text" name="phone_number">
-        </div>
-        <a class="btn btn-small btn-danger" type="submit">Создать</a>
-        <button type="submit">Создать</button>
+            <div class="form-group">
+                <label>Тираж</label>
+                <input type="text" name="number_of_copies">
+            </div>
+
+            <div class="form-group">
+                <label>Обложка</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="cover_id">
+                        <option disabled>Выберите обложку</option>
+                        @foreach($cover as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->cover_type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Месяц выпуска</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="month_of_submission_id">
+                        <option disabled>Выберите месяц</option>
+                        @foreach($months as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->month_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Номер телефона</label>
+                <input type="text" name="phone_number">
+            </div>
+            <button type="submit" class="btn btn-dark">Создать</button>
     </form>
+@endsection
 
-</div>
-</body>
+    @section('script')
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-<!-- Scripts for select -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/bootstrap-select.min.js"></script>
-</html>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/bootstrap-select.min.js"></script>
+
+        <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/i18n/defaults-*.min.js"></script>
+    @endsection
+
 
