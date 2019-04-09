@@ -12,11 +12,10 @@
         @show
     </head>
     <body>
-
         @section('navbar')
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url('plans') }}">
-                <img class="img_logo" src="img/logo.png" width="50" height="50" alt="logo">
+                <img class="img_logo" src="storage/img/logo.png" width="50" height="50" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -69,6 +68,5 @@
         <!-- (Optional) Latest compiled and minified JavaScript translation files -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/i18n/defaults-*.min.js"></script>
     @show
-
 
 </html>
