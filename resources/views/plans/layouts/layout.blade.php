@@ -9,35 +9,48 @@
 
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/css/bootstrap-select.min.css">
+
+        <!-- For footer -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
         @show
     </head>
     <body>
         @section('navbar')
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="{{ url('plans') }}">
-                <img class="img_logo" src="storage/img/logo.png" width="50" height="50" alt="logo">
+                <img class="img_logo" src="{{ asset('storage/img/logo.png') }}" width="50" height="50" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav">
                     <li class="nav-item">
-                        <label class="btn btn-secondary active">
-                            <a class="nav-link" href="{{ url('plans') }}">Показать все планы</a>
+                        <label class="btn btn-secondary">
+                            <a class="nav-link" href="{{ url('plans') }}">Просмотреть все издания</a>
                         </label>
                     </li>
                     <li class="nav-item">
                         <label class="btn btn-secondary">
-                            <a class="nav-link" href="{{ url('/plans/create') }}">Создать новый план</a>
+                            <a class="nav-link" href="{{ url('/plans/create') }}">Новое издание</a>
                         </label>
                     </li>
+                    <li class="nav-item dropdown">
+                        <label class="btn btn-secondary" href="#" id="navbarDropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle">Взаимодействия с базой</a>
+                        </label>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" href="add-to-base">Добавить в базу</a>
+                            <a class="dropdown-item" href="select-table-for-remove-from-base">Удалить из базы</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>
+
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0 text-light border-light" type="submit">Search</button>
-                </form>
             </div>
         </nav>
         @show
@@ -49,9 +62,35 @@
         @yield('content')
 
         @section('footer')
-        <blockquote class="blockquote mb-10">
-            <footer class="blockquote-footer text-right">Курсовая работа студента 3 курса ИВТ-1 <a href="https://github.com/FursiK911">Фурсова Дмитрия</a></footer>
-        </blockquote>
+            <footer>
+                <div class="container-fluid bg-dark py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row py-0">
+                                    <div class="col-sm-11 text-white">
+                                        <div><h4> Динамический сайт для учета методической деятельности кафедры компьютерных технологий</h4>
+                                            <p><a class="footer_link header-font" href="http://www.donnu.ru/phys/kt">http://www.donnu.ru/phys/kt</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-inline-block mx-5">
+                                    <div class="bg-circle-outline d-inline-block mx-5" style="background-color:#fff">
+                                        <a class="btn btn-social-icon btn-lg btn-vk" href="https://vk.com/fcl_phys_kkt">
+                                            <span class="fa fa-vk"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <blockquote class="blockquote mb-10">
+                <footer class="blockquote-footer text-right">Курсовая работа студента 3 курса ИВТ-1 <a href="https://github.com/FursiK911">Фурсова Дмитрия</a></footer>
+            </blockquote>
         @show
     </body>
 

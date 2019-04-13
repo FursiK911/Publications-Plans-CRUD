@@ -27,6 +27,7 @@ class CreatePublicationPlansTable extends Migration
             $table->integer('number_of_copies');
             $table->unsignedInteger('cover_id');
             $table->foreign('cover_id')->references('id')->on('covers');
+            $table->integer('year_of_publication');
             $table->unsignedInteger('month_of_submission_id');
             $table->foreign('month_of_submission_id')->references('id')->on('month_of_submissions');
             $table->string('phone_number');

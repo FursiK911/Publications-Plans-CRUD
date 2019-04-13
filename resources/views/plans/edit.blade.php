@@ -3,11 +3,11 @@
 
 @section('head')
     @parent
-    <title>Обновить план</title>
+    <title>Обновить издание</title>
 @endsection
 
 @section('title_content')
-    <h1 class="text-center">Обновить план</h1>
+    <h1 class="text-center">Обновить издание</h1>
 @endsection
 
 @section('message')
@@ -20,36 +20,6 @@
             </ul>
         </div>
     @endif
-@endsection
-
-@section('navbar')
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url('plans') }}">
-            <img class="img_logo" src="{{ asset('storage/img/logo.png') }}" width="50" height="50" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <label class="btn btn-secondary">
-                        <a class="nav-link" href="{{ url('plans') }}">Показать все планы</a>
-                    </label>
-                </li>
-                <li class="nav-item">
-                    <label class="btn btn-secondary">
-                        <a class="nav-link" href="{{ url('/plans/create') }}">Создать новый план</a>
-                    </label>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 text-light border-light" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
 @endsection
 
 @section('content')
@@ -102,15 +72,16 @@
         <div class="row-fluid">
             <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="author_id[]" multiple="multiple" data-width="100%">
                 <option disabled>Выберите автора</option>
-                @foreach($users as $key => $value)
-                    @foreach($plan_users as $user)
-                        @if($value->id == $user->user_id)
-                            <option selected value="{{ $value->id }}" >{{ $value->name }}</option>
-                        @else
-                            <option value="{{ $value->id }}" >{{ $value->name }}</option>
-                        @endif
+                @for($i = 0; $i < count($selected_users); $i++)
+                    @foreach($selected_users[$i] as $user)
+                        <option selected value="{{ $user->id }}" >{{ $user->name }}</option>
                     @endforeach
-                @endforeach
+                @endfor
+                @for($i = 0; $i < count($unselected_users); $i++)
+                    @foreach($unselected_users[$i] as $user)
+                        <option value="{{ $user->id }}" >{{ $user->name }}</option>
+                    @endforeach
+                @endfor
             </select>
         </div>
     </div>
@@ -174,10 +145,17 @@
     </div>
 
     <div class="form-group">
+        <label>Год выпуска</label>
+        <div class="row-fluid">
+            <input class="form-control" type="text" name="year_of_publication" value="{{ $plan->year_of_publication }}">
+        </div>
+    </div>
+
+    <div class="form-group">
         <label for="numberPhone">Номер телефона</label>
         <input class="form-control" type="text" name="phone_number" id="numberPhone" value="{{ $plan->phone_number }}">
     </div>
-    <button type="submit" class="btn btn-block btn-dark">Обновить</button>
+    <button type="submit" class="btn btn-block btn-dark my-5">Обновить</button>
 </form>
         </div>
     </div>

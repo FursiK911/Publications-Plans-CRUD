@@ -7,7 +7,7 @@
 @endsection
 
 @section('title_content')
-    <h1 class="text-center">Список планов</h1>
+    <h1 class="text-center my-3">Список учебных и справочных изданий</h1>
 @endsection
 
 @section('message')
@@ -22,84 +22,118 @@
 @endsection
 
 @section('content')
-    <div class="sorting_box" align="center">
-        <form action="{{ action('PublicationPlanController@index') }}" method="GET" class="form-row">
+    <div class="" align="center">
+        <form action="{{ action('PublicationPlanController@index') }}" method="GET" class="">
 
             {{ csrf_field() }}
 
-            <div class="form-row align-items-center">
-                <div class="col-0 my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Метод сортировки</label>
-                    <select class="custom-select mr-sm-2 mb-2" id="inlineFormCustomSelect" name="type_sort">
+            <div class="form-row">
+                <div class="col-3 mx-5">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по году выпуска</label>
+                        <div class="row-fluid">
+                            @if($select_year != null)
+                                <input class="form-control" type="text" name="select_year" placeholder="Год выпуска" value="{{ $select_year }}"}}>
+                            @else
+                                <input class="form-control" type="text" name="select_year" placeholder="Год выпуска"}}>
+                            @endif
+                        </div>
+                 </div>
+                <div class="col-5 mx-2">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по дисциплине</label>
+                    <br>
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_discipline" data-width="100%">
                         <option disabled>Выберите метод сортировки</option>
-                        <option value="1">По дате создания (сначала новые)</option>
-                        <option value="2">По дате создания (сначала старые)</option>
-                        <option value="3">По дате обновления (сначала новые)</option>
-                        <option value="4">По дате обновления (сначала старые)</option>
+                        <option value="-1">Любая дисциплина</option>
+                        @foreach($disciplines as $key => $value)
+                            @if($value->id == $select_discipline)
+                                <option selected value="{{ $value->id }}">{{ $value->name_of_discipline }}</option>
+                            @else
+                                <option value="{{ $value->id }}">{{ $value->name_of_discipline }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
-                <div class="col-auto">
-                    <button type="submit" class="btn btn-dark">Сортировать</button>
+                <div class="col-2 mx-2">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по авторам</label>
+                    <br>
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_author" id="inlineFormCustomSelect" data-width="100%">
+                        <option disabled>Выберите авторов</option>
+                        <option selected value="-1">Любой автор</option>
+                        @foreach($autors as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
+            <button type="submit" class="btn btn-block btn-dark my-5">Отфильтровать</button>
         </form>
-    </div>
 
-    <table class="table table-bordered table-hover">
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col" class="align-middle text-center">Дисциплина</th>
-            <th scope="col" class="align-middle text-center">Вид издания</th>
-            <th scope="col" class="align-middle text-center">Название публикации</th>
-            <th scope="col" class="align-middle text-center">Автор</th>
-            <th scope="col" class="align-middle text-center">Формат бумаги</th>
-            <th scope="col" class="align-middle text-center">Кл-во страниц</th>
-            <th scope="col" class="align-middle text-center">Тираж</th>
-            <th scope="col" class="align-middle text-center">Обложка</th>
-            <th scope="col" class="align-middle text-center">Месяц выпуска</th>
-            <th scope="col" class="align-middle text-center">Телефонный номер</th>
-            <th scope="col" class="align-middle text-center">Кнопки управления</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($plans as $key => $value)
+
+        <table class="table table-bordered table-hover my-5">
+            <thead class="thead-dark">
             <tr>
-                <td>{{ $value->name_of_discipline }}</td>
-                <td>{{ $value->type_publication_name }}</td>
-                <td>{{ $value->name_of_publication }}</td>
-                <td>
-                    @foreach($users as $k => $val)
-                        @if($val->plan_id == $value->id)
-                            {{ $val->name }} <br>
-                        @endif
-                    @endforeach
-                </td>
-                <td>{{ $value->format_name }}</td>
-                <td>{{ $value->number_of_pages }}</td>
-                <td>{{ $value->number_of_copies }}</td>
-                <td>{{ $value->cover_type }}</td>
-                <td>{{ $value->month_name }}</td>
-                <td>{{ $value->phone_number }}</td>
-
-                <!-- we will also add show, edit, and delete buttons -->
-                <td>
-
-                    <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
-                    <a class="btn btn-block btn-outline-secondary" href="/plans/{{ $value->id }}/edit">Редактировать</a>
-
-                    <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
-                    <!-- we will add this later since its a little more complicated than the other two buttons -->
-                    <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
-
-                        @method('DELETE')
-                        {{ csrf_field() }}
-
-                        <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
-                    </form>
-                </td>
+                <th scope="col" class="align-middle text-center">Дисциплина</th>
+                <th scope="col" class="align-middle text-center">Вид издания</th>
+                <th scope="col" class="align-middle text-center">Название публикации</th>
+                <th scope="col" class="align-middle text-center">Автор</th>
+                <th scope="col" class="align-middle text-center">Формат бумаги</th>
+                <th scope="col" class="align-middle text-center">Кл-во страниц</th>
+                <th scope="col" class="align-middle text-center">Тираж</th>
+                <th scope="col" class="align-middle text-center">Обложка</th>
+                <th scope="col" class="align-middle text-center">Месяц выпуска</th>
+                <th scope="col" class="align-middle text-center">Год выпуска</th>
+                <th scope="col" class="align-middle text-center">Телефонный номер</th>
+                <th scope="col" class="align-middle text-center">Кнопки управления</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach($plans as $key => $value)
+                @if($select_year != null && $value->year_of_publication != $select_year)
+                    @continue
+                @endif
+                @if($select_discipline != null && $select_discipline != -1 && $value->discipline_id != $select_discipline)
+                    @continue
+                @endif
+
+                <tr>
+                    <td>{{ $value->name_of_discipline }}</td>
+                    <td>{{ $value->type_publication_name }}</td>
+                    <td>{{ $value->name_of_publication }}</td>
+                    <td>
+                        @foreach($users as $k => $val)
+                            @if($val->plan_id == $value->id)
+                                {{ $val->name }} <br>
+                            @endif
+                        @endforeach
+                    </td>
+                    <td>{{ $value->format_name }}</td>
+                    <td>{{ $value->number_of_pages }}</td>
+                    <td>{{ $value->number_of_copies }}</td>
+                    <td>{{ $value->cover_type }}</td>
+                    <td>{{ $value->month_name }}</td>
+                    <td>{{ $value->year_of_publication }}</td>
+                    <td>{{ $value->phone_number }}</td>
+
+                    <!-- we will also add show, edit, and delete buttons -->
+                    <td>
+
+                        <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
+                        <a class="btn btn-block btn-outline-secondary" href="/plans/{{ $value->id }}/edit">Редактировать</a>
+
+                        <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
+                        <!-- we will add this later since its a little more complicated than the other two buttons -->
+                        <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
+
+                            @method('DELETE')
+                            {{ csrf_field() }}
+
+                            <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+    </div>
 @endsection
 

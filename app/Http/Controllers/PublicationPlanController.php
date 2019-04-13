@@ -25,37 +25,15 @@ class PublicationPlanController extends Controller
      */
     public function index(Request $request)
     {
-        $users = DB::table('users_publications')
+        $disciplines_table = Discipline::all();
+        $autors_table = User::all();
+
+
+        $users_in_plans = DB::table('users_publications')
             ->join('users', 'users_publications.user_id', '=', 'users.id')
             ->join('publication_plans', 'publication_plans.id', '=', 'users_publications.plan_id')
-            ->select('users.id', 'users_publications.plan_id', 'users.name')
+            ->select('users.id', 'users.name', 'users_publications.plan_id')
             ->get();
-
-
-        //sorting data
-        $select_sort = $request->input('type_sort');
-        switch ($select_sort) {
-            case 1:
-                $order_by = 'created_at';
-                $direction = 'desc';
-                break;
-            case 2:
-                $order_by = 'created_at';
-                $direction = 'asc';
-                break;
-            case 3:
-                $order_by = 'updated_at';
-                $direction = 'desc';
-                break;
-            case 4:
-                $order_by = 'updated_at';
-                $direction = 'asc';
-                break;
-            default:
-                $order_by = 'created_at';
-                $direction = 'desc';
-                break;
-        }
 
 
         // get all the plans with foreign key
@@ -65,18 +43,22 @@ class PublicationPlanController extends Controller
             ->join('papers_sizes', 'publication_plans.paper_size_id', '=', 'papers_sizes.id')
             ->join('covers', 'publication_plans.cover_id', '=', 'covers.id')
             ->join('month_of_submissions', 'publication_plans.month_of_submission_id', '=', 'month_of_submissions.id')
-            ->select('publication_plans.id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publication_plans.name_of_publication',
-                'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type',
+            ->select('publication_plans.id', 'publication_plans.discipline_id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publication_plans.name_of_publication',
+                'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publication_plans.year_of_publication',
                 'month_of_submissions.month_name', 'phone_number')
-            ->orderBy($order_by, $direction)
             ->get();
 
 
 
         // load the view and pass the plans
         return view('plans.index')->with([
-        'plans' => $plans,
-        'users' => $users,
+            'plans' => $plans,
+            'users' => $users_in_plans,
+            'disciplines' => $disciplines_table,
+            'autors' => $autors_table,
+            'select_year' => $request->input('select_year'),
+            'select_discipline' => $request->input('select_discipline'),
+            'select_author' => $request->input('select_author'),
         ]);
     }
 
@@ -125,6 +107,7 @@ class PublicationPlanController extends Controller
             'number_of_copies' => 'required|numeric',
             'cover_id' => 'required',
             'month_of_submission_id' => 'required|numeric',
+            'year_of_publication' => 'required|numeric',
         ]);
 
         // store
@@ -137,6 +120,7 @@ class PublicationPlanController extends Controller
         $plan->number_of_copies = $request->input('number_of_copies');
         $plan->cover_id = $request->input('cover_id');
         $plan->month_of_submission_id = $request->input('month_of_submission_id');
+        $plan->year_of_publication = $request->input('year_of_publication');
         $plan->phone_number = $request->input('phone_number');
         $plan->save();
 
@@ -187,6 +171,35 @@ class PublicationPlanController extends Controller
         $users = User::all();
         $plan_users = DB::table('users_publications')->where('plan_id', '=', $id)->get();
 
+        $selected_users = collect();
+        $unselected_users = collect();
+
+        for ($i = 0; $i < count($users); $i++)
+        {
+            for ($j = 0; $j < count($plan_users); $j++)
+            {
+                if($users[$i]->id == $plan_users[$j]->user_id)
+                {
+                    $selected_users->push($users->slice($i,1));
+                }
+            }
+        }
+
+        for ($i = 0; $i < count($users); $i++)
+        {
+            for ($j = 0, $selected = false; $j < count($plan_users); $j++)
+            {
+                if($users[$i]->id == $plan_users[$j]->user_id)
+                {
+                    $selected = true;
+                }
+            }
+            if($selected == false)
+            {
+                $unselected_users->push($users->slice($i,1));
+            }
+        }
+
         return view('plans.edit',[
             'plan' => $plan,
             'papers_size' => $papers_size,
@@ -195,7 +208,9 @@ class PublicationPlanController extends Controller
             'type_publication' => $type_publication,
             'disciplines' => $disciplines,
             'users' => $users,
-            'plan_users' => $plan_users
+            'plan_users' => $plan_users,
+            'selected_users' => $selected_users,
+            'unselected_users' => $unselected_users,
         ]);
     }
 
@@ -220,14 +235,16 @@ class PublicationPlanController extends Controller
             'number_of_copies' => 'required|numeric',
             'cover_id' => 'required',
             'month_of_submission_id' => 'required|numeric',
-            'phone_number' => 'required|numeric'
+            'year_of_publication' => 'required|numeric',
         ]);
 
         // store
+        DB::table('users_publications')->where('plan_id', '=', $id)->delete();
         $array_users = $request->input('author_id.*');
         if(count($array_users) > 0) {
             for ($i=0; $i<count($array_users); $i++) {
-                $plan_user = Users_Publications::find($id);
+                $plan_user = new Users_Publications();
+                $plan_user->plan_id = $id;
                 $plan_user->user_id = $array_users[$i];
                 $plan_user->save();
             }
@@ -242,6 +259,7 @@ class PublicationPlanController extends Controller
         $plan->number_of_copies = $request->input('number_of_copies');
         $plan->cover_id = $request->input('cover_id');
         $plan->month_of_submission_id = $request->input('month_of_submission_id');
+        $plan->year_of_publication = $request->input('year_of_publication');
         $plan->phone_number = $request->input('phone_number');
         $plan->save();
 

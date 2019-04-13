@@ -3,42 +3,12 @@
 
 @section('head')
     @parent
-    <title>Создать новый план</title>
+    <title>Новое издание</title>
     <link rel="stylesheet" href="css/create.css">
 @endsection
 
 @section('title_content')
-    <h1 class="text-center">Создать новый план</h1>
-@endsection
-
-@section('navbar')
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="{{ url('plans') }}">
-            <img class="img_logo" src="{{ asset('storage/img/logo.png') }}" width="50" height="50" alt="logo">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <label class="btn btn-secondary">
-                        <a class="nav-link" href="{{ url('plans') }}">Показать все планы</a>
-                    </label>
-                </li>
-                <li class="nav-item">
-                    <label class="btn btn-secondary active">
-                        <a class="nav-link" href="{{ url('/plans/create') }}">Создать новый план</a>
-                    </label>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0 text-light border-light" type="submit">Search</button>
-            </form>
-        </div>
-    </nav>
+    <h1 class="text-center">Новое издание</h1>
 @endsection
 
 @section('message')
@@ -76,7 +46,7 @@
             <div class="form-group">
                 <label>Вид издания</label>
                 <div class="row-fluid">
-                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="type_publication_id " data-width="100%">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="type_publication_id" data-width="100%">
                         <option disabled>Выберите вид издания</option>
                         @foreach($type_publication as $key => $value)
                             <option value="{{ $value->id }}">{{ $value->type_publication_name }}</option>
@@ -149,11 +119,18 @@
                     </div>
                 </div>
 
+            <div class="form-group">
+                <label>Год выпуска</label>
+                <div class="row-fluid">
+                    <input class="form-control" type="text" name="year_of_publication" placeholder="Год выпуска">
+                </div>
+            </div>
+
                 <div class="form-group">
                     <label for="numberPhone">Номер телефона</label>
                     <input class="form-control" type="text" name="phone_number" id="numberPhone" placeholder="Номер телефона">
                 </div>
-                <button type="submit" class="btn btn-block btn-dark">Создать</button>
+                <button type="submit" class="btn btn-block btn-dark my-5">Создать</button>
         </form>
         </div>
     </div>
