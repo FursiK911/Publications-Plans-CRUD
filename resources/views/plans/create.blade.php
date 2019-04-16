@@ -1,5 +1,5 @@
 <!-- app/views/plans/create.blade.php -->
-@extends('plans.layouts.layout')
+@extends('layouts.layout')
 
 @section('head')
     @parent

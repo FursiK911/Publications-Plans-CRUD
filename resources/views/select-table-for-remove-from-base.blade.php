@@ -1,4 +1,4 @@
-@extends('plans.layouts.layout')
+@extends('layouts.layout')
 
 @section('head')
     @parent

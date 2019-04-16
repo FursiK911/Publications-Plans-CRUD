@@ -1,4 +1,4 @@
-@extends('plans.layouts.layout')
+@extends('layouts.layout')
 
 @section('head')
     @parent
@@ -60,7 +60,11 @@
                         <option disabled>Выберите авторов</option>
                         <option selected value="-1">Любой автор</option>
                         @foreach($autors as $key => $value)
-                            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @if($value->id == $select_author)
+                                <option selected value="{{ $value->id }}">{{ $value->name }}</option>
+                            @else
+                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Cover;
 use App\Discipline;
 use App\User;
-use App\PublicationPlan;
+use App\Publications;
 use App\MonthOfSubmission;
 use App\PapersSize;
 use App\TypeOfPublication;
@@ -14,9 +12,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Session;
-
 class AdditionsToBaseController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function create()
     {
         return view("add-to-base");
@@ -47,8 +50,6 @@ class AdditionsToBaseController extends Controller
                 return redirect('/add-to-base');
                 break;
         }
-
-
         // redirect
         Session::flash('message', 'Новые данные добавлены!');
         return redirect('/add-to-base');
@@ -93,7 +94,6 @@ class AdditionsToBaseController extends Controller
                 return redirect('/select-table-for-remove-from-base');
                 break;
         }
-
         return view("remove-from-base")->with([
             'values' => $collection,
             'select_table' => $number_table,
@@ -110,7 +110,7 @@ class AdditionsToBaseController extends Controller
                 {
                     case 1:
                         $id = substr($elements[$i],1);
-                        $plans = PublicationPlan::all()->where('discipline_id', '=', $id);
+                        $plans = Publications::all()->where('discipline_id', '=', $id);
                         foreach ($plans as $key => $value)
                         {
                             $deletedRows = Users_Publications::where('plan_id', '=', $value->id)->delete();
@@ -122,7 +122,7 @@ class AdditionsToBaseController extends Controller
                         break;
                     case 2:
                         $id = substr($elements[$i],1);
-                        $plans = PublicationPlan::all()->where('type_publication_id', '=', $id);
+                        $plans = Publications::all()->where('type_publication_id', '=', $id);
                         foreach ($plans as $key => $value)
                         {
                             $deletedRows = Users_Publications::where('plan_id', '=', $value->id)->delete();
@@ -141,10 +141,9 @@ class AdditionsToBaseController extends Controller
                             $count_publication = Users_Publications::all()->where('plan_id', '=', $value->plan_id)->count();
                             if($count_publication == 0)
                             {
-                                $deletedRows = PublicationPlan::where('id', '=', $value->plan_id)->delete();
+                                $deletedRows = Publications::where('id', '=', $value->plan_id)->delete();
                             }
                         }
-
                         $autor = User::find($id);
                         $name_element = $autor->name;
                         $autor ->delete();

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 class UsersSeeder extends Seeder
 {
@@ -13,39 +13,50 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            ['name' => 'Толстых В.К.',
+            [   'email' => 'kot6@mail.ru',
+                'name' => 'Толстых В.К.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Ермоленко Т.В.',
+            [   'email' => 'kot2@mail.ru',
+                'name' => 'Ермоленко Т.В.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Шарий Т.В.',
+            [   'email' => 'kot3@mail.ru',
+                'name' => 'Шарий Т.В.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Бондаренко В.И.',
+            [   'email' => 'kot4@mail.ru',
+                'name' => 'Бондаренко В.И.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Бондаренко В.В.',
+            [   'email' => 'kot5@mail.ru',
+                'name' => 'Бондаренко В.В.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Котенко В.Н.',
+            [   'email' => 'kot@mail.ru',
+                'name' => 'Котенко В.Н.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Котенко Ю.В.',
+            [   'email' => 'kot7@mail.ru',
+                'name' => 'Котенко Ю.В.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Бодряга В.Е.',
+            [   'email' => 'kot8@mail.ru',
+                'name' => 'Бодряга В.Е.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Бодряга В.В.',
+            [   'email' => 'kot10@mail.ru',
+                'name' => 'Бодряга В.В.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Володин Н.А.',
+            [   'email' => 'kot11@mail.ru',
+                'name' => 'Володин Н.А.',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['name' => 'Мартыненко А.М.',
+            [   'email' => 'kot12@mail.ru',
+                'name' => 'Мартыненко А.М.',
                 'password' => bcrypt('secret'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')]
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ]);
     }
 }

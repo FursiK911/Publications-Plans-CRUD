@@ -64,10 +64,6 @@
         </style>
     </head>
     <body>
-    <input type="search" class="search_goods" value="Search for Item..." onfocus="if (this.value == 'Search for Item...') {this.value = ''}" onblur="if (this.value == '') {this.value = 'Search for Item...';}">
-    <button class="search_button">
-        <img src="assets/img/find.png" class="search_img">
-    </button>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -85,7 +81,17 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Coursework
+                    Laravel
+                </div>
+
+                <div class="links">
+                    <a href="https://laravel.com/docs">Docs</a>
+                    <a href="https://laracasts.com">Laracasts</a>
+                    <a href="https://laravel-news.com">News</a>
+                    <a href="https://blog.laravel.com">Blog</a>
+                    <a href="https://nova.laravel.com">Nova</a>
+                    <a href="https://forge.laravel.com">Forge</a>
+                    <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
             </div>
         </div>
