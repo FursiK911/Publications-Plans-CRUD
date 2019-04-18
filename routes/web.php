@@ -12,16 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/plans');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::resource('plans', 'PublicationPlanController');
+
+
 Route::get('add-to-base', 'AdditionsToBaseController@create');
 Route::post('add-to-base', 'AdditionsToBaseController@store');
 Route::get('select-table-for-remove-from-base', 'AdditionsToBaseController@remove');
-Route::post('select-table-for-remove-from-base', 'AdditionsToBaseController@select_table');
+Route::post('select-table-for-remove-from-base', 'AdditionsToBaseController@select_table_remove');
 Route::post('remove-from-base', 'AdditionsToBaseController@destroy');
+Route::get('select-table-for-update-base', 'AdditionsToBaseController@change');
+Route::post('select-table-for-update-base', 'AdditionsToBaseController@select_table_for_update');
+Route::post('update-base', 'AdditionsToBaseController@update');
+
+Route::get('logout', 'LogoutController@logout');

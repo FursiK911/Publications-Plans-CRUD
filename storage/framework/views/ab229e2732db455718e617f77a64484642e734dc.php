@@ -163,4 +163,4 @@
 <?php $__env->stopSection(); ?>
 
 
-<?php echo $__env->make('plans.layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/plans/edit.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/plans/edit.blade.php ENDPATH**/ ?>

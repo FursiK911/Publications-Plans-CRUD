@@ -34,10 +34,10 @@
                     <option value="name">Автор</option>
                 </select>
                 <div class="form-row">
-                    <div class="col-6 my-3">
+                    <div class="col-10 my-3">
                         <input class="form-control" type="text" name="data" placeholder="Данные">
                     </div>
-                    <div class="col mx-5 my-3">
+                    <div class="col mx-3 my-3">
                         <button type="submit" class="btn btn-dark mb-2">Добавить</button>
                     </div>
                 </div>

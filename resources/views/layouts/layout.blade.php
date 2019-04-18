@@ -43,10 +43,9 @@
                             <a class="nav-link dropdown-toggle">Взаимодействия с базой</a>
                         </label>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
-                            <a class="dropdown-item" href="add-to-base">Добавить в базу</a>
-                            <a class="dropdown-item" href="select-table-for-remove-from-base">Удалить из базы</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
+                            <a class="dropdown-item" href="{{ asset('add-to-base') }}">Добавить в базу</a>
+                            <a class="dropdown-item" href="{{ asset('select-table-for-update-base') }}">Обновить в базе</a>
+                            <a class="dropdown-item" href="{{ asset('select-table-for-remove-from-base') }}">Удалить из базы</a>
                         </div>
                     </li>
                     @if (Route::has('login'))
@@ -54,7 +53,9 @@
                             @auth
                                 <li class="nav-item">
                                     <label class="btn btn-secondary">
-                                        <a class="nav-link">Выйти</a>
+                                        <form action="{{ action('LogoutController@logout') }}">
+                                            <a class="nav-link" href="{{ route('logout') }}">Выйти</a>
+                                        </form>
                                     </label>
                                 </li>
                             @else
