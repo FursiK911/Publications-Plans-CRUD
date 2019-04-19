@@ -1,27 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="59f8a996-0d72-4d54-82cd-859eac0bb3f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/auth/logout.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/select-table-for-update-base.blade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/views/update-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdditionsToBaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdditionsToBaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Auth/LoginController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeds/UsersSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeds/UsersSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/add-to-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add-to-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/layout.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/select-table-for-remove-from-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/select-table-for-remove-from-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/RH7zpDAmDIeEzXMostNfySF0dIQ1MhcNmptnWZHC" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/sessions/kP7G5P08ihXB608ZSX4SUqz7ae8ToroOOLcuE73z" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/ab229e2732db455718e617f77a64484642e734dc.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/ab229e2732db455718e617f77a64484642e734dc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/b729f9dad6a9c8a1ce2266813c0e02d7b6829e8c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/b729f9dad6a9c8a1ce2266813c0e02d7b6829e8c.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/c66dd74b274971f7d464a0bd8802b4e1574fbae0.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/c66dd74b274971f7d464a0bd8802b4e1574fbae0.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/e187c48b024a5ac18adf2cccedb500f61bce7b8c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e187c48b024a5ac18adf2cccedb500f61bce7b8c.php" afterDir="false" />
-    </list>
+    <list default="true" id="59f8a996-0d72-4d54-82cd-859eac0bb3f7" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/node_modules/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -298,7 +278,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26865673" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
