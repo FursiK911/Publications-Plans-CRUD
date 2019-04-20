@@ -41,6 +41,7 @@ class PublicationPlanController extends Controller
 
         if ($select_author != null && $select_author != -1)
         {
+            // get all the plans with foreign key and filter author
             $users = Db::table('users')
                 ->join('users_publications', 'users.id', '=', 'users_publications.user_id')
                 ->join('publications', 'publications.id', '=', 'users_publications.plan_id')
@@ -117,7 +118,6 @@ class PublicationPlanController extends Controller
     public function store(Request $request)
     {
         // validate
-        // read more on validation at http://laravel.com/docs/validation
         $request->validate([
             'discipline_id' => 'required|numeric',
             'type_publication_id' => 'required|numeric',
