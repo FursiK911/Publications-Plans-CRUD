@@ -154,7 +154,7 @@ class PublicationPlanController extends Controller
             }
         }
         // redirect
-        Session::flash('message', 'Новый план создан!');
+        Session::flash('message', 'Новое издание создано!');
         return redirect('/plans');
     }
     /**
@@ -270,7 +270,7 @@ class PublicationPlanController extends Controller
         $plan->phone_number = $request->input('phone_number');
         $plan->save();
         // redirect
-        Session::flash('message', 'План был изменен!');
+        Session::flash('message', 'Издание было изменено!');
         return redirect('/plans');
     }
     /**
@@ -287,7 +287,7 @@ class PublicationPlanController extends Controller
         $plan = Publications::find($id);
         $plan->delete();
         // redirect
-        Session::flash('message', 'План был удален!');
+        Session::flash('message', 'Издание было удалено!');
         return redirect('/plans');
     }
 }
