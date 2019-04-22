@@ -8,12 +8,6 @@
     <h1 class="text-center my-3">Обновить информацию в таблицу</h1>
 <?php $__env->stopSection(); ?>
 
-<?php $__env->startSection('message'); ?>
-    <!-- will be used to show any messages -->
-    <?php if(Session::has('message')): ?>
-        <div class="alert alert-info"><?php echo e(Session::get('message')); ?></div>
-    <?php endif; ?>
-<?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
     <div class="container">

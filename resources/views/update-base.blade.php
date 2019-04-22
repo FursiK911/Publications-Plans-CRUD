@@ -10,12 +10,6 @@
     <h1 class="text-center my-3">Обновить информацию в таблицу</h1>
 @endsection
 
-@section('message')
-    <!-- will be used to show any messages -->
-    @if (Session::has('message'))
-        <div class="alert alert-info">{{ Session::get('message') }}</div>
-    @endif
-@endsection
 
 @section('content')
     <div class="container">

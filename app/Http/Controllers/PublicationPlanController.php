@@ -115,6 +115,7 @@ class PublicationPlanController extends Controller
             'month_of_submission_id' => 'required|numeric',
             'year_of_publication' => 'required|numeric',
         ]);
+
         // store
         $plan = new Publications();
         $plan->discipline_id = $request->input('discipline_id');

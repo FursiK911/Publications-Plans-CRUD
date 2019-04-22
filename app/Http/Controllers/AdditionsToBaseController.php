@@ -27,6 +27,10 @@ class AdditionsToBaseController extends Controller
 
     public function store(Request $request)
     {
+        // validate
+        $request->validate([
+            'data' => 'required',
+        ]);
         //what table we need
         $select_table = $request->input('table');
         switch ($select_table) {
@@ -191,6 +195,10 @@ class AdditionsToBaseController extends Controller
 
     public function update(Request $request)
     {
+        // validate
+        $request->validate([
+            'data' => 'required',
+        ]);
         $id_table = substr($request->input('element'), 0, 1);
         $data = $request->input('data');
         $id = substr($request->input('element'), 1);
