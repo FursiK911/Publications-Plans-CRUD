@@ -3,14 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="59f8a996-0d72-4d54-82cd-859eac0bb3f7" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/AdditionsToBaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/AdditionsToBaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PublicationPlanController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PublicationPlanController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/add-to-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/add-to-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/select-table-for-update-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/select-table-for-update-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/update-base.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/update-base.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/47cc4effb1a5b3cc1a7c042a2cfd7e14fd26ac80.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/47cc4effb1a5b3cc1a7c042a2cfd7e14fd26ac80.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/cd881f8b58fa8075480edda6ed34e2c4b3024c71.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/cd881f8b58fa8075480edda6ed34e2c4b3024c71.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/storage/framework/views/e187c48b024a5ac18adf2cccedb500f61bce7b8c.php" beforeDir="false" afterPath="$PROJECT_DIR$/storage/framework/views/e187c48b024a5ac18adf2cccedb500f61bce7b8c.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Курсовая работа.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Курсовая работа.docx" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/node_modules/" />
@@ -25,14 +17,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+            <state relative-caret-position="357">
+              <caret line="30" selection-start-line="30" selection-end-line="30" />
               <folding>
                 <element signature="e#7#389#0#PHP" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PublicationPlanController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -192,7 +193,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -304,10 +304,12 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab1" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -365,16 +367,18 @@
       <workItem from="1555926034512" duration="7000" />
       <workItem from="1555949196964" duration="2484000" />
       <workItem from="1555959660804" duration="3575000" />
+      <workItem from="1555968868880" duration="574000" />
+      <workItem from="1556183973485" duration="31000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49871000" />
+    <option name="totallyTimeSpent" value="50476000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29637527" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30277187" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -665,13 +669,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PublicationPlanController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="179" column="17" lean-forward="true" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/plans/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -722,11 +719,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+        <state relative-caret-position="357">
+          <caret line="30" selection-start-line="30" selection-end-line="30" />
           <folding>
             <element signature="e#7#389#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PublicationPlanController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="140" column="9" selection-start-line="140" selection-start-column="9" selection-end-line="140" selection-end-column="9" />
         </state>
       </provider>
     </entry>
