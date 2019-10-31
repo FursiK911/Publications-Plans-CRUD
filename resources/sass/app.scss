@@ -1,14 +1,102 @@
+$mdc-theme-primary: #1976d2;
+$mdc-theme-secondary: #63a4ff;
+$mdc-theme-on-primary: #ffffff;
+$mdc-theme-on-secondary: #ffffff;
 
-// Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import "@material/elevation/mdc-elevation";
+@import "@material/card/mdc-card";
+@import "@material/textfield/mdc-text-field";
+@import "@material/button/mdc-button";
+@import "@material/fab/mdc-fab";
+@import "@material/icon-button/mdc-icon-button";
 
-// Variables
-@import 'variables';
+@import "@material/top-app-bar/mdc-top-app-bar";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "@material/drawer/mdc-drawer";
+@import "@material/list/mdc-list";
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    box-sizing: border-box;
+}
+
+.register-name-text-field {
+    margin-bottom: 16px;
+    vertical-align: middle;
+}
+
+.register-dob-text-field {
+    margin-bottom: 16px;
+    vertical-align: middle;
+}
+
+.login-login-text-field {
+    margin-bottom: 16px;
+    vertical-align: middle;
+}
+
+.register-login-text-field {
+    margin-bottom: 16px;
+    vertical-align: middle;
+}
+
+.login-pass-text-field {
+    margin-bottom: 16px;
+}
+
+.register-pass-text-field {
+    margin-bottom: 16px;
+}
+
+.register-pass2-text-field {
+    margin-bottom: 16px;
+}
+
+article {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.my-action-buttons {
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.market-card {
+  width: 250px;
+  display:inline-block;
+  margin-right: 50px;
+  margin-top: 20px;
+}
+
+
+// Note: these styles do not account for any paddings/margins that you may need.
+
+body {
+  display: flex;
+  height: 100vh;
+}
+
+.mdc-drawer-app-content {
+  flex: auto;
+  overflow: auto;
+  position: relative;
+}
+
+.main-content {
+  overflow: auto;
+  height: 100%;
+}
+
+.app-bar {
+  position: absolute;
+}
+
+// only apply this style if below top app bar
+.mdc-top-app-bar {
+  z-index: 7;
 }

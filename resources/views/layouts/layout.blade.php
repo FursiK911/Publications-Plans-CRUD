@@ -86,7 +86,7 @@
                             <div class="col-md-7">
                                 <div class="row py-0">
                                     <div class="col-sm-11 text-white">
-                                        <div><h4> Динамический сайт для учета методической деятельности кафедры компьютерных технологий</h4>
+                                        <div><h4> ...</h4>
                                             <p><a class="footer_link header-font" href="http://www.donnu.ru/phys/kt">http://www.donnu.ru/phys/kt</a></p>
                                         </div>
                                     </div>
@@ -106,7 +106,7 @@
                 </div>
             </footer>
             <blockquote class="blockquote mb-10">
-                <footer class="blockquote-footer text-right">Курсовая работа студента 3 курса ИВТ-1 <a href="https://github.com/FursiK911">Фурсова Дмитрия</a></footer>
+                <footer class="blockquote-footer text-right">Работа студента 4 курса ИВТ-1 <a href="https://github.com/FursiK911">Фурсова Дмитрия</a></footer>
             </blockquote>
         @show
     </body>
