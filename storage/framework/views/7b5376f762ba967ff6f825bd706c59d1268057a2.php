@@ -87,6 +87,7 @@
                 <th scope="col" class="align-middle text-center">Месяц выпуска</th>
                 <th scope="col" class="align-middle text-center">Год выпуска</th>
                 <th scope="col" class="align-middle text-center">Телефонный номер</th>
+                <th scope="col" class="align-middle text-center">Уже выпущена</th>
                 <th scope="col" class="align-middle text-center">Кнопки управления</th>
             </tr>
             </thead>
@@ -118,6 +119,13 @@
                     <td><?php echo e($value->month_name); ?></td>
                     <td><?php echo e($value->year_of_publication); ?></td>
                     <td><?php echo e($value->phone_number); ?></td>
+                    <td>
+                        <?php if($value->is_release == 1): ?>
+                            Да
+                        <?php else: ?>
+                            Нет
+                        <?php endif; ?>
+                    </td>
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>

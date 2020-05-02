@@ -66,7 +66,7 @@ class PublicationPlanController extends Controller
                 ->join('month_of_submissions', 'publications.month_of_submission_id', '=', 'month_of_submissions.id')
                 ->select('chairs.name_of_chair', 'publications.id', 'publications.discipline_id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publications.name_of_publication',
                     'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publications.year_of_publication',
-                    'month_of_submissions.month_name', 'phone_number')
+                    'month_of_submissions.month_name', 'publications.phone_number', 'publications.is_release')
                 ->get();
         }
 
@@ -119,6 +119,7 @@ class PublicationPlanController extends Controller
             'cover_id' => 'required',
             'month_of_submission_id' => 'required|numeric',
             'year_of_publication' => 'required|numeric',
+            'is_release' => 'required|numeric',
         ]);
 
         // store
@@ -134,6 +135,7 @@ class PublicationPlanController extends Controller
         $plan->month_of_submission_id = $request->input('month_of_submission_id');
         $plan->year_of_publication = $request->input('year_of_publication');
         $plan->phone_number = $request->input('phone_number');
+        $plan->is_release = $request->input('is_release');
         $plan->save();
         $newid = Publications::latest()->first()->id;
         $array_users = $request->input('author_id.*');
@@ -213,6 +215,7 @@ class PublicationPlanController extends Controller
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $request->validate([
+            'chair_id' => 'required|numeric',
             'discipline_id' => 'required|numeric',
             'type_publication_id' => 'required|numeric',
             'name_of_publication' => 'required',
@@ -223,6 +226,7 @@ class PublicationPlanController extends Controller
             'cover_id' => 'required',
             'month_of_submission_id' => 'required|numeric',
             'year_of_publication' => 'required|numeric',
+            'is_release' => 'required|numeric',
         ]);
         // store
         DB::table('users_publications')->where('plan_id', '=', $id)->delete();
@@ -236,6 +240,7 @@ class PublicationPlanController extends Controller
             }
         }
         $plan = Publications::find($id);
+        $plan->chair_id = $request->input('chair_id');
         $plan->discipline_id = $request->input('discipline_id');
         $plan->type_publication_id = $request->input('type_publication_id');
         $plan->name_of_publication = $request->input('name_of_publication');
@@ -246,6 +251,7 @@ class PublicationPlanController extends Controller
         $plan->month_of_submission_id = $request->input('month_of_submission_id');
         $plan->year_of_publication = $request->input('year_of_publication');
         $plan->phone_number = $request->input('phone_number');
+        $plan->is_release = $request->input('is_release');
         $plan->save();
         // redirect
         Session::flash('message', 'Издание было изменено!');

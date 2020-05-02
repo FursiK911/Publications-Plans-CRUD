@@ -88,6 +88,7 @@
                 <th scope="col" class="align-middle text-center">Месяц выпуска</th>
                 <th scope="col" class="align-middle text-center">Год выпуска</th>
                 <th scope="col" class="align-middle text-center">Телефонный номер</th>
+                <th scope="col" class="align-middle text-center">Уже выпущена</th>
                 <th scope="col" class="align-middle text-center">Кнопки управления</th>
             </tr>
             </thead>
@@ -119,6 +120,13 @@
                     <td>{{ $value->month_name }}</td>
                     <td>{{ $value->year_of_publication }}</td>
                     <td>{{ $value->phone_number }}</td>
+                    <td>
+                        @if ($value->is_release == 1)
+                            Да
+                        @else
+                            Нет
+                        @endif
+                    </td>
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>

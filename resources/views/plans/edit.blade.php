@@ -171,6 +171,23 @@
         <label for="numberPhone">Номер телефона</label>
         <input class="form-control" type="text" name="phone_number" id="numberPhone" value="{{ $plan->phone_number }}">
     </div>
+
+    <div class="form-group">
+        <label>Выпущено ли издание</label>
+        <div class="row-fluid">
+            <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="is_release" data-width="100%">
+                <option disabled>Выберите один из вариантов</option>
+                    @if($plan->is_release == 1)
+                        <option selected value="1" >Да</option>
+                        <option value="0" >Нет</option>
+                    @else
+                        <option selected value="0" >Нет</option>
+                        <option value="1" >Да</option>
+                    @endif
+            </select>
+        </div>
+    </div>
+
     <button type="submit" class="btn btn-block btn-dark my-5">Обновить</button>
 </form>
         </div>

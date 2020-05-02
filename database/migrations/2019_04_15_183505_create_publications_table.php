@@ -33,6 +33,7 @@ class CreatePublicationsTable extends Migration
             $table->unsignedInteger('month_of_submission_id');
             $table->foreign('month_of_submission_id')->references('id')->on('month_of_submissions');
             $table->string('phone_number');
+            $table->boolean('is_release');
             $table->timestamps();
         });
     }

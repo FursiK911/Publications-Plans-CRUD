@@ -142,6 +142,18 @@
                     <label for="numberPhone">Номер телефона</label>
                     <input class="form-control" type="text" name="phone_number" id="numberPhone" placeholder="Номер телефона">
                 </div>
+
+            <div class="form-group">
+                <label>Выпущено ли издание</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="is_release" data-width="100%">
+                        <option disabled>Выберите один из вариантов</option>
+                            <option value="1">Да</option>
+                            <option value="0">Нет</option>
+                    </select>
+                </div>
+            </div>
+
                 <button type="submit" class="btn btn-block btn-dark my-5">Создать</button>
         </form>
         </div>
