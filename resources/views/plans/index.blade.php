@@ -101,7 +101,7 @@
                 @endif
 
                 <tr>
-                    <td>ТЕСТ</td>
+                    <td>{{ $value->name_of_chair }}</td>
                     <td>{{ $value->name_of_discipline }}</td>
                     <td>{{ $value->type_publication_name }}</td>
                     <td>{{ $value->name_of_publication }}</td>

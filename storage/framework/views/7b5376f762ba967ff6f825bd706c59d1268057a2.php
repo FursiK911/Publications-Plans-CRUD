@@ -100,7 +100,7 @@
                 <?php endif; ?>
 
                 <tr>
-                    <td>ТЕСТ</td>
+                    <td><?php echo e($value->name_of_chair); ?></td>
                     <td><?php echo e($value->name_of_discipline); ?></td>
                     <td><?php echo e($value->type_publication_name); ?></td>
                     <td><?php echo e($value->name_of_publication); ?></td>

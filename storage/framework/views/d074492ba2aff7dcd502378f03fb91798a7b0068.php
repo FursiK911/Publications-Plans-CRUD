@@ -33,6 +33,18 @@
 
 
             <div class="form-group">
+                <label class="">Кафедра</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="chair_id" data-width="100%">
+                        <option disabled>Выберите дисциплину</option>
+                        <?php $__currentLoopData = $chairs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($value->id); ?>"><?php echo e($value->name_of_chair); ?></option>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="">Дисциплина</label>
                 <div class="row-fluid">
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="discipline_id" data-width="100%">

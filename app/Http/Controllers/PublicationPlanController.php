@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Chair;
 use App\Covers;
 use App\Discipline;
 use App\User;
@@ -57,12 +58,13 @@ class PublicationPlanController extends Controller
         {
             // get all the plans with foreign key
             $users = DB::table('publications')
+                ->join('chairs', 'publications.chair_id', '=', 'chairs.id')
                 ->join('disciplines', 'publications.discipline_id', '=', 'disciplines.id')
                 ->join('type_of_publication', 'publications.type_publication_id', '=', 'type_of_publication.id')
                 ->join('papers_sizes', 'publications.paper_size_id', '=', 'papers_sizes.id')
                 ->join('covers', 'publications.cover_id', '=', 'covers.id')
                 ->join('month_of_submissions', 'publications.month_of_submission_id', '=', 'month_of_submissions.id')
-                ->select('publications.id', 'publications.discipline_id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publications.name_of_publication',
+                ->select('chairs.name_of_chair', 'publications.id', 'publications.discipline_id', 'disciplines.name_of_discipline', 'type_of_publication.type_publication_name', 'publications.name_of_publication',
                     'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publications.year_of_publication',
                     'month_of_submissions.month_name', 'phone_number')
                 ->get();
@@ -84,6 +86,7 @@ class PublicationPlanController extends Controller
     public function create()
     {
         $papers_size = PapersSize::all();
+        $chairs = Chair::all();
         $months = MonthOfSubmission::all();
         $cover = Covers::all();
         $type_publication = TypeOfPublication::all();
@@ -91,6 +94,7 @@ class PublicationPlanController extends Controller
         $users = User::all();
         // load the create form (app/views/plans/create.blade.php)
         return view('plans.create',[
+            'chairs' => $chairs,
             'papers_size' => $papers_size,
             'months' => $months,
             'cover' => $cover,
@@ -104,6 +108,7 @@ class PublicationPlanController extends Controller
     {
         // validate
         $request->validate([
+            'chair_id' => 'required|numeric',
             'discipline_id' => 'required|numeric',
             'type_publication_id' => 'required|numeric',
             'name_of_publication' => 'required',
@@ -118,6 +123,7 @@ class PublicationPlanController extends Controller
 
         // store
         $plan = new Publications();
+        $plan->chair_id = $request->input('chair_id');
         $plan->discipline_id = $request->input('discipline_id');
         $plan->type_publication_id = $request->input('type_publication_id');
         $plan->name_of_publication = $request->input('name_of_publication');
@@ -153,6 +159,7 @@ class PublicationPlanController extends Controller
     {
         // get the plan
         $plan = Publications::find($id); //selected plan
+        $chairs = Chair::all();
         $papers_size = PapersSize::all();
         $months = MonthOfSubmission::all();
         $cover = Covers::all();
@@ -188,6 +195,7 @@ class PublicationPlanController extends Controller
         }
         return view('plans.edit',[
             'plan' => $plan,
+            'chairs' => $chairs,
             'papers_size' => $papers_size,
             'months' => $months,
             'cover' => $cover,

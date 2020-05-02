@@ -32,6 +32,18 @@
             {{ csrf_field() }}
 
             <div class="form-group">
+                <label class="">Кафедра</label>
+                <div class="row-fluid">
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="chair_id" data-width="100%">
+                        <option disabled>Выберите дисциплину</option>
+                        @foreach($chairs as $key => $value)
+                            <option value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="">Дисциплина</label>
                 <div class="row-fluid">
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="discipline_id" data-width="100%">
