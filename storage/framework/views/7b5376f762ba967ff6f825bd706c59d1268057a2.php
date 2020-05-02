@@ -75,6 +75,7 @@
         <table class="table table-bordered table-hover my-5">
             <thead class="thead-dark">
             <tr>
+                <th scope="col" class="align-middle text-center">Кафедра</th>
                 <th scope="col" class="align-middle text-center">Дисциплина</th>
                 <th scope="col" class="align-middle text-center">Вид издания</th>
                 <th scope="col" class="align-middle text-center">Название публикации</th>
@@ -99,6 +100,7 @@
                 <?php endif; ?>
 
                 <tr>
+                    <td>ТЕСТ</td>
                     <td><?php echo e($value->name_of_discipline); ?></td>
                     <td><?php echo e($value->type_publication_name); ?></td>
                     <td><?php echo e($value->name_of_publication); ?></td>

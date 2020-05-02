@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             CoversSeeder::class,
+            ChairSeeder::class,
             PaperSizesSeeder::class,
             MonthSeeder::class,
             TypeOfPublicationsSeeder::class,

@@ -76,6 +76,7 @@
         <table class="table table-bordered table-hover my-5">
             <thead class="thead-dark">
             <tr>
+                <th scope="col" class="align-middle text-center">Кафедра</th>
                 <th scope="col" class="align-middle text-center">Дисциплина</th>
                 <th scope="col" class="align-middle text-center">Вид издания</th>
                 <th scope="col" class="align-middle text-center">Название публикации</th>
@@ -100,6 +101,7 @@
                 @endif
 
                 <tr>
+                    <td>ТЕСТ</td>
                     <td>{{ $value->name_of_discipline }}</td>
                     <td>{{ $value->type_publication_name }}</td>
                     <td>{{ $value->name_of_publication }}</td>

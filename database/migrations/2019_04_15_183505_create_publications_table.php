@@ -16,6 +16,8 @@ class CreatePublicationsTable extends Migration
         Schema::create('publications', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->unsignedInteger('chair_id');
+            $table->foreign('chair_id')->references('id')->on('chairs');
             $table->unsignedInteger('discipline_id');
             $table->foreign('discipline_id')->references('id')->on('disciplines');
             $table->unsignedInteger('type_publication_id');
