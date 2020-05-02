@@ -30,6 +30,7 @@
                 </div>
                 <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                     <option disabled>Выберите таблицу</option>
+                        <option value="chair">Кафедра</option>
                         <option value="discipline">Дисциплина</option>
                         <option value="type_publication">Вид издания</option>
                         <option value="name">Автор</option>

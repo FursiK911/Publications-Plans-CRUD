@@ -31,7 +31,7 @@
     {{ csrf_field() }}
 
     <div class="form-group">
-        <label>Кафедраа</label>
+        <label>Кафедра</label>
         <div class="row-fluid">
             <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="chair_id" data-width="100%">
                 <option disabled>Выберите кафедру</option>

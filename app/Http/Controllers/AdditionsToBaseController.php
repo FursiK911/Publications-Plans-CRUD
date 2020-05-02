@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Chair;
 use App\Cover;
 use App\Discipline;
 use App\User;
@@ -8,6 +9,7 @@ use App\MonthOfSubmission;
 use App\PapersSize;
 use App\TypeOfPublication;
 use App\Users_Publications;
+use App\UsersPublications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -48,6 +50,11 @@ class AdditionsToBaseController extends Controller
                 $user = new User();
                 $user->name = $request->input('data');
                 $user->save();
+                break;
+            case 'chair':
+                $chair = new Chair();
+                $chair->name_of_chair = $request->input('data');
+                $chair->save();
                 break;
             default:
                 Session::flash('message', 'Что-то пошло не так. Данные не сохранены!');
@@ -90,6 +97,13 @@ class AdditionsToBaseController extends Controller
                     $collection[$value->id] = $value->name;
                 }
                 break;
+            case 'chair':
+                $table = Chair::all();
+                $number_table = 4;
+                foreach ($table as $value) {
+                    $collection[$value->id] = $value->name_of_chair;
+                }
+                break;
             default:
                 Session::flash('message', 'Что-то пошло не так. Таблицы не существует!');
                 return redirect('/select-table-for-remove-from-base');
@@ -112,7 +126,7 @@ class AdditionsToBaseController extends Controller
                         $id = substr($elements[$i], 1);
                         $plans = Publications::all()->where('discipline_id', '=', $id);
                         foreach ($plans as $key => $value) {
-                            $deletedRows = Users_Publications::where('plan_id', '=', $value->id)->delete();
+                            $deletedRows = UsersPublications::where('plan_id', '=', $value->id)->delete();
                             $value->delete();
                         }
                         $discipline = Discipline::find($id);
@@ -123,7 +137,7 @@ class AdditionsToBaseController extends Controller
                         $id = substr($elements[$i], 1);
                         $plans = Publications::all()->where('type_publication_id', '=', $id);
                         foreach ($plans as $key => $value) {
-                            $deletedRows = Users_Publications::where('plan_id', '=', $value->id)->delete();
+                            $deletedRows = UsersPublications::where('plan_id', '=', $value->id)->delete();
                             $value->delete();
                         }
                         $type = TypeOfPublication::find($id);
@@ -132,10 +146,10 @@ class AdditionsToBaseController extends Controller
                         break;
                     case 3:
                         $id = substr($elements[$i], 1);
-                        $user_publications = Users_Publications::all()->where('user_id', '=', $id);
-                        $deletedRows = Users_Publications::where('user_id', '=', $id)->delete();
+                        $user_publications = UsersPublications::all()->where('user_id', '=', $id);
+                        $deletedRows = UsersPublications::where('user_id', '=', $id)->delete();
                         foreach ($user_publications as $key => $value) {
-                            $count_publication = Users_Publications::all()->where('plan_id', '=', $value->plan_id)->count();
+                            $count_publication = UsersPublications::all()->where('plan_id', '=', $value->plan_id)->count();
                             if ($count_publication == 0) {
                                 $deletedRows = Publications::where('id', '=', $value->plan_id)->delete();
                             }
@@ -143,6 +157,17 @@ class AdditionsToBaseController extends Controller
                         $autor = User::find($id);
                         $name_element = $autor->name;
                         $autor->delete();
+                        break;
+                    case 4:
+                        $id = substr($elements[$i], 1);
+                        $plans = Publications::all()->where('chair_id', '=', $id);
+                        foreach ($plans as $key => $value) {
+                            $deletedRows = UsersPublications::where('plan_id', '=', $value->id)->delete();
+                            $value->delete();
+                        }
+                        $chair = Chair::find($id);
+                        $name_element = $chair->name_of_discipline;
+                        $chair->delete();
                         break;
                 }
             }
@@ -180,6 +205,13 @@ class AdditionsToBaseController extends Controller
                 $number_table = 3;
                 foreach ($table as $value) {
                     $collection[$value->id] = $value->name;
+                }
+                break;
+            case 'chair':
+                $table = Chair::all();
+                $number_table = 4;
+                foreach ($table as $value) {
+                    $collection[$value->id] = $value->name_of_chair;
                 }
                 break;
             default:
@@ -223,6 +255,13 @@ class AdditionsToBaseController extends Controller
                 $autor->name = $data;
                 $new_name = $autor->name;
                 $autor->save();
+                break;
+            case 4:
+                $chair = Chair::find($id);
+                $old_name = $chair->name_of_chair;
+                $chair->name_of_chair = $data;
+                $new_name = $chair->name_of_chair;
+                $chair->save();
                 break;
         }
         Session::flash('message', $old_name . ' изменён на ' . $new_name);

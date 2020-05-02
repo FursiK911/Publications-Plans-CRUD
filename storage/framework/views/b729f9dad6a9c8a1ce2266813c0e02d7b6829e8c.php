@@ -29,6 +29,7 @@
                 </div>
                 <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                     <option disabled>Выберите таблицу</option>
+                        <option value="chair">Кафедра</option>
                         <option value="discipline">Дисциплина</option>
                         <option value="type_publication">Вид издания</option>
                         <option value="name">Автор</option>
@@ -40,4 +41,5 @@
         </div>
     </div>
 <?php $__env->stopSection(); ?>
+
 <?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/select-table-for-remove-from-base.blade.php ENDPATH**/ ?>
