@@ -360,6 +360,7 @@ class ComposerStaticInit845f8d61f42a69a1920fda63b83e7980
     );
 
     public static $classMap = array (
+        'App\\Author' => __DIR__ . '/../..' . '/app/Author.php',
         'App\\Chair' => __DIR__ . '/../..' . '/app/Chair.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Covers' => __DIR__ . '/../..' . '/app/Covers.php',
@@ -394,6 +395,8 @@ class ComposerStaticInit845f8d61f42a69a1920fda63b83e7980
         'App\\TypeOfPublication' => __DIR__ . '/../..' . '/app/TypeOfPublication.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\UsersPublications' => __DIR__ . '/../..' . '/app/UsersPublications.php',
+        'AuthorSeeder' => __DIR__ . '/../..' . '/database/seeds/AuthorSeeder.php',
+        'AuthorsPublicationsSeeder' => __DIR__ . '/../..' . '/database/seeds/AuthorsPublicationsSeeder.php',
         'BeyondCode\\DumpServer\\DumpServerCommand' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
         'BeyondCode\\DumpServer\\DumpServerServiceProvider' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
         'BeyondCode\\DumpServer\\Dumper' => __DIR__ . '/..' . '/beyondcode/laravel-dump-server/src/Dumper.php',
@@ -3817,7 +3820,6 @@ class ComposerStaticInit845f8d61f42a69a1920fda63b83e7980
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'TypeOfPublicationsSeeder' => __DIR__ . '/../..' . '/database/seeds/TypeOfPublicationsSeeder.php',
-        'UsersPublicationsSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersPublicationsSeeder.php',
         'UsersSeeder' => __DIR__ . '/../..' . '/database/seeds/UsersSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
         'Whoops\\Exception\\ErrorException' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Exception/ErrorException.php',

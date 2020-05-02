@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Author' => $baseDir . '/app/Author.php',
     'App\\Chair' => $baseDir . '/app/Chair.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Covers' => $baseDir . '/app/Covers.php',
@@ -40,6 +41,8 @@ return array(
     'App\\TypeOfPublication' => $baseDir . '/app/TypeOfPublication.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\UsersPublications' => $baseDir . '/app/UsersPublications.php',
+    'AuthorSeeder' => $baseDir . '/database/seeds/AuthorSeeder.php',
+    'AuthorsPublicationsSeeder' => $baseDir . '/database/seeds/AuthorsPublicationsSeeder.php',
     'BeyondCode\\DumpServer\\DumpServerCommand' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerCommand.php',
     'BeyondCode\\DumpServer\\DumpServerServiceProvider' => $vendorDir . '/beyondcode/laravel-dump-server/src/DumpServerServiceProvider.php',
     'BeyondCode\\DumpServer\\Dumper' => $vendorDir . '/beyondcode/laravel-dump-server/src/Dumper.php',
@@ -3463,7 +3466,6 @@ return array(
     'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => $vendorDir . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
     'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => $vendorDir . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
     'TypeOfPublicationsSeeder' => $baseDir . '/database/seeds/TypeOfPublicationsSeeder.php',
-    'UsersPublicationsSeeder' => $baseDir . '/database/seeds/UsersPublicationsSeeder.php',
     'UsersSeeder' => $baseDir . '/database/seeds/UsersSeeder.php',
     'Webmozart\\Assert\\Assert' => $vendorDir . '/webmozart/assert/src/Assert.php',
     'Whoops\\Exception\\ErrorException' => $vendorDir . '/filp/whoops/src/Whoops/Exception/ErrorException.php',

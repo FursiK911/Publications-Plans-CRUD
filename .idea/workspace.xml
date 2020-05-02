@@ -16,13 +16,6 @@
       <executable />
     </execution>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>publication_plans</find>
-      <find>covers</find>
-      <find>cover</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -170,7 +163,7 @@
       <workItem from="1584092326785" duration="1534000" />
       <workItem from="1587980473125" duration="246000" />
       <workItem from="1587981052629" duration="209000" />
-      <workItem from="1588423515358" duration="12098000" />
+      <workItem from="1588423515358" duration="17665000" />
     </task>
     <servers />
   </component>

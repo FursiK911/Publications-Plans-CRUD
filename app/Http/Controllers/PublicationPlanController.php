@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Author;
 use App\Chair;
 use App\Covers;
 use App\Discipline;
@@ -27,27 +28,27 @@ class PublicationPlanController extends Controller
     public function index(Request $request)
     {
         $disciplines_table = Discipline::all();
-        $autors_table = User::all();
+        $autors_table = Author::all();
         $select_author = $request->input('select_author');
-        $users_in_plans = DB::table('users_publications')
-            ->join('users', 'users_publications.user_id', '=', 'users.id')
-            ->join('publications', 'publications.id', '=', 'users_publications.plan_id')
-            ->select('users.id', 'users.name', 'users_publications.plan_id')
+        $authors_in_plans = DB::table('authors_publications')
+            ->join('authors', 'authors_publications.author_id', '=', 'authors.id')
+            ->join('publications', 'publications.id', '=', 'authors_publications.plan_id')
+            ->select('authors.id', 'authors.name', 'authors.last_name', 'authors.middle_name', 'authors_publications.plan_id')
             ->get();
 
         if ($select_author != null && $select_author != -1)
         {
             // get all the plans with foreign key and filter author
-            $users = Db::table('users')
-                ->join('users_publications', 'users.id', '=', 'users_publications.user_id')
-                ->join('publications', 'publications.id', '=', 'users_publications.plan_id')
-                ->where('user_id', '=', $request->input('select_author'))
+            $plans = Db::table('users')
+                ->join('authors_publications', 'authors.id', '=', 'authors_publications.author_id')
+                ->join('publications', 'publications.id', '=', 'authors_publications.plan_id')
+                ->where('author_id', '=', $request->input('select_author'))
                 ->join('disciplines', 'publications.discipline_id', '=', 'disciplines.id')
                 ->join('type_of_publication', 'publications.type_publication_id', '=', 'type_of_publication.id')
                 ->join('papers_sizes', 'publications.paper_size_id', '=', 'papers_sizes.id')
                 ->join('covers', 'publications.cover_id', '=', 'covers.id')
                 ->join('month_of_submissions', 'publications.month_of_submission_id', '=', 'month_of_submissions.id')
-                ->select('publications.id', 'users_publications.user_id', 'publications.discipline_id', 'disciplines.name_of_discipline',
+                ->select('publications.id', 'authors_publications.user_id', 'publications.discipline_id', 'disciplines.name_of_discipline',
                     'type_of_publication.type_publication_name', 'publications.name_of_publication',
                     'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publications.year_of_publication',
                     'month_of_submissions.month_name', 'phone_number')
@@ -57,7 +58,7 @@ class PublicationPlanController extends Controller
         else
         {
             // get all the plans with foreign key
-            $users = DB::table('publications')
+            $plans = DB::table('publications')
                 ->join('chairs', 'publications.chair_id', '=', 'chairs.id')
                 ->join('disciplines', 'publications.discipline_id', '=', 'disciplines.id')
                 ->join('type_of_publication', 'publications.type_publication_id', '=', 'type_of_publication.id')
@@ -73,8 +74,8 @@ class PublicationPlanController extends Controller
 
         // load the view and pass the plans
         return view('plans.index')->with([
-            'plans' => $users,
-            'users' => $users_in_plans,
+            'plans' => $plans,
+            'users' => $authors_in_plans,
             'disciplines' => $disciplines_table,
             'autors' => $autors_table,
             'select_year' => $request->input('select_year'),

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            AuthorSeeder::class,
             CoversSeeder::class,
             ChairSeeder::class,
             PaperSizesSeeder::class,
@@ -20,7 +21,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             DisciplinesSeeder::class,
             PublicationsSeeder::class,
-            UsersPublicationsSeeder::class
+            AuthorsPublicationsSeeder::class
         ]);
     }
 }
