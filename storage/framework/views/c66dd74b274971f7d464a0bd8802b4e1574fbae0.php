@@ -38,6 +38,11 @@
                             <a class="nav-link" href="<?php echo e(url('/plans/create')); ?>">Новое издание</a>
                         </label>
                     </li>
+                    <li class="nav-item">
+                        <label class="btn btn-secondary">
+                            <a class="nav-link" href="<?php echo e(asset('report')); ?>">Сформировать отчет</a>
+                        </label>
+                    </li>
                     <li class="nav-item dropdown">
                         <label class="btn btn-secondary" href="#" id="navbarDropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <a class="nav-link dropdown-toggle">Взаимодействия с базой</a>
@@ -125,4 +130,5 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/i18n/defaults-*.min.js"></script>
     <?php echo $__env->yieldSection(); ?>
 
-</html><?php /**PATH W:\domains\Coursework\resources\views/layouts/layout.blade.php ENDPATH**/ ?>
+</html>
+<?php /**PATH W:\domains\Coursework\resources\views/layouts/layout.blade.php ENDPATH**/ ?>

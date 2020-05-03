@@ -38,6 +38,11 @@
                             <a class="nav-link" href="{{ url('/plans/create') }}">Новое издание</a>
                         </label>
                     </li>
+                    <li class="nav-item">
+                        <label class="btn btn-secondary">
+                            <a class="nav-link" href="{{ asset('report') }}">Сформировать отчет</a>
+                        </label>
+                    </li>
                     <li class="nav-item dropdown">
                         <label class="btn btn-secondary" href="#" id="navbarDropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <a class="nav-link dropdown-toggle">Взаимодействия с базой</a>

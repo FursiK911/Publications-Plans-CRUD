@@ -61,9 +61,9 @@
                         <option selected value="-1">Любой автор</option>
                         @foreach($autors as $key => $value)
                             @if($value->id == $select_author)
-                                <option selected value="{{ $value->id }}">{{ $value->name }}</option>
+                                <option selected value="{{ $value->id }}">{{ $value->last_name }} {{ $value->name }} {{ $value->middle_name }}</option>
                             @else
-                                <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                <option value="{{ $value->id }}">{{ $value->last_name }} {{ $value->name }} {{ $value->middle_name }}</option>
                             @endif
                         @endforeach
                     </select>
@@ -109,7 +109,7 @@
                     <td>
                         @foreach($users as $k => $val)
                             @if($val->plan_id == $value->id)
-                                {{ $val->last_name }} {{ $val->name }} {{ $val->middle_name }},  <br>
+                                {{ Str::substr($val->last_name,0,1) }} {{ $val->name }} {{ $val->middle_name }},  <br>
                             @endif
                         @endforeach
                     </td>

@@ -60,9 +60,9 @@
                         <option selected value="-1">Любой автор</option>
                         <?php $__currentLoopData = $autors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($value->id == $select_author): ?>
-                                <option selected value="<?php echo e($value->id); ?>"><?php echo e($value->name); ?></option>
+                                <option selected value="<?php echo e($value->id); ?>"><?php echo e($value->last_name); ?> <?php echo e($value->name); ?> <?php echo e($value->middle_name); ?></option>
                             <?php else: ?>
-                                <option value="<?php echo e($value->id); ?>"><?php echo e($value->name); ?></option>
+                                <option value="<?php echo e($value->id); ?>"><?php echo e($value->last_name); ?> <?php echo e($value->name); ?> <?php echo e($value->middle_name); ?></option>
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
@@ -108,7 +108,7 @@
                     <td>
                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <?php if($val->plan_id == $value->id): ?>
-                                <?php echo e($val->last_name); ?> <?php echo e($val->name); ?> <?php echo e($val->middle_name); ?>,  <br>
+                                <?php echo e(Str::substr($val->last_name,0,1)); ?> <?php echo e($val->name); ?> <?php echo e($val->middle_name); ?>,  <br>
                             <?php endif; ?>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </td>
