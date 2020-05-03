@@ -78,7 +78,7 @@
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="author_id[]" multiple="multiple" data-width="100%">
                         <option disabled>Выберите автора</option>
                         @foreach($authors as $author)
-                            <option value="{{ $value->id }}">{{ $author->last_name }} {{ $author->name }} {{ $author->middle_name }}</option>
+                            <option value="{{ $author->id }}">{{ $author->last_name }} {{ $author->name }} {{ $author->middle_name }}</option>
                         @endforeach
                     </select>
                     <small id="autorsHelp" class="form-text text-muted">Вы можете выбрать несколько авторов.</small>
