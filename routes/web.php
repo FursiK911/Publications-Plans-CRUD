@@ -28,6 +28,7 @@ Route::post('remove-from-base', 'AdditionsToBaseController@destroy');
 Route::get('select-table-for-update-base', 'AdditionsToBaseController@change');
 Route::post('select-table-for-update-base', 'AdditionsToBaseController@select_table_for_update');
 Route::post('update-base', 'AdditionsToBaseController@update');
-Route::get('report', 'ReportController@ReportForYear');
+Route::get('report_chair', 'ReportController@ReportForChair');
+Route::get('report_type_publication', 'ReportController@ReportForTypePublication');
 
 Route::get('logout', 'LogoutController@logout');

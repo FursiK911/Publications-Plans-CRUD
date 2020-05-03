@@ -38,10 +38,14 @@
                             <a class="nav-link" href="{{ url('/plans/create') }}">Новое издание</a>
                         </label>
                     </li>
-                    <li class="nav-item">
-                        <label class="btn btn-secondary">
-                            <a class="nav-link" href="{{ asset('report') }}">Сформировать отчет</a>
+                    <li class="nav-item dropdown">
+                        <label class="btn btn-secondary" href="#" id="navbarDropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle">Сформировать отчёт</a>
                         </label>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                            <a class="dropdown-item" href="{{ asset('report_chair') }}">По кафедрам</a>
+                            <a class="dropdown-item" href="{{ asset('report_type_publication') }}">По видам изданий</a>
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <label class="btn btn-secondary" href="#" id="navbarDropdown"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

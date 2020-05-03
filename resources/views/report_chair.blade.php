@@ -1,10 +1,14 @@
 @extends('layouts.layout')
 
+@section('title_content')
+    <h1 class="text-center my-3">Формирование отчётов по кафедрам</h1>
+@endsection
+
 @section('content')
 
 
     <div class="" align="center">
-        <form action="{{ action('ReportController@ReportForYear') }}" method="GET" class="">
+        <form action="{{ action('ReportController@ReportForChair') }}" method="GET" class="">
 
             {{ csrf_field() }}
 
