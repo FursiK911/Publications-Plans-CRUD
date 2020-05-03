@@ -109,7 +109,7 @@
                     <td>
                         @foreach($users as $k => $val)
                             @if($val->plan_id == $value->id)
-                                {{ Str::substr($val->last_name,0,1) }} {{ $val->name }} {{ $val->middle_name }},  <br>
+                                {{ $val->last_name }} {{ Str::substr($val->name,0,1) }}. {{ Str::substr($val->middle_name,0,1) }}. ,  <br>
                             @endif
                         @endforeach
                     </td>

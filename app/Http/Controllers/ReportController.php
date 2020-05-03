@@ -69,11 +69,11 @@ class ReportController extends Controller
 
     public function ReportForTypePublication(Request $request)
     {
-
+        //Формируем отчет сколько и какие издания в год сделала
         $selected_year = $request->input('select_year');
         $types = TypeOfPublication::all();
         $collection = collect();
-        if ($selected_year != null)
+        if ($selected_year != null) //Если выбрали определенный год(а)
         {
             $years = explode(',', $selected_year);
             foreach ($types as $type)
@@ -90,7 +90,7 @@ class ReportController extends Controller
                 $collection->put($type->type_publication_name, $counts);
             }
         }
-        else
+        else //Если не выбрали год(а) то выводим за все года что есть
         {
             $years = Publications::groupBy('year_of_publication')
                 ->select("year_of_publication")
