@@ -229,7 +229,7 @@ class PublicationPlanController extends Controller
             'is_release' => 'required|numeric',
         ]);
         // store
-        DB::table('users_publications')->where('plan_id', '=', $id)->delete();
+        DB::table('authors_publications')->where('plan_id', '=', $id)->delete();
         $array_authors = $request->input('author_id.*');
         if(count($array_authors) > 0) {
             for ($i=0; $i<count($array_authors); $i++) {
@@ -261,7 +261,7 @@ class PublicationPlanController extends Controller
     public function destroy($id)
     {
         // delete foreign key
-        $deletedRows = UsersPublications::where('plan_id', '=', $id)->delete();
+        $deletedRows = AuthorsPublications::where('plan_id', '=', $id)->delete();
         // delete
         $plan = Publications::find($id);
         $plan->delete();
