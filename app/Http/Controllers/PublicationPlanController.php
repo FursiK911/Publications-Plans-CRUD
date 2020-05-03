@@ -26,7 +26,44 @@ class PublicationPlanController extends Controller
 
     public function index(Request $request)
     {
+        $query = 'SELECT chairs.name_of_chair, publications.id, publications.discipline_id, disciplines.name_of_discipline, type_of_publication.type_publication_name, publications.name_of_publication,
+                    GROUP_CONCAT(authors.last_name," ", authors.name) as authors,
+                    papers_sizes.format_name , number_of_pages, number_of_copies, covers.cover_type, publications.year_of_publication,
+                    month_of_submissions.month_name, publications.phone_number, publications.is_release
+                    FROM
+                    publications LEFT JOIN authors_publications
+                    ON publications.id = authors_publications.plan_id
+                    LEFT JOIN authors
+                    ON authors.id = authors_publications.author_id
+                    LEFT JOIN chairs
+                    ON chairs.id = publications.chair_id
+                    LEFT JOIN disciplines
+                    ON disciplines.id = publications.discipline_id
+                    LEFT JOIN type_of_publication
+                    ON type_of_publication.id = publications.type_publication_id
+                    LEFT JOIN papers_sizes
+                    ON papers_sizes.id = publications.paper_size_id
+                    LEFT JOIN covers
+                    ON covers.id = publications.cover_id
+                    LEFT JOIN month_of_submissions
+                    ON month_of_submissions.id = publications.month_of_submission_id
+                    GROUP BY publications.id';
+
+        $test = DB::select($query, [1]);
+        $select_author = $request->input('select_author');
+        $select_year = $request->input('select_year');
+        $select_discipline = $request->input('select_discipline');
         $disciplines_table = Discipline::all();
+        $autors_table = Author::all();
+
+        //dd($test);
+
+
+
+
+
+
+        /*$disciplines_table = Discipline::all();
         $autors_table = Author::all();
         $select_author = $request->input('select_author');
         $authors_in_plans = DB::table('authors_publications')
@@ -68,18 +105,17 @@ class PublicationPlanController extends Controller
                     'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publications.year_of_publication',
                     'month_of_submissions.month_name', 'publications.phone_number', 'publications.is_release')
                 ->get();
-        }
+        }*/
 
 
         // load the view and pass the plans
         return view('plans.index')->with([
-            'plans' => $plans,
-            'users' => $authors_in_plans,
+            'plans' => $test,
             'disciplines' => $disciplines_table,
             'autors' => $autors_table,
-            'select_year' => $request->input('select_year'),
-            'select_discipline' => $request->input('select_discipline'),
+            'select_year' => $select_year,
             'select_author' => $select_author,
+            'select_discipline' => $select_discipline,
         ]);
 
     }

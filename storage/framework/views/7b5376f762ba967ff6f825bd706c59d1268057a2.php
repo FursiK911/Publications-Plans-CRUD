@@ -93,25 +93,12 @@
             </thead>
             <tbody>
             <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <?php if($select_year != null && $value->year_of_publication != $select_year): ?>
-                    <?php continue; ?>
-                <?php endif; ?>
-                <?php if($select_discipline != null && $select_discipline != -1 && $value->discipline_id != $select_discipline): ?>
-                    <?php continue; ?>
-                <?php endif; ?>
-
                 <tr>
                     <td><?php echo e($value->name_of_chair); ?></td>
                     <td><?php echo e($value->name_of_discipline); ?></td>
                     <td><?php echo e($value->type_publication_name); ?></td>
                     <td><?php echo e($value->name_of_publication); ?></td>
-                    <td>
-                        <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $k => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($val->plan_id == $value->id): ?>
-                                <?php echo e($val->last_name); ?> <?php echo e(Str::substr($val->name,0,1)); ?>. <?php echo e(Str::substr($val->middle_name,0,1)); ?>. ,  <br>
-                            <?php endif; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                    </td>
+                    <td><?php echo e($value->authors); ?></td>
                     <td><?php echo e($value->format_name); ?></td>
                     <td><?php echo e($value->number_of_pages); ?></td>
                     <td><?php echo e($value->number_of_copies); ?></td>

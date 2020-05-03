@@ -94,25 +94,12 @@
             </thead>
             <tbody>
             @foreach($plans as $key => $value)
-                @if($select_year != null && $value->year_of_publication != $select_year)
-                    @continue
-                @endif
-                @if($select_discipline != null && $select_discipline != -1 && $value->discipline_id != $select_discipline)
-                    @continue
-                @endif
-
                 <tr>
                     <td>{{ $value->name_of_chair }}</td>
                     <td>{{ $value->name_of_discipline }}</td>
                     <td>{{ $value->type_publication_name }}</td>
                     <td>{{ $value->name_of_publication }}</td>
-                    <td>
-                        @foreach($users as $k => $val)
-                            @if($val->plan_id == $value->id)
-                                {{ $val->last_name }} {{ Str::substr($val->name,0,1) }}. {{ Str::substr($val->middle_name,0,1) }}. ,  <br>
-                            @endif
-                        @endforeach
-                    </td>
+                    <td>{{ $value->authors }}</td>
                     <td>{{ $value->format_name }}</td>
                     <td>{{ $value->number_of_pages }}</td>
                     <td>{{ $value->number_of_copies }}</td>
