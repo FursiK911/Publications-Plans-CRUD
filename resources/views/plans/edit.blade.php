@@ -88,14 +88,14 @@
         <div class="row-fluid">
             <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="author_id[]" multiple="multiple" data-width="100%">
                 <option disabled>Выберите автора</option>
-                @for($i = 0; $i < count($selected_users); $i++)
-                    @foreach($selected_users[$i] as $user)
-                        <option selected value="{{ $user->id }}" >{{ $user->name }}</option>
+                @for($i = 0; $i < count($selected_authors); $i++)
+                    @foreach($selected_authors[$i] as $author)
+                        <option selected value="{{ $author->id }}" >{{ $author->last_name }} {{ $author->name }} {{ $author->middle_name }}</option>
                     @endforeach
                 @endfor
-                @for($i = 0; $i < count($unselected_users); $i++)
-                    @foreach($unselected_users[$i] as $user)
-                        <option value="{{ $user->id }}" >{{ $user->name }}</option>
+                @for($i = 0; $i < count($unselected_authors); $i++)
+                    @foreach($unselected_authors[$i] as $author)
+                        <option value="{{ $author->id }}" >{{ $author->last_name }} {{ $author->name }} {{ $author->middle_name }}</option>
                     @endforeach
                 @endfor
             </select>

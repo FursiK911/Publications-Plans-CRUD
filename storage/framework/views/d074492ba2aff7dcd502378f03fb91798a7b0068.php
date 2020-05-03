@@ -78,8 +78,8 @@
                 <div class="row-fluid">
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="author_id[]" multiple="multiple" data-width="100%">
                         <option disabled>Выберите автора</option>
-                        <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <option value="<?php echo e($value->id); ?>"><?php echo e($value->name); ?></option>
+                        <?php $__currentLoopData = $authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <option value="<?php echo e($value->id); ?>"><?php echo e($author->last_name); ?> <?php echo e($author->name); ?> <?php echo e($author->middle_name); ?></option>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </select>
                     <small id="autorsHelp" class="form-text text-muted">Вы можете выбрать несколько авторов.</small>

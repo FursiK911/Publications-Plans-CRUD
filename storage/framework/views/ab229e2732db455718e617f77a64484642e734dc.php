@@ -89,14 +89,14 @@
         <div class="row-fluid">
             <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="author_id[]" multiple="multiple" data-width="100%">
                 <option disabled>Выберите автора</option>
-                <?php for($i = 0; $i < count($selected_users); $i++): ?>
-                    <?php $__currentLoopData = $selected_users[$i]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option selected value="<?php echo e($user->id); ?>" ><?php echo e($user->name); ?></option>
+                <?php for($i = 0; $i < count($selected_authors); $i++): ?>
+                    <?php $__currentLoopData = $selected_authors[$i]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option selected value="<?php echo e($author->id); ?>" ><?php echo e($author->last_name); ?> <?php echo e($author->name); ?> <?php echo e($author->middle_name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endfor; ?>
-                <?php for($i = 0; $i < count($unselected_users); $i++): ?>
-                    <?php $__currentLoopData = $unselected_users[$i]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($user->id); ?>" ><?php echo e($user->name); ?></option>
+                <?php for($i = 0; $i < count($unselected_authors); $i++): ?>
+                    <?php $__currentLoopData = $unselected_authors[$i]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $author): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($author->id); ?>" ><?php echo e($author->last_name); ?> <?php echo e($author->name); ?> <?php echo e($author->middle_name); ?></option>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endfor; ?>
             </select>

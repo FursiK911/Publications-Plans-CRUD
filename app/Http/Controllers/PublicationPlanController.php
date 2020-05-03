@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Author;
+use App\AuthorsPublications;
 use App\Chair;
 use App\Covers;
 use App\Discipline;
@@ -9,8 +10,6 @@ use App\Publications;
 use App\MonthOfSubmission;
 use App\PapersSize;
 use App\TypeOfPublication;
-use App\Users_Publications;
-use App\UsersPublications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -48,7 +47,7 @@ class PublicationPlanController extends Controller
                 ->join('papers_sizes', 'publications.paper_size_id', '=', 'papers_sizes.id')
                 ->join('covers', 'publications.cover_id', '=', 'covers.id')
                 ->join('month_of_submissions', 'publications.month_of_submission_id', '=', 'month_of_submissions.id')
-                ->select('publications.id', 'authors_publications.user_id', 'publications.discipline_id', 'disciplines.name_of_discipline',
+                ->select('publications.id', 'authors_publications.author_id', 'publications.discipline_id', 'disciplines.name_of_discipline',
                     'type_of_publication.type_publication_name', 'publications.name_of_publication',
                     'papers_sizes.format_name' , 'number_of_pages', 'number_of_copies','covers.cover_type', 'publications.year_of_publication',
                     'month_of_submissions.month_name', 'phone_number')
@@ -92,7 +91,7 @@ class PublicationPlanController extends Controller
         $cover = Covers::all();
         $type_publication = TypeOfPublication::all();
         $disciplines = Discipline::all();
-        $users = User::all();
+        $authors = Author::all();
         // load the create form (app/views/plans/create.blade.php)
         return view('plans.create',[
             'chairs' => $chairs,
@@ -101,7 +100,7 @@ class PublicationPlanController extends Controller
             'cover' => $cover,
             'type_publication' => $type_publication,
             'disciplines' => $disciplines,
-            'users' => $users
+            'authors' => $authors
         ]);
     }
 
@@ -139,13 +138,13 @@ class PublicationPlanController extends Controller
         $plan->is_release = $request->input('is_release');
         $plan->save();
         $newid = Publications::latest()->first()->id;
-        $array_users = $request->input('author_id.*');
-        if(count($array_users) > 0) {
-            for ($i=0; $i<count($array_users); $i++) {
-                $plan_user = new UsersPublications();
-                $plan_user->plan_id = $newid;
-                $plan_user->user_id = $array_users[$i];
-                $plan_user->save();
+        $array_authors = $request->input('author_id.*');
+        if(count($array_authors) > 0) {
+            for ($i=0; $i<count($array_authors); $i++) {
+                $plan_author = new AuthorsPublications();
+                $plan_author->plan_id = $newid;
+                $plan_author->author_id = $array_authors[$i];
+                $plan_author->save();
             }
         }
         // redirect
@@ -168,32 +167,32 @@ class PublicationPlanController extends Controller
         $cover = Covers::all();
         $type_publication = TypeOfPublication::all();
         $disciplines = Discipline::all();
-        $users = User::all();
-        $plan_users = DB::table('users_publications')->where('plan_id', '=', $id)->get();
-        $selected_users = collect();
-        $unselected_users = collect();
-        for ($i = 0; $i < count($users); $i++)
+        $authors = Author::all();
+        $plan_authors = DB::table('authors_publications')->where('plan_id', '=', $id)->get();
+        $selected_authors = collect();
+        $unselected_authors = collect();
+        for ($i = 0; $i < count($authors); $i++)
         {
-            for ($j = 0; $j < count($plan_users); $j++)
+            for ($j = 0; $j < count($plan_authors); $j++)
             {
-                if($users[$i]->id == $plan_users[$j]->user_id)
+                if($authors[$i]->id == $plan_authors[$j]->author_id)
                 {
-                    $selected_users->push($users->slice($i,1));
+                    $selected_authors->push($authors->slice($i,1));
                 }
             }
         }
-        for ($i = 0; $i < count($users); $i++)
+        for ($i = 0; $i < count($authors); $i++)
         {
-            for ($j = 0, $selected = false; $j < count($plan_users); $j++)
+            for ($j = 0, $selected = false; $j < count($plan_authors); $j++)
             {
-                if($users[$i]->id == $plan_users[$j]->user_id)
+                if($authors[$i]->id == $plan_authors[$j]->author_id)
                 {
                     $selected = true;
                 }
             }
             if($selected == false)
             {
-                $unselected_users->push($users->slice($i,1));
+                $unselected_authors->push($authors->slice($i,1));
             }
         }
         return view('plans.edit',[
@@ -204,10 +203,10 @@ class PublicationPlanController extends Controller
             'cover' => $cover,
             'type_publication' => $type_publication,
             'disciplines' => $disciplines,
-            'users' => $users,
-            'plan_users' => $plan_users,
-            'selected_users' => $selected_users,
-            'unselected_users' => $unselected_users,
+            'authors' => $authors,
+            'plan_authors' => $plan_authors,
+            'selected_authors' => $selected_authors,
+            'unselected_authors' => $unselected_authors,
         ]);
     }
 
@@ -231,13 +230,13 @@ class PublicationPlanController extends Controller
         ]);
         // store
         DB::table('users_publications')->where('plan_id', '=', $id)->delete();
-        $array_users = $request->input('author_id.*');
-        if(count($array_users) > 0) {
-            for ($i=0; $i<count($array_users); $i++) {
-                $plan_user = new UsersPublications();
-                $plan_user->plan_id = $id;
-                $plan_user->user_id = $array_users[$i];
-                $plan_user->save();
+        $array_authors = $request->input('author_id.*');
+        if(count($array_authors) > 0) {
+            for ($i=0; $i<count($array_authors); $i++) {
+                $plan_author = new AuthorsPublications();
+                $plan_author->plan_id = $id;
+                $plan_author->author_id = $array_authors[$i];
+                $plan_author->save();
             }
         }
         $plan = Publications::find($id);
