@@ -30,12 +30,46 @@ class PublicationPlanController extends Controller
                     GROUP_CONCAT(authors.last_name," ", authors.name) as authors,
                     papers_sizes.format_name , number_of_pages, number_of_copies, covers.cover_type, publications.year_of_publication,
                     month_of_submissions.month_name, publications.phone_number, publications.is_release
-                    FROM
-                    publications LEFT JOIN authors_publications
-                    ON publications.id = authors_publications.plan_id
-                    LEFT JOIN authors
-                    ON authors.id = authors_publications.author_id
-                    LEFT JOIN chairs
+                    FROM publications
+                    LEFT JOIN authors_publications
+                    ON publications.id = authors_publications.plan_id';
+
+
+        $first_call = false; //был ли включен ранее фильтр, нужна для правильного формирования запроса
+
+
+        $select_author = $request->input('select_author');
+        $select_year = $request->input('select_year');
+        $select_discipline = $request->input('select_discipline');
+        $disciplines_table = Discipline::all();
+        $autors_table = Author::all();
+
+        if ($select_author != null && $select_author != -1) //Если выбрали фильтр по автору
+        {
+            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = '.$select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
+            $selected_plans = DB::select($tmp_query, [1]);
+            $tmp_query = '';
+            $tmp_first_call = false;
+            foreach ($selected_plans as $plan)
+            {
+                if ($tmp_first_call == false)
+                {
+                    $tmp_query = $tmp_query.' INNER JOIN authors ON authors.id = authors_publications.author_id AND authors_publications.plan_id = '.$plan->plan_id;
+                    $tmp_first_call = true;
+                }
+                else
+                {
+                    $tmp_query = $tmp_query.' OR authors_publications.plan_id = '.$plan->plan_id;
+                }
+            }
+            $query = $query.$tmp_query;
+        }
+        else
+        {
+            $query = $query.' LEFT JOIN authors
+                    ON authors.id = authors_publications.author_id';
+        }
+        $query = $query.' LEFT JOIN chairs
                     ON chairs.id = publications.chair_id
                     LEFT JOIN disciplines
                     ON disciplines.id = publications.discipline_id
@@ -46,16 +80,22 @@ class PublicationPlanController extends Controller
                     LEFT JOIN covers
                     ON covers.id = publications.cover_id
                     LEFT JOIN month_of_submissions
-                    ON month_of_submissions.id = publications.month_of_submission_id
-                    GROUP BY publications.id';
+                    ON month_of_submissions.id = publications.month_of_submission_id';
 
-        $test = DB::select($query, [1]);
-        $select_author = $request->input('select_author');
-        $select_year = $request->input('select_year');
-        $select_discipline = $request->input('select_discipline');
-        $disciplines_table = Discipline::all();
-        $autors_table = Author::all();
-
+        if ($select_year != null) //Если выбрали фильтр по году выпуска
+        {
+            $tmp_query = '';
+            if ($first_call == true)
+            {
+                $tmp_query = $tmp_query.' AND publications.year_of_publication = '.$select_year;
+            }
+            else
+            {
+                $tmp_query = $tmp_query.' WHERE publications.year_of_publication = '.$select_year;
+                $first_call = true;
+            }
+            $query = $query.$tmp_query;
+        }
         //dd($test);
 
 
@@ -107,10 +147,12 @@ class PublicationPlanController extends Controller
                 ->get();
         }*/
 
-
+        $query = $query . ' GROUP BY publications.id';
+        dd($query);
+        $plans = DB::select($query, [1]);
         // load the view and pass the plans
         return view('plans.index')->with([
-            'plans' => $test,
+            'plans' => $plans,
             'disciplines' => $disciplines_table,
             'autors' => $autors_table,
             'select_year' => $select_year,
