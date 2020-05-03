@@ -29,32 +29,31 @@
     <tr>
         <th scope="col" class="align-middle text-center">Кафедра</th>
     @foreach($years as $key => $value)
-        <th scope="col" class="align-middle text-center">{{ $value->year_of_publication }}</th>
+        @if($select_year != null)
+            <th scope="col" class="align-middle text-center">{{ $value }}</th>
+        @else
+            <th scope="col" class="align-middle text-center">{{ $value->year_of_publication }}</th>
+        @endif
     @endforeach
     </tr>
     </thead>
     <tbody>
     @if($select_year == null)
-    @foreach($chairs as $chairs_key => $chairs_value)
-        <tr>
-            <td>{{ $chairs_value->name_of_chair }}</td>
-            @foreach($years as $year_key => $year_value)
-                @foreach($collection as $collection_key => $collection_value)
-                    @foreach($collection_value as $k => $v)
-                        @if ($year_value->year_of_publication == $k)
-                            <td>{{ $v }}</td>
-                        @endif
-                    @endforeach
-                    @break
+        @foreach($chairs as $chairs_key => $chairs_value)
+            <tr>
+                <td>{{ $chairs_value->name_of_chair }}</td>
+                @foreach($collection->get($chairs_value->name_of_chair) as $k => $v)
+                    <td>{{ $v }}</td>
                 @endforeach
-            @endforeach
-        </tr>
-    @endforeach
+            </tr>
+        @endforeach
     @else
         @foreach($chairs as $chairs_key => $chairs_value)
         <tr>
             <td>{{ $chairs_value->name_of_chair }}</td>
-            <td>{{$collection->get($chairs_value->name_of_chair)}}</td>
+            @foreach($collection->get($chairs_value->name_of_chair) as $k => $v)
+                <td>{{ $v }}</td>
+            @endforeach
         </tr>
         @endforeach
     @endif

@@ -21,18 +21,19 @@ class ReportController extends Controller
         $collection = collect();
         if ($selected_year != null)
         {
-            $years = DB::table('publications')
-                ->groupBy('year_of_publication')
-                ->where('publications.year_of_publication', '=' , $selected_year)
-                ->select("year_of_publication")
-                ->get();
+            $years = explode(',', $selected_year);
             foreach ($chairs as $chair)
             {
-                $count = DB::table('publications')
-                    ->where('publications.year_of_publication', '=' , $selected_year)
-                    ->where('chair_id', '=', $chair->id)
-                    ->count();
-                $collection->put($chair->name_of_chair, $count);
+                $counts = collect();
+                foreach ($years as $year)
+                {
+                    $count = DB::table('publications')
+                        ->where('chair_id', '=', $chair->id)
+                        ->where('publications.year_of_publication', '=', $year)
+                        ->count();
+                    $counts->push($count);
+                }
+                $collection->put($chair->name_of_chair, $counts);
             }
         }
         else
@@ -50,7 +51,7 @@ class ReportController extends Controller
                         ->where('chair_id', '=', $chair->id)
                         ->where('publications.year_of_publication', '=', $year->year_of_publication)
                         ->count();
-                    $counts->put($year->year_of_publication, $count);
+                    $counts->push($count);
                 }
                 $collection->put($chair->name_of_chair, $counts);
             }
