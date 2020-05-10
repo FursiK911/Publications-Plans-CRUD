@@ -39,6 +39,21 @@
                         </div>
                  </div>
                 <div class="col-5 mx-2">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по кафедре</label>
+                    <br>
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_chair" data-width="100%">
+                        <option disabled>Выберите метод сортировки</option>
+                        <option value="-1">Любая кафедра</option>
+                        @foreach($chairs as $key => $value)
+                            @if($value->id == $select_chair)
+                                <option selected value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
+                            @else
+                                <option value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-5 mx-2">
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по дисциплине</label>
                     <br>
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_discipline" data-width="100%">
@@ -49,6 +64,21 @@
                                 <option selected value="{{ $value->id }}">{{ $value->name_of_discipline }}</option>
                             @else
                                 <option value="{{ $value->id }}">{{ $value->name_of_discipline }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-5 mx-2">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по виду издания</label>
+                    <br>
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_type" data-width="100%">
+                        <option disabled>Выберите метод сортировки</option>
+                        <option value="-1">Любой вид издания</option>
+                        @foreach($types as $key => $value)
+                            @if($value->id == $select_type)
+                                <option selected value="{{ $value->id }}">{{ $value->type_publication_name }}</option>
+                            @else
+                                <option value="{{ $value->id }}">{{ $value->type_publication_name }}</option>
                             @endif
                         @endforeach
                     </select>

@@ -26,50 +26,17 @@ class PublicationPlanController extends Controller
 
     public function index(Request $request)
     {
-        $query = 'SELECT chairs.name_of_chair, publications.id, publications.discipline_id, disciplines.name_of_discipline, type_of_publication.type_publication_name, publications.name_of_publication,
-                    GROUP_CONCAT(authors.last_name," ", authors.name) as authors,
+        $query = 'SELECT publications.id, publications.chair_id, chairs.name_of_chair, publications.discipline_id, disciplines.name_of_discipline, publications.type_publication_id, type_of_publication.type_publication_name, publications.name_of_publication,
+                    GROUP_CONCAT(authors.last_name,\' \', authors.name) as authors,
                     papers_sizes.format_name , number_of_pages, number_of_copies, covers.cover_type, publications.year_of_publication,
                     month_of_submissions.month_name, publications.phone_number, publications.is_release
-                    FROM publications
+                    FROM
+                    publications
                     LEFT JOIN authors_publications
-                    ON publications.id = authors_publications.plan_id';
-
-
-        $first_call = false; //был ли включен ранее фильтр, нужна для правильного формирования запроса
-
-
-        $select_author = $request->input('select_author');
-        $select_year = $request->input('select_year');
-        $select_discipline = $request->input('select_discipline');
-        $disciplines_table = Discipline::all();
-        $autors_table = Author::all();
-
-        if ($select_author != null && $select_author != -1) //Если выбрали фильтр по автору
-        {
-            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = '.$select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
-            $selected_plans = DB::select($tmp_query, [1]);
-            $tmp_query = '';
-            $tmp_first_call = false;
-            foreach ($selected_plans as $plan)
-            {
-                if ($tmp_first_call == false)
-                {
-                    $tmp_query = $tmp_query.' INNER JOIN authors ON authors.id = authors_publications.author_id AND authors_publications.plan_id = '.$plan->plan_id;
-                    $tmp_first_call = true;
-                }
-                else
-                {
-                    $tmp_query = $tmp_query.' OR authors_publications.plan_id = '.$plan->plan_id;
-                }
-            }
-            $query = $query.$tmp_query;
-        }
-        else
-        {
-            $query = $query.' LEFT JOIN authors
-                    ON authors.id = authors_publications.author_id';
-        }
-        $query = $query.' LEFT JOIN chairs
+                    ON publications.id = authors_publications.plan_id
+                    LEFT JOIN authors
+                    ON authors.id = authors_publications.author_id
+                    LEFT JOIN chairs
                     ON chairs.id = publications.chair_id
                     LEFT JOIN disciplines
                     ON disciplines.id = publications.discipline_id
@@ -82,21 +49,140 @@ class PublicationPlanController extends Controller
                     LEFT JOIN month_of_submissions
                     ON month_of_submissions.id = publications.month_of_submission_id';
 
-        if ($select_year != null) //Если выбрали фильтр по году выпуска
+
+        $first_call = true; //был ли включен ранее фильтр, нужна для правильного формирования запроса
+
+
+        $select_author = $request->input('select_author');
+        $select_year = $request->input('select_year');
+        $select_discipline = $request->input('select_discipline');
+        $select_chair = $request->input('select_chair');
+        $select_type = $request->input('select_type');
+        $disciplines_table = Discipline::all();
+        $autors_table = Author::all();
+        $chairs_table = Chair::all();
+        $types_table = TypeOfPublication::all();
+
+        if ($select_author != null && $select_author != -1) //Если выбрали фильтр по автору
+        {
+            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = '.$select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
+            $selected_plans = DB::select($tmp_query, [1]);
+            foreach ($selected_plans as $plan)
+            {
+                $tmp_query = '';
+                if ($first_call == true)
+                {
+                    $first_call = false;
+                    $tmp_query = $tmp_query . ' WHERE authors_publications.plan_id = ' . $plan->plan_id;
+                }
+                else
+                {
+                    $tmp_query = $tmp_query . ' OR authors_publications.plan_id = ' . $plan->plan_id;
+                }
+                $query = $query.$tmp_query;
+            }
+
+        }
+
+        $query = $query.' GROUP BY publications.id';
+        $plans = DB::select($query, [1]);
+
+        if($select_discipline != null && $select_discipline != -1)  //Если выбрали фильтр по дисциплине
+        {
+            $tmp_collection = collect();
+            foreach ($plans as $key => $value)
+            {
+                if ($value->discipline_id == $select_discipline)
+                {
+                    $tmp_collection->push($value);
+                }
+            }
+            $plans = $tmp_collection;
+        }
+
+        if($select_year != null && $select_year != -1)  //Если выбрали фильтр по году
+        {
+            $tmp_collection = collect();
+            foreach ($plans as $key => $value)
+            {
+                if ($value->year_of_publication == $select_year)
+                {
+                    $tmp_collection->push($value);
+                }
+            }
+            $plans = $tmp_collection;
+        }
+        if($select_type != null && $select_type != -1)  //Если выбрали фильтр по типу издания
+        {
+            $tmp_collection = collect();
+            foreach ($plans as $key => $value)
+            {
+                if ($value->type_publication_id == $select_type)
+                {
+                    $tmp_collection->push($value);
+                }
+            }
+            $plans = $tmp_collection;
+        }
+        if($select_chair != null && $select_chair != -1)  //Если выбрали фильтр по кафедре
+        {
+            $tmp_collection = collect();
+            foreach ($plans as $key => $value)
+            {
+                if ($value->chair_id == $select_chair)
+                {
+                    $tmp_collection->push($value);
+                }
+            }
+            $plans = $tmp_collection;
+        }
+
+
+        /*if ($select_author != null && $select_author != -1)
+        {
+            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = '.$select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
+            $selected_plans = DB::select($tmp_query, [1]);
+            $tmp_query = '';
+            foreach ($selected_plans as $plan)
+            {
+                if ($first_call == true)
+                {
+                    $tmp_query = $tmp_query.' LEFT JOIN authors ON authors.id = authors_publications.author_id AND authors_publications.plan_id = '.$plan->plan_id;
+                    $first_call = false;
+                }
+                else
+                {
+                    $tmp_query = $tmp_query.' OR authors_publications.plan_id = '.$plan->plan_id;
+                }
+            }
+            $query = $query.$tmp_query;
+        }
+        else
+        {
+            $tmp_query = 'LEFT JOIN authors ON authors.id = authors_publications.author_id';
+            $query = $query.$tmp_query;
+        }*/
+
+       /* if ($select_year != null) //Если выбрали фильтр по году выпуска
         {
             $tmp_query = '';
             if ($first_call == true)
             {
-                $tmp_query = $tmp_query.' AND publications.year_of_publication = '.$select_year;
+                $tmp_query = $tmp_query.' INNER JOIN authors ON publications.year_of_publication = '.$select_year;
+                $first_call = false;
             }
             else
             {
-                $tmp_query = $tmp_query.' WHERE publications.year_of_publication = '.$select_year;
-                $first_call = true;
+                $tmp_query = $tmp_query.' AND publications.year_of_publication = '.$select_year;
             }
             $query = $query.$tmp_query;
-        }
-        //dd($test);
+        }*/
+
+        /*if ($select_author == null || $select_author == -1 && $select_year == null)
+        {
+            $query = $query.' LEFT JOIN authors
+                    ON authors.id = authors_publications.author_id';
+        }//
 
 
 
@@ -147,14 +233,15 @@ class PublicationPlanController extends Controller
                 ->get();
         }*/
 
-        $query = $query . ' GROUP BY publications.id';
-        dd($query);
-        $plans = DB::select($query, [1]);
         // load the view and pass the plans
         return view('plans.index')->with([
             'plans' => $plans,
             'disciplines' => $disciplines_table,
             'autors' => $autors_table,
+            'chairs' => $chairs_table,
+            'types' => $types_table,
+            'select_chair' => $select_chair,
+            'select_type' => $select_type,
             'select_year' => $select_year,
             'select_author' => $select_author,
             'select_discipline' => $select_discipline,
