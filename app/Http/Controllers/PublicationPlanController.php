@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use App\Author;
 use App\AuthorsPublications;
 use App\Chair;
@@ -65,78 +67,76 @@ class PublicationPlanController extends Controller
 
         if ($select_author != null && $select_author != -1) //Если выбрали фильтр по автору
         {
-            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = '.$select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
+            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = ' . $select_author; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
             $selected_plans = DB::select($tmp_query, [1]);
-            foreach ($selected_plans as $plan)
-            {
+            foreach ($selected_plans as $plan) {
                 $tmp_query = '';
-                if ($first_call == true)
-                {
+                if ($first_call == true) {
                     $first_call = false;
                     $tmp_query = $tmp_query . ' WHERE authors_publications.plan_id = ' . $plan->plan_id;
-                }
-                else
-                {
+                } else {
                     $tmp_query = $tmp_query . ' OR authors_publications.plan_id = ' . $plan->plan_id;
                 }
-                $query = $query.$tmp_query;
+                $query = $query . $tmp_query;
             }
 
         }
 
-        $query = $query.' GROUP BY publications.id';
+        $query = $query . ' GROUP BY publications.id';
         $plans = DB::select($query, [1]);
 
-        if($select_discipline != null && $select_discipline != -1)  //Если выбрали фильтр по дисциплине
+        if ($select_discipline != null && $select_discipline != -1)  //Если выбрали фильтр по дисциплине
         {
             $tmp_collection = collect();
-            foreach ($plans as $key => $value)
-            {
-                if ($value->discipline_id == $select_discipline)
-                {
+            foreach ($plans as $key => $value) {
+                if ($value->discipline_id == $select_discipline) {
                     $tmp_collection->push($value);
                 }
             }
             $plans = $tmp_collection;
         }
 
-        if($select_year != null && $select_year != -1)  //Если выбрали фильтр по году
+        if ($select_year != null && $select_year != -1)  //Если выбрали фильтр по году
         {
             $tmp_collection = collect();
-            foreach ($plans as $key => $value)
-            {
-                if ($value->year_of_publication == $select_year)
-                {
+            foreach ($plans as $key => $value) {
+                if ($value->year_of_publication == $select_year) {
                     $tmp_collection->push($value);
                 }
             }
             $plans = $tmp_collection;
         }
-        if($select_type != null && $select_type != -1)  //Если выбрали фильтр по типу издания
+        if ($select_type != null && $select_type != -1)  //Если выбрали фильтр по типу издания
         {
             $tmp_collection = collect();
-            foreach ($plans as $key => $value)
-            {
-                if ($value->type_publication_id == $select_type)
-                {
+            foreach ($plans as $key => $value) {
+                if ($value->type_publication_id == $select_type) {
                     $tmp_collection->push($value);
                 }
             }
             $plans = $tmp_collection;
         }
-        if($select_chair != null && $select_chair != -1)  //Если выбрали фильтр по кафедре
+        if ($select_chair != null && $select_chair != -1)  //Если выбрали фильтр по кафедре
         {
             $tmp_collection = collect();
-            foreach ($plans as $key => $value)
-            {
-                if ($value->chair_id == $select_chair)
-                {
+            foreach ($plans as $key => $value) {
+                if ($value->chair_id == $select_chair) {
                     $tmp_collection->push($value);
                 }
             }
             $plans = $tmp_collection;
         }
 
+        foreach ($plans as $key => $value) //проверяем, есть ли на сервере файл
+        {
+            $filePath = glob(public_path() . '/docx/Document_id_' . $value->id . '.docx');
+            if ($filePath != null) {
+                $filePath[0] = str_replace(public_path() . '/', '', $filePath[0]);
+                $value->filePath = $filePath[0];
+            } else {
+                $value->filePath = 'none';
+            }
+        }
 
         /*if ($select_author != null && $select_author != -1)
         {
@@ -163,20 +163,20 @@ class PublicationPlanController extends Controller
             $query = $query.$tmp_query;
         }*/
 
-       /* if ($select_year != null) //Если выбрали фильтр по году выпуска
-        {
-            $tmp_query = '';
-            if ($first_call == true)
-            {
-                $tmp_query = $tmp_query.' INNER JOIN authors ON publications.year_of_publication = '.$select_year;
-                $first_call = false;
-            }
-            else
-            {
-                $tmp_query = $tmp_query.' AND publications.year_of_publication = '.$select_year;
-            }
-            $query = $query.$tmp_query;
-        }*/
+        /* if ($select_year != null) //Если выбрали фильтр по году выпуска
+         {
+             $tmp_query = '';
+             if ($first_call == true)
+             {
+                 $tmp_query = $tmp_query.' INNER JOIN authors ON publications.year_of_publication = '.$select_year;
+                 $first_call = false;
+             }
+             else
+             {
+                 $tmp_query = $tmp_query.' AND publications.year_of_publication = '.$select_year;
+             }
+             $query = $query.$tmp_query;
+         }*/
 
         /*if ($select_author == null || $select_author == -1 && $select_year == null)
         {
@@ -248,6 +248,7 @@ class PublicationPlanController extends Controller
         ]);
 
     }
+
     public function create()
     {
         $papers_size = PapersSize::all();
@@ -258,7 +259,7 @@ class PublicationPlanController extends Controller
         $disciplines = Discipline::all();
         $authors = Author::all();
         // load the create form (app/views/plans/create.blade.php)
-        return view('plans.create',[
+        return view('plans.create', [
             'chairs' => $chairs,
             'papers_size' => $papers_size,
             'months' => $months,
@@ -303,9 +304,14 @@ class PublicationPlanController extends Controller
         $plan->is_release = $request->input('is_release');
         $plan->save();
         $newid = Publications::latest()->first()->id;
+        if ($request->hasFile('doc_file')) {
+            $file = $request->file('doc_file');
+            $file->move(public_path() . '/docx', 'Document_id_' . $newid . '.docx');
+        }
+
         $array_authors = $request->input('author_id.*');
-        if(count($array_authors) > 0) {
-            for ($i=0; $i<count($array_authors); $i++) {
+        if (count($array_authors) > 0) {
+            for ($i = 0; $i < count($array_authors); $i++) {
                 $plan_author = new AuthorsPublications();
                 $plan_author->plan_id = $newid;
                 $plan_author->author_id = $array_authors[$i];
@@ -336,31 +342,25 @@ class PublicationPlanController extends Controller
         $plan_authors = DB::table('authors_publications')->where('plan_id', '=', $id)->get();
         $selected_authors = collect();
         $unselected_authors = collect();
-        for ($i = 0; $i < count($authors); $i++)
-        {
-            for ($j = 0; $j < count($plan_authors); $j++)
-            {
-                if($authors[$i]->id == $plan_authors[$j]->author_id)
-                {
-                    $selected_authors->push($authors->slice($i,1));
+        for ($i = 0; $i < count($authors); $i++) {
+            for ($j = 0; $j < count($plan_authors); $j++) {
+                if ($authors[$i]->id == $plan_authors[$j]->author_id) {
+                    $selected_authors->push($authors->slice($i, 1));
                 }
             }
         }
-        for ($i = 0; $i < count($authors); $i++)
-        {
-            for ($j = 0, $selected = false; $j < count($plan_authors); $j++)
-            {
-                if($authors[$i]->id == $plan_authors[$j]->author_id)
-                {
+        for ($i = 0; $i < count($authors); $i++) {
+            for ($j = 0, $selected = false; $j < count($plan_authors); $j++) {
+                if ($authors[$i]->id == $plan_authors[$j]->author_id) {
                     $selected = true;
                 }
             }
-            if($selected == false)
-            {
-                $unselected_authors->push($authors->slice($i,1));
+            if ($selected == false) {
+                $unselected_authors->push($authors->slice($i, 1));
             }
         }
-        return view('plans.edit',[
+
+        return view('plans.edit', [
             'plan' => $plan,
             'chairs' => $chairs,
             'papers_size' => $papers_size,
@@ -396,8 +396,8 @@ class PublicationPlanController extends Controller
         // store
         DB::table('authors_publications')->where('plan_id', '=', $id)->delete();
         $array_authors = $request->input('author_id.*');
-        if(count($array_authors) > 0) {
-            for ($i=0; $i<count($array_authors); $i++) {
+        if (count($array_authors) > 0) {
+            for ($i = 0; $i < count($array_authors); $i++) {
                 $plan_author = new AuthorsPublications();
                 $plan_author->plan_id = $id;
                 $plan_author->author_id = $array_authors[$i];
@@ -418,6 +418,16 @@ class PublicationPlanController extends Controller
         $plan->phone_number = $request->input('phone_number');
         $plan->is_release = $request->input('is_release');
         $plan->save();
+
+        if ($request->hasFile('doc_file')) {
+            $filePath = glob(public_path() . '/docx/Document_id_' . $id . '.docx');
+            if ($filePath != null) {
+                unlink($filePath[0]);
+            }
+            $file = $request->file('doc_file');
+            $file->move(public_path() . '/docx', 'Document_id_' . $id . '.docx');
+        }
+
         // redirect
         Session::flash('message', 'Издание было изменено!');
         return redirect('/plans');
@@ -430,6 +440,10 @@ class PublicationPlanController extends Controller
         // delete
         $plan = Publications::find($id);
         $plan->delete();
+        $filePath = glob(public_path() . '/docx/Document_id_' . $id . '.docx');
+        if ($filePath != null) {
+            unlink($filePath[0]);
+        }
         // redirect
         Session::flash('message', 'Издание было удалено!');
         return redirect('/plans');
