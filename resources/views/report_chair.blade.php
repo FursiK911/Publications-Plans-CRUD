@@ -17,9 +17,10 @@
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по году выпуска</label>
                     <div class="row-fluid">
                         @if($select_year != null)
-                            <input class="form-control" type="text" name="select_year" placeholder="Год выпуска" value="{{ $select_year }}"}}>
+                            <input class="form-control" type="text" name="select_year" placeholder="Год выпуска"
+                                   value="{{ $select_year }}" }}>
                         @else
-                            <input class="form-control" type="text" name="select_year" placeholder="Год выпуска"}}>
+                            <input class="form-control" type="text" name="select_year" placeholder="Год выпуска" }}>
                         @endif
                     </div>
                 </div>
@@ -30,14 +31,8 @@
                     <select class="selectpicker" data-show-subtext="true" data-live-search="true"
                             name="select_chair[]" data-width="100%" multiple="multiple">
                         <option disabled>Выберите метод сортировки</option>
-                        @foreach($chairs as $key => $value)
-                            @foreach($select_chair as $k => $v)
-                                @if($value->id == $v)
-                                    <option selected value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
-                                @else
-                                    <option value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
-                                @endif
-                            @endforeach
+                        @foreach($chairs as $key => $value)n>
+                            <option value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -47,29 +42,29 @@
         </form>
 
 
-    <table class="table table-bordered table-hover my-5">
-    <thead class="thead-dark">
-    <tr>
-        <th scope="col" class="align-middle text-center">Кафедра</th>
-    @foreach($years as $key => $value)
-        @if($select_year != null)
-            <th scope="col" class="align-middle text-center">{{ $value }}</th>
-        @else
-            <th scope="col" class="align-middle text-center">{{ $value->year_of_publication }}</th>
-        @endif
-    @endforeach
-    </tr>
-    </thead>
-    <tbody>
-        @foreach($collection as $key => $value)
-        <tr>
-            <td>{{ $key }}</td>
-            @foreach($value as $k => $v)
-                <td>{{ $v }}</td>
+        <table class="table table-bordered table-hover my-5">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col" class="align-middle text-center">Кафедра</th>
+                @foreach($years as $key => $value)
+                    @if($select_year != null)
+                        <th scope="col" class="align-middle text-center">{{ $value }}</th>
+                    @else
+                        <th scope="col" class="align-middle text-center">{{ $value->year_of_publication }}</th>
+                    @endif
+                @endforeach
+            </tr>
+            </thead>
+            <tbody>
+            @foreach($collection as $key => $value)
+                <tr>
+                    <td>{{ $key }}</td>
+                    @foreach($value as $k => $v)
+                        <td>{{ $v }}</td>
+                    @endforeach
+                </tr>
             @endforeach
-        </tr>
-        @endforeach
-    </tbody>
-    </table>
+            </tbody>
+        </table>
     </div>
 @endsection

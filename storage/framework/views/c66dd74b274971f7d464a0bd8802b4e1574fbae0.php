@@ -76,6 +76,11 @@
                             <?php endif; ?>
                         </div>
                     <?php endif; ?>
+                    <div class="top-right links">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            <?php echo e(Auth::user()->name); ?> <span class="caret"></span>
+                        </a>
+                    </div>
                 </ul>
             </div>
         </nav>
