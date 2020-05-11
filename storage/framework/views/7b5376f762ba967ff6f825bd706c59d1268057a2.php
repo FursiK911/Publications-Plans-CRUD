@@ -158,21 +158,22 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
+                        <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+                            <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
+                            <a class="btn btn-block btn-outline-secondary"
+                               href="/plans/<?php echo e($value->id); ?>/edit">Редактировать</a>
 
-                        <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
-                        <a class="btn btn-block btn-outline-secondary"
-                           href="/plans/<?php echo e($value->id); ?>/edit">Редактировать</a>
+                            <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
+                            <!-- we will add this later since its a little more complicated than the other two buttons -->
+                            <form action="<?php echo e(action('PublicationPlanController@destroy', $value->id)); ?>" method="POST">
 
-                        <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
-                        <!-- we will add this later since its a little more complicated than the other two buttons -->
-                        <form action="<?php echo e(action('PublicationPlanController@destroy', $value->id)); ?>" method="POST">
-
-                            <?php echo method_field('DELETE'); ?>
-                            <?php echo e(csrf_field()); ?>
+                                <?php echo method_field('DELETE'); ?>
+                                <?php echo e(csrf_field()); ?>
 
 
-                            <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
-                        </form>
+                                <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
+                            </form>
+                        <?php endif; ?>
                         <?php if($value->filePath != 'none'): ?>
                             <a class="btn btn-block btn-outline-secondary" href="<?php echo e($value->filePath); ?>">Открыть файл в браузере</a>
                         <?php endif; ?>

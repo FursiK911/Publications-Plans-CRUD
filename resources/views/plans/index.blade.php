@@ -159,20 +159,21 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
+                        @role('admin')
+                            <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
+                            <a class="btn btn-block btn-outline-secondary"
+                               href="/plans/{{ $value->id }}/edit">Редактировать</a>
 
-                        <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
-                        <a class="btn btn-block btn-outline-secondary"
-                           href="/plans/{{ $value->id }}/edit">Редактировать</a>
+                            <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
+                            <!-- we will add this later since its a little more complicated than the other two buttons -->
+                            <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
 
-                        <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
-                        <!-- we will add this later since its a little more complicated than the other two buttons -->
-                        <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
+                                @method('DELETE')
+                                {{ csrf_field() }}
 
-                            @method('DELETE')
-                            {{ csrf_field() }}
-
-                            <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
-                        </form>
+                                <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
+                            </form>
+                        @endrole
                         @if($value->filePath != 'none')
                             <a class="btn btn-block btn-outline-secondary" href="{{$value->filePath}}">Открыть файл в браузере</a>
                         @endif

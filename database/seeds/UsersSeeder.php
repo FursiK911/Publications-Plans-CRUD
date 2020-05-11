@@ -13,6 +13,14 @@ class UsersSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+
+            [   'email' => 'kotenkoVN@mail.ru',
+                'name' => 'Владислав',
+                'last_name' => 'Котенко',
+                'middle_name' => 'Николаевич',
+                'password' => bcrypt('secret'),
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
             [   'email' => 'tolstyh@mail.ru',
                 'name' => 'Виктор',
                 'last_name' => 'Толстых',
@@ -45,13 +53,6 @@ class UsersSeeder extends Seeder
                 'name' => 'Виктория',
                 'last_name' => 'Бондаренко',
                 'middle_name' => 'Витальевна',
-                'password' => bcrypt('secret'),
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-
-            [   'email' => 'kotenkoVN@mail.ru',
-                'name' => 'Владислав',
-                'last_name' => 'Котенко',
-                'middle_name' => 'Николаевич',
                 'password' => bcrypt('secret'),
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
@@ -91,5 +92,13 @@ class UsersSeeder extends Seeder
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
         ]);
+
+        $users = \App\User::all();
+        foreach ($users as $user)
+        {
+            $user->assignRole('user');
+        }
+        $user = \App\User::find(1);
+        $user->assignRole('admin');
     }
 }
