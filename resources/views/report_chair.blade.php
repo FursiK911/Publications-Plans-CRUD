@@ -13,7 +13,7 @@
             {{ csrf_field() }}
 
             <div class="form-row">
-                <div class="col-3 mx-5">
+                <div class="col-sm">
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по году выпуска</label>
                     <div class="row-fluid">
                         @if($select_year != null)
@@ -23,7 +23,26 @@
                         @endif
                     </div>
                 </div>
+
+                <div class="col-sm">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по кафедре</label>
+                    <br>
+                    <select class="selectpicker" data-show-subtext="true" data-live-search="true"
+                            name="select_chair[]" data-width="100%" multiple="multiple">
+                        <option disabled>Выберите метод сортировки</option>
+                        @foreach($chairs as $key => $value)
+                            @foreach($select_chair as $k => $v)
+                                @if($value->id == $v)
+                                    <option selected value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
+                                @else
+                                    <option value="{{ $value->id }}">{{ $value->name_of_chair }}</option>
+                                @endif
+                            @endforeach
+                        @endforeach
+                    </select>
+                </div>
             </div>
+
             <button type="submit" class="btn btn-block btn-dark my-5">Отфильтровать</button>
         </form>
 
@@ -42,25 +61,14 @@
     </tr>
     </thead>
     <tbody>
-    @if($select_year == null)
-        @foreach($chairs as $chairs_key => $chairs_value)
-            <tr>
-                <td>{{ $chairs_value->name_of_chair }}</td>
-                @foreach($collection->get($chairs_value->name_of_chair) as $k => $v)
-                    <td>{{ $v }}</td>
-                @endforeach
-            </tr>
-        @endforeach
-    @else
-        @foreach($chairs as $chairs_key => $chairs_value)
+        @foreach($collection as $key => $value)
         <tr>
-            <td>{{ $chairs_value->name_of_chair }}</td>
-            @foreach($collection->get($chairs_value->name_of_chair) as $k => $v)
+            <td>{{ $key }}</td>
+            @foreach($value as $k => $v)
                 <td>{{ $v }}</td>
             @endforeach
         </tr>
         @endforeach
-    @endif
     </tbody>
     </table>
     </div>

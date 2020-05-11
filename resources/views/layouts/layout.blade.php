@@ -95,8 +95,8 @@
                             <div class="col-md-7">
                                 <div class="row py-0">
                                     <div class="col-sm-11 text-white">
-                                        <div><h4> ...</h4>
-                                            <p><a class="footer_link header-font" href="http://www.donnu.ru/phys/kt">http://www.donnu.ru/phys/kt</a></p>
+                                        <div><h4> Автоматизированная система учета и мониторинга методической деятельности физико-технического факультета</h4>
+                                            <p><a class="footer_link header-font" href="http://www.donnu.ru/phys/kt">http://donnu.ru/phys</a></p>
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                             <div class="col-md-5">
                                 <div class="d-inline-block mx-5">
                                     <div class="bg-circle-outline d-inline-block mx-5" style="background-color:#fff">
-                                        <a class="btn btn-social-icon btn-lg btn-vk" href="https://vk.com/fcl_phys_kkt">
+                                        <a class="btn btn-social-icon btn-lg btn-vk" href="https://vk.com/fcl_phys">
                                             <span class="fa fa-vk"></span>
                                         </a>
                                     </div>
