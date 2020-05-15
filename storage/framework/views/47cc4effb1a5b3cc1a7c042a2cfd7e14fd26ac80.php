@@ -28,7 +28,7 @@
 <?php $__env->startSection('content'); ?>
     <div class="container">
         <div class="content mx-5 my-5">
-            <form class="" action="<?php echo e(action('AdditionsToBaseController@select_table_for_update')); ?>" method="POST">
+            <form class=""  method="POST">
 
                 <?php echo e(csrf_field()); ?>
 
@@ -37,12 +37,15 @@
                     <label for="table" class="sr-only">Таблица</label>
                     <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
                 </div>
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
+                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                     <option disabled>Выберите таблицу</option>
                     <option value="chair">Кафедра</option>
                     <option value="discipline">Дисциплина</option>
                     <option value="type_publication">Вид издания</option>
-                    <option value="name">Автор</option>
+                    <option value="author">Автор</option>
+                    <option value="user">Пользователь</option>
+                </select>
+                <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                 </select>
                 <div class="col my-5">
                     <button type="submit" class="btn btn-block btn-dark">Далее</button>
@@ -50,6 +53,11 @@
             </form>
         </div>
     </div>
+<?php $__env->stopSection(); ?>
+
+<?php $__env->startSection('script'); ?>
+    ##parent-placeholder-cb5346a081dcf654061b7f897ea14d9b43140712##
+    <script src="<?php echo e(asset('js/update_table.js')); ?>"></script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/select-table-for-update-base.blade.php ENDPATH**/ ?>

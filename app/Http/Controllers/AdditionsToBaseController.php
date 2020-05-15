@@ -109,6 +109,88 @@ class AdditionsToBaseController extends Controller
         return redirect('/add-to-base');
     }
 
+    public function update_table_combobox(Request $request)
+    {
+        $select_table = $request->select_table;
+        $values = null;
+        switch ($select_table) {
+            case 'discipline':
+                $values = Discipline::all();
+                $all_tmp_values = collect();
+                $tmp_values = collect();
+
+                foreach ($values as $key => $value)
+                {
+                    $tmp_values->put('key', $value->id);
+                    $tmp_values->put('value', $value->name_of_discipline);
+                    $all_tmp_values->push($tmp_values);
+                    $tmp_values = collect();
+                }
+                $values = $all_tmp_values;
+                break;
+            case 'type_publication':
+                $values = TypeOfPublication::all();
+                $all_tmp_values = collect();
+                $tmp_values = collect();
+
+                foreach ($values as $key => $value)
+                {
+                    $tmp_values->put('key', $value->id);
+                    $tmp_values->put('value', $value->type_publication_name);
+                    $all_tmp_values->push($tmp_values);
+                    $tmp_values = collect();
+                }
+                $values = $all_tmp_values;
+                break;
+            case 'user':
+                $values = User::all();
+                $all_tmp_values = collect();
+                $tmp_values = collect();
+
+                foreach ($values as $key => $value)
+                {
+                    $tmp_values->put('key', $value->id);
+                    $tmp_values->put('value', $value->last_name.' '.$value->name.' '.$value->middle_name);
+                    $all_tmp_values->push($tmp_values);
+                    $tmp_values = collect();
+                }
+                $values = $all_tmp_values;
+                break;
+            case 'author':
+                $values = Author::all();
+                $all_tmp_values = collect();
+                $tmp_values = collect();
+
+                foreach ($values as $key => $value)
+                {
+                    $tmp_values->put('key', $value->id);
+                    $tmp_values->put('value', $value->last_name.' '.$value->name.' '.$value->middle_name);
+                    $all_tmp_values->push($tmp_values);
+                    $tmp_values = collect();
+                }
+                $values = $all_tmp_values;
+                break;
+            case 'chair':
+                $values = Chair::all();
+                $all_tmp_values = collect();
+                $tmp_values = collect();
+
+                foreach ($values as $key => $value)
+                {
+                    $tmp_values->put('key', $value->id);
+                    $tmp_values->put('value', $value->name_of_chair);
+                    $all_tmp_values->push($tmp_values);
+                    $tmp_values = collect();
+                }
+                $values = $all_tmp_values;
+                break;
+        }
+
+
+
+        return $values;
+    }
+
     public function remove()
     {
         return view("select-table-for-remove-from-base");

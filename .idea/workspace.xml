@@ -34,8 +34,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
-        <option value="JavaScript File" />
         <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -200,7 +200,7 @@
       <workItem from="1589235592591" duration="1009000" />
       <workItem from="1589318128449" duration="730000" />
       <workItem from="1589456625321" duration="4293000" />
-      <workItem from="1589563571606" duration="4753000" />
+      <workItem from="1589563571606" duration="10246000" />
     </task>
     <servers />
   </component>
@@ -245,9 +245,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1589567377739" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1588544179727">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1589573502115">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1588544179727" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1589573502115" />
   </component>
 </project>

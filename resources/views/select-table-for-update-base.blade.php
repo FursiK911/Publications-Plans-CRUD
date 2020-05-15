@@ -30,7 +30,7 @@
 @section('content')
     <div class="container">
         <div class="content mx-5 my-5">
-            <form class="" action="{{ action('AdditionsToBaseController@select_table_for_update') }}" method="POST">
+            <form class=""  method="POST">
 
                 {{ csrf_field() }}
 
@@ -38,12 +38,15 @@
                     <label for="table" class="sr-only">Таблица</label>
                     <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
                 </div>
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
+                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                     <option disabled>Выберите таблицу</option>
                     <option value="chair">Кафедра</option>
                     <option value="discipline">Дисциплина</option>
                     <option value="type_publication">Вид издания</option>
-                    <option value="name">Автор</option>
+                    <option value="author">Автор</option>
+                    <option value="user">Пользователь</option>
+                </select>
+                <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
                 </select>
                 <div class="col my-5">
                     <button type="submit" class="btn btn-block btn-dark">Далее</button>
@@ -51,4 +54,9 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('script')
+    @parent
+    <script src="{{ asset('js/update_table.js') }}"></script>
 @endsection
