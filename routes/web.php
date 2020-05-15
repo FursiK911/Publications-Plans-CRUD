@@ -30,6 +30,7 @@ Route::middleware(['role'])->group(function () {
     Route::post('update-base', 'AdditionsToBaseController@update');
     Route::get('report_chair', 'ReportController@ReportForChair');
     Route::get('report_type_publication', 'ReportController@ReportForTypePublication');
+    Route::get('edit_users', 'ReportController@ReportForTypePublication');
 });
 
 

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Controllers;
+use App\Author;
 use App\Chair;
 use App\Cover;
 use App\Discipline;
@@ -29,40 +30,82 @@ class AdditionsToBaseController extends Controller
 
     public function store(Request $request)
     {
-        // validate
-        $request->validate([
-            'data' => 'required',
-        ]);
         //what table we need
         $select_table = $request->input('table');
         switch ($select_table) {
             case 'discipline':
+                // validate
+                $request->validate([
+                    'field_1' => 'required',
+                ]);
                 $discipline = new Discipline();
-                $discipline->name_of_discipline = $request->input('data');
+                $discipline->name_of_discipline = $request->input('field_1');
                 $discipline->save();
+                Session::flash('message', 'Дисциплина успешно создана!');
                 break;
             case 'type_publication':
+                // validate
+                $request->validate([
+                    'field_1' => 'required',
+                ]);
                 $type = new TypeOfPublication();
-                $type->type_of_publication = $request->input('data');
+                $type->type_of_publication = $request->input('field_1');
                 $type->save();
+                Session::flash('message', 'Новый вид публикаций успешно создан!');
                 break;
-            case 'name':
+            case 'user':
+                // validate
+                $request->validate([
+                    'field_1' => 'required',
+                    'field_2' => 'required',
+                    'field_3' => 'required',
+                    'field_4' => 'required',
+                    'field_5' => 'required',
+                    'field_6' => 'required',
+                ]);
+                if($request->input('field_2') != $request->input('field_3')) //check confirm password
+                {
+                    Session::flash('error', 'Пароль и подтверждение пароля не совпадают!');
+                    return redirect('/add-to-base');
+                }
                 $user = new User();
-                $user->name = $request->input('data');
+                $user->email = $request->input('field_1');
+                $user->password = bcrypt($request->input('field_2'));
+                $user->last_name = $request->input('field_4');
+                $user->name = $request->input('field_5');
+                $user->middle_name = $request->input('field_6');
                 $user->save();
+                Session::flash('message', 'Пользователь успешно создан!');
                 break;
-            case 'chair':
+            case 'author':
+                // validate
+                $request->validate([
+                    'field_1' => 'required',
+                    'field_2' => 'required',
+                    'field_3' => 'required',
+                ]);
+
+                $author = new Author();
+                $author->last_name = $request->input('field_1');
+                $author->name = $request->input('field_2');
+                $author->middle_name = $request->input('field_3');
+                $author->save();
+                Session::flash('message', 'Автор успешно создан!');
+                break;
+            case 'chair':// validate
+                $request->validate([
+                    'field_1' => 'required',
+                ]);
                 $chair = new Chair();
-                $chair->name_of_chair = $request->input('data');
+                $chair->name_of_chair = $request->input('field_1');
                 $chair->save();
+                Session::flash('message', 'Кафедра успешно создана!');
                 break;
             default:
                 Session::flash('message', 'Что-то пошло не так. Данные не сохранены!');
                 return redirect('/add-to-base');
                 break;
         }
-        // redirect
-        Session::flash('message', 'Новые данные добавлены!');
         return redirect('/add-to-base');
     }
 
