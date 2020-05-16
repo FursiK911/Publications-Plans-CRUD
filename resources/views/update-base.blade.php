@@ -10,6 +10,22 @@
     <h1 class="text-center my-3">Обновить информацию в таблицу</h1>
 @endsection
 
+@section('message')
+    <!-- will be used to show any messages -->
+    @if (Session::has('message'))
+        <div class="alert alert-info">{{ Session::get('message') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+@endsection
 
 @section('content')
     <div class="container">
@@ -20,82 +36,82 @@
 
                 <div class="form-row">
                     <div class="col-6 my-3">
-                        <input class="form-control" type="text" name="id" value="ID = {{$id}}"disabled>
+                        <input class="hideForm form-control" type="text" name="id" value="{{$id}}" readonly>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="col-6 my-3">
-                        <input class="form-control" type="text" name="select_data" value="Table = {{$select_data}}"disabled>
+                        <input class="hideForm form-control" type="text" name="select_data" value="{{$select_data}}" readonly>
                     </div>
                 </div>
                 @switch($select_data)
                     @case('discipline')
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Название дисциплины" value="{{$data[0]}}">
+                            <input class="form-control" type="text" name="discipline" placeholder="Название дисциплины" value="{{$data[0]}}">
                         </div>
                     </div>
                     @break
                     @case('type_publication')
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Название вида издания" value="{{$data[0]}}">
+                            <input class="form-control" type="text" name="type_publication" placeholder="Название вида издания" value="{{$data[0]}}">
                         </div>
                     </div>
                     @break
                     @case('user')
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Email" value="{{ $data[0] }}">
+                            <input class="form-control" type="text" name="user_email" placeholder="Email" value="{{ $data[0] }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="password" name="data" placeholder="Пароль">
+                            <input class="form-control" type="password" name="user_password" placeholder="Пароль">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="password" name="data" placeholder="Подтверждение пароля">
+                            <input class="form-control" type="password" name="user_password_confirm" placeholder="Подтверждение пароля">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="{{ $data[1] }}">
+                            <input class="form-control" type="text" name="user_last_name" placeholder="Фамилия" value="{{ $data[1] }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Имя" value="{{ $data[2] }}">
+                            <input class="form-control" type="text" name="user_name" placeholder="Имя" value="{{ $data[2] }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="{{ $data[3] }}">
+                            <input class="form-control" type="text" name="user_middle_name" placeholder="Отчество" value="{{ $data[3] }}">
                         </div>
                     </div>
                     @break
                     @case('author')
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="{{ $data[0] }}">
+                            <input class="form-control" type="text" name="author_last_name" placeholder="Фамилия" value="{{ $data[0] }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Имя" value="{{ $data[1] }}">
+                            <input class="form-control" type="text" name="author_name" placeholder="Имя" value="{{ $data[1] }}">
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="{{ $data[2] }}">
+                            <input class="form-control" type="text" name="author_middle_name" placeholder="Отчество" value="{{ $data[2] }}">
                         </div>
                     </div>
                     @break
                     @case('chair')
                     <div class="form-row">
                         <div class="col-6 my-3">
-                            <input class="form-control" type="text" name="data" placeholder="Название кафедры" value="{{$data[0]}}">
+                            <input class="form-control" type="text" name="chair" placeholder="Название кафедры" value="{{$data[0]}}">
                         </div>
                     </div>
                     @break

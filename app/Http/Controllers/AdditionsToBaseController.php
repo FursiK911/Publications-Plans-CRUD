@@ -231,6 +231,85 @@ class AdditionsToBaseController extends Controller
         ]);
     }
 
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        switch ($request->input('select_data')) {
+            case 'discipline':
+                $request->validate([
+                    'discipline' => 'required',
+                ]);
+                $discipline = Discipline::find($id);
+                $old_name = $discipline->name_of_discipline;
+                $discipline->name_of_discipline = $request->input('discipline');
+                $new_name = $discipline->name_of_discipline;
+                $discipline->save();
+                break;
+            case 'type_publication':
+                $request->validate([
+                    'type_publication' => 'required',
+                ]);
+                $type = TypeOfPublication::find($id);
+                $old_name = $type->type_publication_name;
+                $type->type_publication_name = $request->input('type_publication');
+                $new_name = $type->type_publication_name;
+                $type->save();
+                break;
+            case 'user':
+                $request->validate([
+                    'user_email' => 'required',
+                    'user_password' => 'required',
+                    'user_password_confirm' => 'required',
+                    'user_last_name' => 'required',
+                    'user_name' => 'required',
+                    'user_middle_name' => 'required',
+                ]);
+                if($request->input('user_password') != $request->input('user_password_confirm'))
+                {
+                    Session::flash('error', 'Пароль и подтверждение пароля не совпадают!');
+                    return redirect('/update-base');
+                }
+                $user = User::find($id);
+                $old_name = $user->name;
+                $user->email = $request->input('user_email');
+                $user->last_name = $request->input('user_password');
+                $user->last_name = $request->input('user_password_confirm');
+                $user->last_name = $request->input('user_last_name');
+                $user->name = $request->input('user_name');
+                $user->middle_name = $request->input('user_middle_name');
+                $new_name = $user->name;
+                $user->save();
+                break;
+            case 'author':
+                $request->validate([
+                    'author_last_name' => 'required',
+                    'author_name' => 'required',
+                    'author_middle_name' => 'required',
+                ]);
+                $autor = Author::find($id);
+                $old_name = $autor->name;
+                $autor->last_name = $request->input('author_last_name');
+                $autor->name = $request->input('author_name');
+                $autor->middle_name = $request->input('author_middle_name');
+                $new_name = $autor->name;
+                $autor->save();
+                break;
+            case 'chair':
+                $request->validate([
+                    'chair' => 'required',
+                ]);
+                $chair = Chair::find($id);
+                $old_name = $chair->name_of_chair;
+                $chair->name_of_chair = $request->input('chair');
+                $new_name = $chair->name_of_chair;
+                $chair->save();
+                break;
+        }
+        //Session::flash('message', $old_name . ' изменён на ' . $new_name);
+        Session::flash('message', 'Изменения сохранены!');
+        return redirect('/select-table-for-update-base');
+    }
+
     public function remove()
     {
         return view("select-table-for-remove-from-base");
@@ -341,49 +420,5 @@ class AdditionsToBaseController extends Controller
         }
     }
 
-    public function update(Request $request)
-    {
-        // validate
-        $request->validate([
-            'data' => 'required',
-        ]);
-        $id_table = substr($request->input('element'), 0, 1);
-        $data = $request->input('data');
-        $id = substr($request->input('element'), 1);
-        switch ($id_table) {
-            case 'discipline':
-                $discipline = Discipline::find($id);
-                $old_name = $discipline->name_of_discipline;
-                $discipline->name_of_discipline = $data;
-                $new_name = $discipline->name_of_discipline;
-                $discipline->save();
-                break;
-            case 'type_of_publication':
-                $type = TypeOfPublication::find($id);
-                $old_name = $type->type_publication_name;
-                $type->type_publication_name = $data;
-                $new_name = $type->type_publication_name;
-                $type->save();
-                break;
-            case 'user':
-                $autor = User::find($id);
-                $old_name = $autor->name;
-                $autor->name = $data;
-                $new_name = $autor->name;
-                $autor->save();
-                break;
-            case 'author':
 
-                break;
-            case 'chair':
-                $chair = Chair::find($id);
-                $old_name = $chair->name_of_chair;
-                $chair->name_of_chair = $data;
-                $new_name = $chair->name_of_chair;
-                $chair->save();
-                break;
-        }
-        Session::flash('message', $old_name . ' изменён на ' . $new_name);
-        return redirect('/select-table-for-update-base');
-    }
 }
