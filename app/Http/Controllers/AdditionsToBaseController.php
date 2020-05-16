@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Author;
+use App\AuthorsPublications;
 use App\Chair;
 use App\Cover;
 use App\Discipline;
@@ -59,6 +60,7 @@ class AdditionsToBaseController extends Controller
                     'field_1' => 'required',
                     'field_2' => 'required',
                     'field_3' => 'required',
+                    'type_user' => 'required',
                     'field_4' => 'required',
                     'field_5' => 'required',
                     'field_6' => 'required',
@@ -74,6 +76,18 @@ class AdditionsToBaseController extends Controller
                 $user->last_name = $request->input('field_4');
                 $user->name = $request->input('field_5');
                 $user->middle_name = $request->input('field_6');
+                switch ($request->input('type_user'))
+                {
+                    case 'administrator':
+                        $user->assignRole('administrator');
+                        break;
+                    case 'moderator':
+                        $user->assignRole('moderator');
+                        break;
+                    case 'user':
+                        $user->assignRole('user');
+                        break;
+                }
                 $user->save();
                 Session::flash('message', 'Пользователь успешно создан!');
                 break;
@@ -272,8 +286,7 @@ class AdditionsToBaseController extends Controller
                 $user = User::find($id);
                 $old_name = $user->name;
                 $user->email = $request->input('user_email');
-                $user->last_name = $request->input('user_password');
-                $user->last_name = $request->input('user_password_confirm');
+                $user->password = bcrypt($request->input('user_password'));
                 $user->last_name = $request->input('user_last_name');
                 $user->name = $request->input('user_name');
                 $user->middle_name = $request->input('user_middle_name');
@@ -315,53 +328,65 @@ class AdditionsToBaseController extends Controller
         return view("select-table-for-remove-from-base");
     }
 
-    public function select_table_remove(Request $request)
-    {
-        $select_table = $request->input('table');
-        $collection = array();
-        switch ($select_table) {
-            case 'discipline':
-                $table = Discipline::all();
-                $number_table = 1;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name_of_discipline;
-                }
-                break;
-            case 'type_publication':
-                $table = TypeOfPublication::all();
-                $number_table = 2;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->type_publication_name;
-                }
-                break;
-            case 'name':
-                $table = User::all();
-                $number_table = 3;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name;
-                }
-                break;
-            case 'chair':
-                $table = Chair::all();
-                $number_table = 4;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name_of_chair;
-                }
-                break;
-            default:
-                Session::flash('message', 'Что-то пошло не так. Таблицы не существует!');
-                return redirect('/select-table-for-remove-from-base');
-                break;
-        }
-        return view("remove-from-base")->with([
-            'values' => $collection,
-            'select_table' => $number_table,
-        ]);
-    }
-
     public function destroy(Request $request)
     {
-        $elements = $request->input('elements.*');
+        $request->validate([
+            'id' => 'required',
+        ]);
+
+        $id = $request->input('id');
+        switch ($request->input('select_table')) {
+            case 'discipline':
+                $discipline = Discipline::find($id);
+                $plans = Publications::all()->where('discipline_id', '=', $id);
+                foreach ($plans as $key => $value) {
+                    $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
+                    $value->delete();
+                }
+                $discipline->delete();
+                break;
+            case 'type_publication':
+                $plans = Publications::all()->where('type_publication_id', '=', $id);
+                foreach ($plans as $key => $value) {
+                    $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
+                    $value->delete();
+                }
+                $type = TypeOfPublication::find($id);
+                $name_element = $type->type_publication_name;
+                $type->delete();
+                break;
+            case 'user':
+                $user = User::find($id);
+                $user->delete();
+                DB::table('model_has_roles')->where('model_id', '=', $id)->delete();
+                break;
+            case 'author':
+                $user_publications = AuthorsPublications::all()->where('author_id', '=', $id);
+                $deletedRows = AuthorsPublications::where('author_id', '=', $id)->delete();
+                foreach ($user_publications as $key => $value) {
+                    $count_publication = AuthorsPublications::all()->where('plan_id', '=', $value->plan_id)->count();
+                    if ($count_publication == 0) {
+                        $deletedRows = Publications::where('id', '=', $value->plan_id)->delete();
+                    }
+                }
+                $autor = Author::find($id);
+                $name_element = $autor->name;
+                $autor->delete();
+                break;
+            case 'chair':
+                $plans = Publications::all()->where('chair_id', '=', $id);
+                foreach ($plans as $key => $value) {
+                    $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
+                    $value->delete();
+                }
+                $chair = Chair::find($id);
+                $chair->delete();
+                break;
+        }
+        Session::flash('message', 'Данные удалены!');
+        return redirect('/select-table-for-remove-from-base');
+    }
+        /*$elements = $request->input('elements.*');
         if (count($elements) > 0) {
             for ($i = 0; $i < count($elements); $i++) {
                 $element = substr($elements[$i], 0, 1);
@@ -417,8 +442,6 @@ class AdditionsToBaseController extends Controller
             }
             Session::flash('message', 'Данные об ' . $name_element . ' и все связанные с ним(-и) данные были удалены!');
             return redirect('/select-table-for-remove-from-base');
-        }
+
+        }*/
     }
-
-
-}

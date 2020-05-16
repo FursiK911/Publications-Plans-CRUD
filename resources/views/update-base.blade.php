@@ -75,6 +75,7 @@
                             <input class="form-control" type="password" name="user_password_confirm" placeholder="Подтверждение пароля">
                         </div>
                     </div>
+
                     <div class="form-row">
                         <div class="col-6 my-3">
                             <input class="form-control" type="text" name="user_last_name" placeholder="Фамилия" value="{{ $data[1] }}">

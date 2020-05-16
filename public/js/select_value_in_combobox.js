@@ -1,9 +1,10 @@
 jQuery('document').ready(function () {
     var table = jQuery('#table_combobox');
     jQuery('#field_1').show();
+    jQuery('#table_combobox_2').hide();
     jQuery('#field_1').attr('placeholder','Название кафедры');
     jQuery('#field_1').val('');
-    jQuery('select').on('change',function () {
+    table.on('change',function () {
 
         var selected_value = table.val();
 
@@ -13,6 +14,7 @@ jQuery('document').ready(function () {
         jQuery('#field_4').hide();
         jQuery('#field_5').hide();
         jQuery('#field_6').hide();
+        jQuery('#table_combobox_2').hide();
 
         jQuery('#field_1').val('');
         jQuery('#field_2').val('');
@@ -44,6 +46,7 @@ jQuery('document').ready(function () {
                 //alert('type_publication');
                 break;
             case 'user':
+                jQuery('#table_combobox_2').show();
                 jQuery('#field_1').show();
                 jQuery('#field_1').val('');
                 jQuery('#field_1').attr('placeholder','Email');

@@ -42,7 +42,7 @@
                         <a class="nav-link" href="{{ url('/plans/create') }}">Новое издание</a>
                     </label>
                 </li>
-                @role('admin')
+                @role('administrator')
                 <li class="nav-item dropdown">
                     <label class="btn btn-secondary" href="#" id="navbarDropdown" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">

@@ -89,8 +89,13 @@ class CreatePermissionTables extends Migration
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
 
-        $role = Role::create(['name' => 'admin']);
+        $role = Role::create(['name' => 'administrator']);
         $permission = Permission::create(['name' => 'anything']);
+        $role->givePermissionTo($permission);
+        $permission->assignRole($role);
+
+        $role = Role::create(['name' => 'moderator']);
+        $permission = Permission::create(['name' => 'edit_publication']);
         $role->givePermissionTo($permission);
         $permission->assignRole($role);
 

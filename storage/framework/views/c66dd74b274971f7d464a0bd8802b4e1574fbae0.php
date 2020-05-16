@@ -42,7 +42,7 @@
                         <a class="nav-link" href="<?php echo e(url('/plans/create')); ?>">Новое издание</a>
                     </label>
                 </li>
-                <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+                <?php if(auth()->check() && auth()->user()->hasRole('administrator')): ?>
                 <li class="nav-item dropdown">
                     <label class="btn btn-secondary" href="#" id="navbarDropdown" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">

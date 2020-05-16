@@ -21,7 +21,7 @@ class CheckRole
         $roles = $user->getRoleNames(); // Returns a collection
         foreach ($roles as $id => $name_role)
         {
-            if($name_role == 'admin')
+            if($name_role == 'administrator')
             {
                 return $next($request);
             }

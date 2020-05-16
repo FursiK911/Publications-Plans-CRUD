@@ -99,6 +99,6 @@ class UsersSeeder extends Seeder
             $user->assignRole('user');
         }
         $user = \App\User::find(1);
-        $user->assignRole('admin');
+        $user->assignRole('administrator');
     }
 }

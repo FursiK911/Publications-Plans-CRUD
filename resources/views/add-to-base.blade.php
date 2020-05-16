@@ -55,6 +55,14 @@
                         <input id="field_1" class="form-control" type="text" name="field_1">
                         <input id="field_2" class="form-control" type="text" name="field_2">
                         <input id="field_3" class="form-control" type="text" name="field_3">
+                        <div id="table_combobox_2">
+                            <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="type_user" data-width="100%">
+                                <option disabled>Выдайте роль пользователю</option>
+                                <option value="user">Пользователь</option>
+                                <option value="moderator">Модератор</option>
+                                <option value="administrator">Администратор</option>
+                            </select>
+                        </div>
                         <input id="field_4" class="form-control" type="text" name="field_4">
                         <input id="field_5" class="form-control" type="text" name="field_5">
                         <input id="field_6" class="form-control" type="text" name="field_6">
