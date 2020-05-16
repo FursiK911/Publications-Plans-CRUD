@@ -226,6 +226,40 @@ class AdditionsToBaseController extends Controller
                 $data->push($user->last_name);
                 $data->push($user->name);
                 $data->push($user->middle_name);
+
+                //т.к. присутствует несколько ролей, нужно перебрать от высшего к низшему
+                $roles = $user->getRoleNames(); // Returns a collection
+                $role_found = false;
+                foreach ($roles as $id => $name_role)
+                {
+                    if($name_role == 'administrator')
+                    {
+                        $data->push($name_role);
+                        $role_found = true;
+                        break;
+                    }
+                }
+                if($role_found == false)
+                {
+                    foreach ($roles as $id => $name_role)
+                    {
+                        if($name_role == 'moderator')
+                        {
+                            $data->push($name_role);
+                            $role_found = true;
+                            break;
+                        }
+                    }
+                }
+                if($role_found == false) {
+                    foreach ($roles as $id => $name_role) {
+                        if ($name_role == 'user') {
+                            $data->push($name_role);
+                            $role_found = true;
+                            break;
+                        }
+                    }
+                }
                 break;
             case 'author':
                 $author = Author::find($request->data);
@@ -272,13 +306,14 @@ class AdditionsToBaseController extends Controller
             case 'user':
                 $request->validate([
                     'user_email' => 'required',
-                    'user_password' => 'required',
-                    'user_password_confirm' => 'required',
+                    'type_user' => 'required',
                     'user_last_name' => 'required',
                     'user_name' => 'required',
                     'user_middle_name' => 'required',
                 ]);
-                if($request->input('user_password') != $request->input('user_password_confirm'))
+                $password = $request->input('user_password');
+                $password_confirm = $request->input('user_password_confirm');
+                if($password != $password_confirm)
                 {
                     Session::flash('error', 'Пароль и подтверждение пароля не совпадают!');
                     return redirect('/update-base');
@@ -286,11 +321,16 @@ class AdditionsToBaseController extends Controller
                 $user = User::find($id);
                 $old_name = $user->name;
                 $user->email = $request->input('user_email');
-                $user->password = bcrypt($request->input('user_password'));
+                if($password != '' || $password != null)
+                {
+                    $user->password = bcrypt($request->input('user_password'));
+                }
                 $user->last_name = $request->input('user_last_name');
                 $user->name = $request->input('user_name');
                 $user->middle_name = $request->input('user_middle_name');
                 $new_name = $user->name;
+                DB::table('model_has_roles')->where('model_id', '=', $id)->delete();
+                $user->assignRole($request->input('type_user'));
                 $user->save();
                 break;
             case 'author':

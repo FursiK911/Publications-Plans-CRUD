@@ -1,4 +1,4 @@
-@extends('select-table-for-update-base')
+@extends('layouts.layout')
 
 @section('head')
     @parent
@@ -35,83 +35,105 @@
                 {{ csrf_field() }}
 
                 <div class="form-row">
-                    <div class="col-6 my-3">
+                    <div class="col-12 my-3">
                         <input class="hideForm form-control" type="text" name="id" value="{{$id}}" readonly>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-6 my-3">
+                    <div class="col-12 my-3">
                         <input class="hideForm form-control" type="text" name="select_data" value="{{$select_data}}" readonly>
                     </div>
                 </div>
                 @switch($select_data)
                     @case('discipline')
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="discipline" placeholder="Название дисциплины" value="{{$data[0]}}">
                         </div>
                     </div>
                     @break
                     @case('type_publication')
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="type_publication" placeholder="Название вида издания" value="{{$data[0]}}">
                         </div>
                     </div>
                     @break
                     @case('user')
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_email" placeholder="Email" value="{{ $data[0] }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="password" name="user_password" placeholder="Пароль">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="password" name="user_password_confirm" placeholder="Подтверждение пароля">
                         </div>
                     </div>
+                    <div id="table_combobox_2">
+                        <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="type_user" data-width="100%">
+                            <option disabled>Выдайте роль пользователю</option>
 
+                            @if($data[4] == 'user')
+                                <option selected value="user">Пользователь</option>
+                            @else
+                                <option value="user">Пользователь</option>
+                            @endif
+
+                            @if($data[4] == 'moderator')
+                                <option selected value="moderator">Модератор</option>
+                            @else
+                                <option value="moderator">Модератор</option>
+                            @endif
+
+                            @if($data[4] == 'administrator')
+                                <option selected value="administrator">Администратор</option>
+                            @else
+                                <option value="administrator">Администратор</option>
+                            @endif
+                        </select>
+                    </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_last_name" placeholder="Фамилия" value="{{ $data[1] }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_name" placeholder="Имя" value="{{ $data[2] }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_middle_name" placeholder="Отчество" value="{{ $data[3] }}">
                         </div>
                     </div>
                     @break
                     @case('author')
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_last_name" placeholder="Фамилия" value="{{ $data[0] }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_name" placeholder="Имя" value="{{ $data[1] }}">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_middle_name" placeholder="Отчество" value="{{ $data[2] }}">
                         </div>
                     </div>
                     @break
                     @case('chair')
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="chair" placeholder="Название кафедры" value="{{$data[0]}}">
                         </div>
                     </div>

@@ -34,82 +34,105 @@
 
 
                 <div class="form-row">
-                    <div class="col-6 my-3">
+                    <div class="col-12 my-3">
                         <input class="hideForm form-control" type="text" name="id" value="<?php echo e($id); ?>" readonly>
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-6 my-3">
+                    <div class="col-12 my-3">
                         <input class="hideForm form-control" type="text" name="select_data" value="<?php echo e($select_data); ?>" readonly>
                     </div>
                 </div>
                 <?php switch($select_data):
                     case ('discipline'): ?>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="discipline" placeholder="Название дисциплины" value="<?php echo e($data[0]); ?>">
                         </div>
                     </div>
                     <?php break; ?>
                     <?php case ('type_publication'): ?>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="type_publication" placeholder="Название вида издания" value="<?php echo e($data[0]); ?>">
                         </div>
                     </div>
                     <?php break; ?>
                     <?php case ('user'): ?>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_email" placeholder="Email" value="<?php echo e($data[0]); ?>">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="password" name="user_password" placeholder="Пароль">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="password" name="user_password_confirm" placeholder="Подтверждение пароля">
                         </div>
                     </div>
+                    <div id="table_combobox_2">
+                        <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="type_user" data-width="100%">
+                            <option disabled>Выдайте роль пользователю</option>
+
+                            <?php if($data[4] == 'user'): ?>
+                                <option selected value="user">Пользователь</option>
+                            <?php else: ?>
+                                <option value="user">Пользователь</option>
+                            <?php endif; ?>
+
+                            <?php if($data[4] == 'moderator'): ?>
+                                <option selected value="moderator">Модератор</option>
+                            <?php else: ?>
+                                <option value="moderator">Модератор</option>
+                            <?php endif; ?>
+
+                            <?php if($data[4] == 'administrator'): ?>
+                                <option selected value="administrator">Администратор</option>
+                            <?php else: ?>
+                                <option value="administrator">Администратор</option>
+                            <?php endif; ?>
+                        </select>
+                    </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_last_name" placeholder="Фамилия" value="<?php echo e($data[1]); ?>">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_name" placeholder="Имя" value="<?php echo e($data[2]); ?>">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="user_middle_name" placeholder="Отчество" value="<?php echo e($data[3]); ?>">
                         </div>
                     </div>
                     <?php break; ?>
                     <?php case ('author'): ?>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_last_name" placeholder="Фамилия" value="<?php echo e($data[0]); ?>">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_name" placeholder="Имя" value="<?php echo e($data[1]); ?>">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="author_middle_name" placeholder="Отчество" value="<?php echo e($data[2]); ?>">
                         </div>
                     </div>
                     <?php break; ?>
                     <?php case ('chair'): ?>
                     <div class="form-row">
-                        <div class="col-6 my-3">
+                        <div class="col-12 my-3">
                             <input class="form-control" type="text" name="chair" placeholder="Название кафедры" value="<?php echo e($data[0]); ?>">
                         </div>
                     </div>
@@ -121,4 +144,4 @@
     </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('select-table-for-update-base', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/update-base.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH W:\domains\Coursework\resources\views/update-base.blade.php ENDPATH**/ ?>

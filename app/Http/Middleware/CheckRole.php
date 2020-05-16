@@ -26,7 +26,7 @@ class CheckRole
                 return $next($request);
             }
         }
-        Session::flash('message', 'Извините, но у вас недостаточно прав для посещения данной страницы');
+        Session::flash('error', 'Извините, но у вас недостаточно прав для посещения данной страницы');
         return redirect('/plans');
     }
 }
