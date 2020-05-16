@@ -185,10 +185,50 @@ class AdditionsToBaseController extends Controller
                 $values = $all_tmp_values;
                 break;
         }
-
-
-
         return $values;
+    }
+
+    public function change()
+    {
+        return view("select-table-for-update-base");
+    }
+
+    public function select_data_for_update(Request $request)
+    {
+        $select_data = $request->select_data;
+        $data = collect();
+        switch ($select_data) {
+            case 'discipline':
+                $discipline = Discipline::find($request->data);
+                $data->push($discipline->name_of_discipline);
+                break;
+            case 'type_publication':
+                $type_publication = TypeOfPublication::find($request->data);
+                $data->push($type_publication->type_publication_name);
+                break;
+            case 'user':
+                $user = User::find($request->data);
+                $data->push($user->email);
+                $data->push($user->last_name);
+                $data->push($user->name);
+                $data->push($user->middle_name);
+                break;
+            case 'author':
+                $author = Author::find($request->data);
+                $data->push($author->last_name);
+                $data->push($author->name);
+                $data->push($author->middle_name);
+                break;
+            case 'chair':
+                $chair = Chair::find($request->data);
+                $data->push($chair->name_of_chair);
+                break;
+        }
+        return view("update-base")->with([
+            'select_data' => $select_data,
+            'data' => $data,
+            'id' => $request->data,
+        ]);
     }
 
     public function remove()
@@ -301,55 +341,6 @@ class AdditionsToBaseController extends Controller
         }
     }
 
-    public function change()
-    {
-        return view("select-table-for-update-base");
-    }
-
-    public function select_table_for_update(Request $request)
-    {
-        $select_table = $request->input('table');
-        $collection = array();
-        switch ($select_table) {
-            case 'discipline':
-                $table = Discipline::all();
-                $number_table = 1;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name_of_discipline;
-                }
-                break;
-            case 'type_publication':
-                $table = TypeOfPublication::all();
-                $number_table = 2;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->type_publication_name;
-                }
-                break;
-            case 'name':
-                $table = User::all();
-                $number_table = 3;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name;
-                }
-                break;
-            case 'chair':
-                $table = Chair::all();
-                $number_table = 4;
-                foreach ($table as $value) {
-                    $collection[$value->id] = $value->name_of_chair;
-                }
-                break;
-            default:
-                Session::flash('message', 'Что-то пошло не так. Таблицы не существует!');
-                return redirect('/select-table-for-update-base');
-                break;
-        }
-        return view("update-base")->with([
-            'values' => $collection,
-            'select_table' => $number_table,
-        ]);
-    }
-
     public function update(Request $request)
     {
         // validate
@@ -360,28 +351,31 @@ class AdditionsToBaseController extends Controller
         $data = $request->input('data');
         $id = substr($request->input('element'), 1);
         switch ($id_table) {
-            case 1:
+            case 'discipline':
                 $discipline = Discipline::find($id);
                 $old_name = $discipline->name_of_discipline;
                 $discipline->name_of_discipline = $data;
                 $new_name = $discipline->name_of_discipline;
                 $discipline->save();
                 break;
-            case 2:
+            case 'type_of_publication':
                 $type = TypeOfPublication::find($id);
                 $old_name = $type->type_publication_name;
                 $type->type_publication_name = $data;
                 $new_name = $type->type_publication_name;
                 $type->save();
                 break;
-            case 3:
+            case 'user':
                 $autor = User::find($id);
                 $old_name = $autor->name;
                 $autor->name = $data;
                 $new_name = $autor->name;
                 $autor->save();
                 break;
-            case 4:
+            case 'author':
+
+                break;
+            case 'chair':
                 $chair = Chair::find($id);
                 $old_name = $chair->name_of_chair;
                 $chair->name_of_chair = $data;

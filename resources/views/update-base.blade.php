@@ -18,24 +18,89 @@
 
                 {{ csrf_field() }}
 
-                <div class="col-0 my-3">
-                    <label for="table" class="sr-only">Таблица</label>
-                    <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
-                </div>
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="element" data-width="100%">
-                    <option disabled>Выберите данные</option>
-                    @foreach($values as $key => $value)
-                        <option value="{{ $select_table.$key }}">{{ $value }}</option>
-                    @endforeach
-                </select>
                 <div class="form-row">
                     <div class="col-6 my-3">
-                        <input class="form-control" type="text" name="data" placeholder="Новые данные">
-                    </div>
-                    <div class="col mx-5 my-3">
-                        <button type="submit" class="btn btn-dark mb-2">Обновить</button>
+                        <input class="form-control" type="text" name="id" value="ID = {{$id}}"disabled>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-6 my-3">
+                        <input class="form-control" type="text" name="select_data" value="Table = {{$select_data}}"disabled>
+                    </div>
+                </div>
+                @switch($select_data)
+                    @case('discipline')
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название дисциплины" value="{{$data[0]}}">
+                        </div>
+                    </div>
+                    @break
+                    @case('type_publication')
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название вида издания" value="{{$data[0]}}">
+                        </div>
+                    </div>
+                    @break
+                    @case('user')
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Email" value="{{ $data[0] }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="password" name="data" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="password" name="data" placeholder="Подтверждение пароля">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="{{ $data[1] }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Имя" value="{{ $data[2] }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="{{ $data[3] }}">
+                        </div>
+                    </div>
+                    @break
+                    @case('author')
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="{{ $data[0] }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Имя" value="{{ $data[1] }}">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="{{ $data[2] }}">
+                        </div>
+                    </div>
+                    @break
+                    @case('chair')
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название кафедры" value="{{$data[0]}}">
+                        </div>
+                    </div>
+                    @break
+                @endswitch
+                <button type="submit" class="btn btn-dark mb-2">Обновить</button>
             </form>
         </div>
     </div>

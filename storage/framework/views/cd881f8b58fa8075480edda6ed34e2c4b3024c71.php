@@ -17,24 +17,89 @@
                 <?php echo e(csrf_field()); ?>
 
 
-                <div class="col-0 my-3">
-                    <label for="table" class="sr-only">Таблица</label>
-                    <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
-                </div>
-                <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="element" data-width="100%">
-                    <option disabled>Выберите данные</option>
-                    <?php $__currentLoopData = $values; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                        <option value="<?php echo e($select_table.$key); ?>"><?php echo e($value); ?></option>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </select>
                 <div class="form-row">
                     <div class="col-6 my-3">
-                        <input class="form-control" type="text" name="data" placeholder="Новые данные">
-                    </div>
-                    <div class="col mx-5 my-3">
-                        <button type="submit" class="btn btn-dark mb-2">Обновить</button>
+                        <input class="form-control" type="text" name="id" value="ID = <?php echo e($id); ?>"disabled>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="col-6 my-3">
+                        <input class="form-control" type="text" name="select_data" value="Table = <?php echo e($select_data); ?>"disabled>
+                    </div>
+                </div>
+                <?php switch($select_data):
+                    case ('discipline'): ?>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название дисциплины" value="<?php echo e($data[0]); ?>">
+                        </div>
+                    </div>
+                    <?php break; ?>
+                    <?php case ('type_publication'): ?>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название вида издания" value="<?php echo e($data[0]); ?>">
+                        </div>
+                    </div>
+                    <?php break; ?>
+                    <?php case ('user'): ?>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Email" value="<?php echo e($data[0]); ?>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="password" name="data" placeholder="Пароль">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="password" name="data" placeholder="Подтверждение пароля">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="<?php echo e($data[1]); ?>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Имя" value="<?php echo e($data[2]); ?>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="<?php echo e($data[3]); ?>">
+                        </div>
+                    </div>
+                    <?php break; ?>
+                    <?php case ('author'): ?>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Фамилия" value="<?php echo e($data[0]); ?>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Имя" value="<?php echo e($data[1]); ?>">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Отчество" value="<?php echo e($data[2]); ?>">
+                        </div>
+                    </div>
+                    <?php break; ?>
+                    <?php case ('chair'): ?>
+                    <div class="form-row">
+                        <div class="col-6 my-3">
+                            <input class="form-control" type="text" name="data" placeholder="Название кафедры" value="<?php echo e($data[0]); ?>">
+                        </div>
+                    </div>
+                    <?php break; ?>
+                <?php endswitch; ?>
+                <button type="submit" class="btn btn-dark mb-2">Обновить</button>
             </form>
         </div>
     </div>

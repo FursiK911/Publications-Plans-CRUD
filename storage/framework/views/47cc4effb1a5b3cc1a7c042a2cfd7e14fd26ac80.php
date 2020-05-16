@@ -28,7 +28,7 @@
 <?php $__env->startSection('content'); ?>
     <div class="container">
         <div class="content mx-5 my-5">
-            <form class=""  method="POST">
+            <form class="" action="<?php echo e(action('AdditionsToBaseController@select_data_for_update')); ?>" method="POST">
 
                 <?php echo e(csrf_field()); ?>
 
@@ -37,7 +37,7 @@
                     <label for="table" class="sr-only">Таблица</label>
                     <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
                 </div>
-                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
+                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_data" data-width="100%">
                     <option disabled>Выберите таблицу</option>
                     <option value="chair">Кафедра</option>
                     <option value="discipline">Дисциплина</option>
@@ -45,8 +45,10 @@
                     <option value="author">Автор</option>
                     <option value="user">Пользователь</option>
                 </select>
-                <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="table" data-width="100%">
-                </select>
+                <div id="additional_block">
+                    <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="data" data-width="100%">
+                    </select>
+                </div>
                 <div class="col my-5">
                     <button type="submit" class="btn btn-block btn-dark">Далее</button>
                 </div>
