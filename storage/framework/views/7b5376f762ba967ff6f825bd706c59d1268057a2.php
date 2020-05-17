@@ -161,7 +161,7 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
-                        <?php if(auth()->check() && auth()->user()->hasRole('admin')): ?>
+                        <?php if(auth()->check() && auth()->user()->hasRole('administrator|moderator')): ?>
                             <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
                             <a class="btn btn-block btn-outline-secondary"
                                href="/plans/<?php echo e($value->id); ?>/edit">Редактировать</a>

@@ -10,7 +10,9 @@
 
 
         function drawChart() {
-            var years = {!! $years !!};
+            var years = @json($years);
+            var selected_chair = @json($select_chair);
+            console.log(selected_chair);
             //console.log(years);
             var years_index = 0; //для индексации в коллеции
             years.forEach(function (year, i, arr) {
@@ -24,24 +26,38 @@
 
                 var collection = {!! $collection !!};
                 var chairs = @json($chairs);
-                console.log('Список кафедр: ' + chairs);
-                console.log(collection);
+                console.log(chairs);
+                //console.log('Список кафедр: ' + chairs);
+                //console.log(collection);
                 chairs.forEach(function (item, i, arr) {
-                    array_chart.addRows([
-                        [item.name_of_chair, collection[item.name_of_chair][years_index]],
-                    ]);
-                    console.log('Кафедра: ' + item.name_of_chair + ' Кл-во за ' + year.year_of_publication + ' = ' + collection[item.name_of_chair][0]);
+                    if(selected_chair != null)
+                    {
+                        selected_chair.forEach(function (s_chair, i, arr) {
+                            console.log('selected_chair' + s_chair + ' item.id' + item.id);
+                            if (s_chair == item.id) {
+                                array_chart.addRows([
+                                    [item.name_of_chair, collection[item.name_of_chair][years_index]],
+                                ]);
+                                console.log('Кафедра: ' + item.name_of_chair + ' Кл-во за ' + year + ' = ' + collection[item.name_of_chair][0]);
+                            }
+                        })
+                    }
+                    else
+                    {
+                        array_chart.addRows([
+                            [item.name_of_chair, collection[item.name_of_chair][years_index]],
+                        ]);
+                        console.log('Кафедра: ' + item.name_of_chair + ' Кл-во за ' + year + ' = ' + collection[item.name_of_chair][0]);
+                    }
                     //console.log(item.name_of_chair);
                 })
                 years_index++;
-                //console.log(collection);
-                //console.log(collection['Информатики и вычислительной техники'][0]);
 
                 var options = {
-                    title: 'Диаграмма кафедр за ' + year.year_of_publication
+                    title: 'Диаграмма кафедр за ' + year
                 };
 
-                var id = 'piechart_' + year.year_of_publication;
+                var id = 'piechart_' + year;
                 var chart = new google.visualization.PieChart(document.getElementById(id));
 
                 chart.draw(array_chart, options);
@@ -97,11 +113,7 @@
             <tr>
                 <th scope="col" class="align-middle text-center">Кафедра</th>
                 @foreach($years as $key => $value)
-                    @if($select_year != null)
-                        <th scope="col" class="align-middle text-center">{{ $value }}</th>
-                    @else
-                        <th scope="col" class="align-middle text-center">{{ $value->year_of_publication }}</th>
-                    @endif
+                    <th scope="col" class="align-middle text-center">{{ $value }}</th>
                 @endforeach
             </tr>
             </thead>
@@ -119,7 +131,7 @@
     </div>
 
     @foreach($years as $key => $value)
-        <div id="piechart_{{$value->year_of_publication}}" style="width: 900px; height: 500px;"></div>
+        <div id="piechart_{{$value}}" style="width: 900px; height: 500px;"></div>
     @endforeach
 
 @endsection
