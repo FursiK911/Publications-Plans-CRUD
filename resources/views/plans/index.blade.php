@@ -64,6 +64,17 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="col-sm">
+                        <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по статусу наличия</label>
+                        <br>
+                        <select class="selectpicker" data-show-subtext="true" data-live-search="true"
+                                name="select_author" id="inlineFormCustomSelect" data-width="100%">
+                            <option disabled>Выберите авторов</option>
+                            <option selected value="-1">Любой статус</option>
+                            <option value="0">Не выпущена</option>
+                            <option value="1">Выпущена</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm">

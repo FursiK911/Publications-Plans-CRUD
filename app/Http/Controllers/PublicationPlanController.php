@@ -29,7 +29,7 @@ class PublicationPlanController extends Controller
     public function index(Request $request)
     {
         $query = 'SELECT publications.id, publications.chair_id, chairs.name_of_chair, publications.discipline_id, disciplines.name_of_discipline, publications.type_publication_id, type_of_publication.type_publication_name, publications.name_of_publication,
-                    GROUP_CONCAT(authors.last_name,\' \', authors.name) as authors,
+                    GROUP_CONCAT(authors.last_name,\' \', authors.name,\' \', authors.middle_name) as authors,
                     papers_sizes.format_name , number_of_pages, number_of_copies, covers.cover_type, publications.year_of_publication,
                     month_of_submissions.month_name, publications.phone_number, publications.is_release
                     FROM

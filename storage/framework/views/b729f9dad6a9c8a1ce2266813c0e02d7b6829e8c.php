@@ -33,18 +33,23 @@
                 <?php echo e(csrf_field()); ?>
 
 
-                <label for="table_combobox" class="sr-only">Cписок таблиц</label>
-                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_table" data-width="100%">
-                    <option disabled>Выберите таблицу</option>
-                    <option value="chair">Кафедра</option>
-                    <option value="discipline">Дисциплина</option>
-                    <option value="type_publication">Вид издания</option>
-                    <option value="author">Автор</option>
-                    <option value="user">Пользователь</option>
-                </select>
-                <div id="additional_block">
-                    <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="id" data-width="100%">
+                <div class="col-0 my-3">
+                    <label for="table_combobox" class="sr-only">Cписок таблиц</label>
+                    <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_table" data-width="100%">
+                        <option disabled>Выберите таблицу</option>
+                        <option value="chair">Кафедра</option>
+                        <option value="discipline">Дисциплина</option>
+                        <option value="type_publication">Вид издания</option>
+                        <option value="author">Автор</option>
+                        <option value="user">Пользователь</option>
                     </select>
+                </div>
+                <div class="col-0 my-3">
+                    <div id="additional_block">
+                        <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="id" data-width="100%">
+                        </select>
+                        <small id="autorsHelp" class="form-text text-muted">ВНИМАНИЕ! Все связанные публикации с этими данными будут удалены</small>
+                    </div>
                 </div>
                 <div class="col my-5">
                     <button type="submit" class="btn btn-block btn-dark">Далее</button>

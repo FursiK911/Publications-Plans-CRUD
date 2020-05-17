@@ -68,6 +68,7 @@
                     <div class="form-row">
                         <div class="col-12 my-3">
                             <input class="form-control" type="password" name="user_password" placeholder="Пароль">
+                            <small id="autorsHelp" class="form-text text-muted">Если вы не хотите обновлять пароль, оставьте поля с паролями пустыми</small>
                         </div>
                     </div>
                     <div class="form-row">
@@ -97,6 +98,7 @@
                                 <option value="administrator">Администратор</option>
                             @endif
                         </select>
+                        <small id="autorsHelp" class="form-text text-muted">Это поле отображает, какие права будут выданы пользователю</small>
                     </div>
                     <div class="form-row">
                         <div class="col-12 my-3">

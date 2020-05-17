@@ -382,6 +382,10 @@ class AdditionsToBaseController extends Controller
                 foreach ($plans as $key => $value) {
                     $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
                     $value->delete();
+                    $filePath = glob(public_path() . '/docx/Document_id_' . $value->id . '.docx');
+                    if ($filePath != null) {
+                        unlink($filePath[0]);
+                    }
                 }
                 $discipline->delete();
                 break;
@@ -390,6 +394,10 @@ class AdditionsToBaseController extends Controller
                 foreach ($plans as $key => $value) {
                     $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
                     $value->delete();
+                    $filePath = glob(public_path() . '/docx/Document_id_' . $value->id . '.docx');
+                    if ($filePath != null) {
+                        unlink($filePath[0]);
+                    }
                 }
                 $type = TypeOfPublication::find($id);
                 $name_element = $type->type_publication_name;
@@ -407,6 +415,10 @@ class AdditionsToBaseController extends Controller
                     $count_publication = AuthorsPublications::all()->where('plan_id', '=', $value->plan_id)->count();
                     if ($count_publication == 0) {
                         $deletedRows = Publications::where('id', '=', $value->plan_id)->delete();
+                        $filePath = glob(public_path() . '/docx/Document_id_' . $value->plan_id . '.docx');
+                        if ($filePath != null) {
+                            unlink($filePath[0]);
+                        }
                     }
                 }
                 $autor = Author::find($id);
@@ -418,7 +430,12 @@ class AdditionsToBaseController extends Controller
                 foreach ($plans as $key => $value) {
                     $deletedRows = AuthorsPublications::where('plan_id', '=', $value->id)->delete();
                     $value->delete();
+                    $filePath = glob(public_path() . '/docx/Document_id_' . $value->id . '.docx');
+                    if ($filePath != null) {
+                        unlink($filePath[0]);
+                    }
                 }
+
                 $chair = Chair::find($id);
                 $chair->delete();
                 break;

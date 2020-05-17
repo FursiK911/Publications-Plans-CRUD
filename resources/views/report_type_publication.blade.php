@@ -54,7 +54,7 @@
                 years_index++;
 
                 var options = {
-                    title: 'Диаграмма кафедр за ' + year
+                    title: 'Диаграмма видов изданий за ' + year
                 };
 
                 var id = 'piechart_' + year;
@@ -86,6 +86,7 @@
                         @else
                             <input class="form-control" type="text" name="select_year" placeholder="Год выпуска"}}>
                         @endif
+                            <small id="autorsHelp" class="form-text text-muted">Вы можете выбрать несколько лет, перечислив их через запятую (2018,2019,2020...)</small>
                     </div>
                 </div>
                 <div class="col-sm">
@@ -126,7 +127,13 @@
         </table>
     </div>
 
-    @foreach($years as $key => $value)
-        <div id="piechart_{{$value}}" style="width: 900px; height: 500px;"></div>
-    @endforeach
+    <div class=".container-fluid">
+        <div class="row">
+            @foreach($years as $key => $value)
+                <div class="col-6">
+                    <div id="piechart_{{$value}}" style="width: 1000px; height: 800px;"></div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 @endsection

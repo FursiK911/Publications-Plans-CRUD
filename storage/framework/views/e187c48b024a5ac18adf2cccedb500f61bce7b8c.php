@@ -49,6 +49,7 @@
                     <option value="author">Автор</option>
                     <option value="user">Пользователь</option>
                 </select>
+                <small id="autorsHelp" class="form-text text-muted">Выберите таблицу, далее введите заполните данные и нажмите "Добавить"</small>
                 <div class="form-row">
                     <div class="col-12 my-3">
                         <input id="field_1" class="form-control" type="text" name="field_1">
@@ -61,13 +62,16 @@
                                 <option value="moderator">Модератор</option>
                                 <option value="administrator">Администратор</option>
                             </select>
+                            <small id="autorsHelp" class="form-text text-muted">Данное поле отображает, какие права будут даны новому пользователю</small>
                         </div>
                         <input id="field_4" class="form-control" type="text" name="field_4">
                         <input id="field_5" class="form-control" type="text" name="field_5">
                         <input id="field_6" class="form-control" type="text" name="field_6">
                     </div>
                 </div>
-                <button type="submit" class="btn btn-dark mb-2">Добавить</button>
+                <div class="col my-5">
+                    <button type="submit" class="btn btn-block btn-dark">Добавить</button>
+                </div>
             </form>
         </div>
     </div>

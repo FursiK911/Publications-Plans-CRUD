@@ -35,20 +35,23 @@
                 {{ csrf_field() }}
 
                 <div class="col-0 my-3">
-                    <label for="table" class="sr-only">Таблица</label>
-                    <input type="text" readonly class="form-control-plaintext" id="table" value="Cписок таблиц">
-                </div>
-                <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_data" data-width="100%">
-                    <option disabled>Выберите таблицу</option>
-                    <option value="chair">Кафедра</option>
-                    <option value="discipline">Дисциплина</option>
-                    <option value="type_publication">Вид издания</option>
-                    <option value="author">Автор</option>
-                    <option value="user">Пользователь</option>
-                </select>
-                <div id="additional_block">
-                    <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="data" data-width="100%">
+                    <label for="table_combobox" class="sr-only">Таблица</label>
+                    <select id="table_combobox" class="selectpicker" data-show-subtext="true" data-live-search="true" name="select_data" data-width="100%">
+                        <option disabled>Выберите таблицу</option>
+                        <option value="chair">Кафедра</option>
+                        <option value="discipline">Дисциплина</option>
+                        <option value="type_publication">Вид издания</option>
+                        <option value="author">Автор</option>
+                        <option value="user">Пользователь</option>
                     </select>
+                </div>
+                <div class="col-0 my-3">
+                    <label for="table_combobox_2" class="sr-only">Данные</label>
+                    <div id="additional_block">
+                        <select id="table_combobox_2" class="selectpicker" data-show-subtext="true" data-live-search="true" name="data" data-width="100%">
+                        </select>
+                        <small id="autorsHelp" class="form-text text-muted">Выберите данные, после нажатие на кнопку "Далее" вы сможете отредактировать данные</small>
+                    </div>
                 </div>
                 <div class="col my-5">
                     <button type="submit" class="btn btn-block btn-dark">Далее</button>
