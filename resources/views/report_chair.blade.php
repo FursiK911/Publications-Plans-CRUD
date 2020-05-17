@@ -54,7 +54,8 @@
                 years_index++;
 
                 var options = {
-                    title: 'Диаграмма кафедр за ' + year
+                    title: 'Диаграмма кафедр за ' + year,
+                    is3D: true,
                 };
 
                 var id = 'piechart_' + year;

@@ -60,6 +60,7 @@ class PublicationPlanController extends Controller
         $select_discipline = $request->input('select_discipline');
         $select_chair = $request->input('select_chair');
         $select_type = $request->input('select_type');
+        $select_status = $request->input('select_status');
         $disciplines_table = Discipline::all();
         $autors_table = Author::all();
         $chairs_table = Chair::all();
@@ -82,7 +83,7 @@ class PublicationPlanController extends Controller
 
         }
 
-        $query = $query . ' GROUP BY publications.id';
+        $query = $query . ' GROUP BY publications.id  LIMIT 1';
         $plans = DB::select($query, [1]);
 
         if ($select_discipline != null && $select_discipline != -1)  //Если выбрали фильтр по дисциплине
@@ -121,6 +122,16 @@ class PublicationPlanController extends Controller
             $tmp_collection = collect();
             foreach ($plans as $key => $value) {
                 if ($value->chair_id == $select_chair) {
+                    $tmp_collection->push($value);
+                }
+            }
+            $plans = $tmp_collection;
+        }
+        if($select_status != null && $select_status != -1)
+        {
+            $tmp_collection = collect();
+            foreach ($plans as $key => $value) {
+                if ($value->is_release == $select_status) {
                     $tmp_collection->push($value);
                 }
             }
@@ -245,6 +256,7 @@ class PublicationPlanController extends Controller
             'select_year' => $select_year,
             'select_author' => $select_author,
             'select_discipline' => $select_discipline,
+            'select_status' => $select_status,
         ]);
 
     }

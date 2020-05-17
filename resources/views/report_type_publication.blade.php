@@ -54,7 +54,8 @@
                 years_index++;
 
                 var options = {
-                    title: 'Диаграмма видов изданий за ' + year
+                    title: 'Диаграмма видов изданий за ' + year,
+                    is3D: true,
                 };
 
                 var id = 'piechart_' + year;

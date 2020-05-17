@@ -68,11 +68,19 @@
                         <label class="mr-sm-2" for="inlineFormCustomSelect">Отфильтровать по статусу наличия</label>
                         <br>
                         <select class="selectpicker" data-show-subtext="true" data-live-search="true"
-                                name="select_author" id="inlineFormCustomSelect" data-width="100%">
+                                name="select_status" id="inlineFormCustomSelect" data-width="100%">
                             <option disabled>Выберите авторов</option>
                             <option selected value="-1">Любой статус</option>
-                            <option value="0">Не выпущена</option>
-                            <option value="1">Выпущена</option>
+                            @if ($select_status == 0)
+                                <option selected value="0">Не выпущена</option>
+                                <option value="1">Выпущена</option>
+                            @elseif($select_status == 1)
+                                <option value="0">Не выпущена</option>
+                                <option selected value="1">Выпущена</option>
+                            @else
+                                <option value="0">Не выпущена</option>
+                                <option value="1">Выпущена</option>
+                            @endif
                         </select>
                     </div>
                 </div>
