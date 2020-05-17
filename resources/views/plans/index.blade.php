@@ -162,7 +162,7 @@
 
                     <!-- we will also add show, edit, and delete buttons -->
                     <td>
-                        @role('admin')
+                        @role('administrator|moderator')
                             <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
                             <a class="btn btn-block btn-outline-secondary"
                                href="/plans/{{ $value->id }}/edit">Редактировать</a>
