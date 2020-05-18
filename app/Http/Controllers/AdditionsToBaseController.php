@@ -11,6 +11,7 @@ use App\MonthOfSubmission;
 use App\PapersSize;
 use App\TypeOfPublication;
 use App\Users_Publications;
+use App\UsersAuthors;
 use App\UsersPublications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -26,7 +27,10 @@ class AdditionsToBaseController extends Controller
 
     public function create()
     {
-        return view("add-to-base");
+        $authors = Author::all();
+        return view("add-to-base")->with([
+            'authors' => $authors
+        ]);
     }
 
     public function store(Request $request)
@@ -70,6 +74,7 @@ class AdditionsToBaseController extends Controller
                     Session::flash('error', 'Пароль и подтверждение пароля не совпадают!');
                     return redirect('/add-to-base');
                 }
+
                 $user = new User();
                 $user->email = $request->input('field_1');
                 $user->password = bcrypt($request->input('field_2'));
@@ -88,7 +93,36 @@ class AdditionsToBaseController extends Controller
                         $user->assignRole('user');
                         break;
                 }
+
                 $user->save();
+                if($request->add_new_authors == null)
+                {
+                    $id_author = $request->user_author;
+                    $is_alredy_taken = UsersAuthors::where('author_id', $id_author)->first();
+                    if($is_alredy_taken != null)
+                    {
+                        $tmp_user = User::find($is_alredy_taken->user_id);
+                        $user->delete();
+                        Session::flash('error', 'У автора уже стоит соответствие с ' . $tmp_user->last_name .' ' . $tmp_user->name . ' ' . $tmp_user->middle_name .'!');
+                        return redirect('/add-to-base');
+                    }
+                    $author_user = new UsersAuthors();
+                    $author_user->user_id = $user->id;
+                    $author_user->author_id = $id_author;
+                    $author_user->save();
+                }
+                else
+                {
+                    $new_author = new Author();
+                    $new_author->last_name = $request->input('field_4');
+                    $new_author->name = $request->input('field_5');
+                    $new_author->middle_name = $request->input('field_6');
+                    $new_author->save();
+                    $author_user = new UsersAuthors();
+                    $author_user->user_id = $user->id;
+                    $author_user->author_id = $new_author->id;
+                    $author_user->save();
+                }
                 Session::flash('message', 'Пользователь успешно создан!');
                 break;
             case 'author':

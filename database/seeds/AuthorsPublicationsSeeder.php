@@ -12,7 +12,7 @@ class AuthorsPublicationsSeeder extends Seeder
     public function run()
     {
         DB::table('authors_publications')->insert([
-            ['author_id' => '6', 'plan_id' => '1'],
+            ['author_id' => '1', 'plan_id' => '1'],
             ['author_id' => '7', 'plan_id' => '1'],
             ['author_id' => '6', 'plan_id' => '2'],
             ['author_id' => '7', 'plan_id' => '2'],

@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             DisciplinesSeeder::class,
             PublicationsSeeder::class,
-            AuthorsPublicationsSeeder::class
+            AuthorsPublicationsSeeder::class,
+            UsersAuthorsSeeder::class,
         ]);
     }
 }

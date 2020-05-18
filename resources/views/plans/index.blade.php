@@ -157,51 +157,53 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($plans as $key => $value)
-                <tr>
-                    <td>{{ $value->name_of_chair }}</td>
-                    <td>{{ $value->name_of_discipline }}</td>
-                    <td>{{ $value->type_publication_name }}</td>
-                    <td>{{ $value->name_of_publication }}</td>
-                    <td>{{ $value->authors }}</td>
-                    <td>{{ $value->format_name }}</td>
-                    <td>{{ $value->number_of_pages }}</td>
-                    <td>{{ $value->number_of_copies }}</td>
-                    <td>{{ $value->cover_type }}</td>
-                    <td>{{ $value->month_name }}</td>
-                    <td>{{ $value->year_of_publication }}</td>
-                    <td>{{ $value->phone_number }}</td>
-                    <td>
-                        @if ($value->is_release == 1)
-                            Да
-                        @else
-                            Нет
-                        @endif
-                    </td>
+            @if($plans != null)
+                @foreach($plans as $key => $value)
+                    <tr>
+                        <td>{{ $value->name_of_chair }}</td>
+                        <td>{{ $value->name_of_discipline }}</td>
+                        <td>{{ $value->type_publication_name }}</td>
+                        <td>{{ $value->name_of_publication }}</td>
+                        <td>{{ $value->authors }}</td>
+                        <td>{{ $value->format_name }}</td>
+                        <td>{{ $value->number_of_pages }}</td>
+                        <td>{{ $value->number_of_copies }}</td>
+                        <td>{{ $value->cover_type }}</td>
+                        <td>{{ $value->month_name }}</td>
+                        <td>{{ $value->year_of_publication }}</td>
+                        <td>{{ $value->phone_number }}</td>
+                        <td>
+                            @if ($value->is_release == 1)
+                                Да
+                            @else
+                                Нет
+                            @endif
+                        </td>
 
-                    <!-- we will also add show, edit, and delete buttons -->
-                    <td>
-                        @role('administrator|moderator')
-                            <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
-                            <a class="btn btn-block btn-outline-secondary"
-                               href="/plans/{{ $value->id }}/edit">Редактировать</a>
+                        <!-- we will also add show, edit, and delete buttons -->
+                        <td>
+                                <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
+                                <a class="btn btn-block btn-outline-secondary"
+                                   href="/plans/{{ $value->id }}/edit">Редактировать</a>
 
-                            <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
-                            <!-- we will add this later since its a little more complicated than the other two buttons -->
-                            <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
+                                <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
+                                <!-- we will add this later since its a little more complicated than the other two buttons -->
+                                <form action="{{ action('PublicationPlanController@destroy', $value->id) }}" method="POST">
 
-                                @method('DELETE')
-                                {{ csrf_field() }}
+                                    @method('DELETE')
+                                    {{ csrf_field() }}
 
-                                <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
-                            </form>
-                        @endrole
-                        @if($value->filePath != 'none')
-                            <a class="btn btn-block btn-outline-secondary" href="{{$value->filePath}}">Открыть файл в браузере</a>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
+                                    <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
+                                </form>
+                            @if($value->filePath != 'none')
+                                <a class="btn btn-block btn-outline-secondary" href="{{$value->filePath}}">Открыть файл в браузере</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endforeach
+            @else
+                <div class="alert alert-danger">Произошла ошибка! Пользователь не опознан как автор! Пожайлуста обратитесь к администратору, чтобы задать соответствие между пользователем и автором</div>
+            @endif
             </tbody>
         </table>
     </div>

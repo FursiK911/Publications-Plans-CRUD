@@ -13,6 +13,11 @@ class AuthorSeeder extends Seeder
     public function run()
     {
         DB::table('authors')->insert([
+            [   'name' => 'Владислав',
+                'last_name' => 'Котенко',
+                'middle_name' => 'Николаевич',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+
             [   'name' => 'Виктор',
                 'last_name' => 'Толстых',
                 'middle_name' => 'Константинович',
@@ -36,11 +41,6 @@ class AuthorSeeder extends Seeder
             [   'name' => 'Виктория',
                 'last_name' => 'Бондаренко',
                 'middle_name' => 'Витальевна',
-                'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-
-            [   'name' => 'Владислав',
-                'last_name' => 'Котенко',
-                'middle_name' => 'Николаевич',
                 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
 
             [   'name' => 'Юлия',

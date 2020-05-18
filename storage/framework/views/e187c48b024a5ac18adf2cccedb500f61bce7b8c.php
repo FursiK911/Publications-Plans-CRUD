@@ -64,6 +64,19 @@
                             </select>
                             <small id="autorsHelp" class="form-text text-muted">Данное поле отображает, какие права будут даны новому пользователю</small>
                         </div>
+                        <div id="table_combobox_3">
+                            <select class="selectpicker" data-show-subtext="true" data-live-search="true" name="user_author" data-width="100%">
+                                <option disabled>Поставьте соответствие с автором</option>
+                                <?php $__currentLoopData = $authors; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <option value="<?php echo e($value->id); ?>"><?php echo e($value->last_name . ' ' . $value->name . ' ' . $value->middle_name); ?></option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </select>
+                            <small id="autorsHelp" class="form-text text-muted">Данное поле ставит соответствие с автором. Пользователь без прав администратора или модератора может редактировать только свои методические издания</small>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="add_new_authors" name="add_new_authors">
+                            <label class="form-check-label" for="exampleCheck1">Создать нового автора для этого пользователя</label>
+                        </div>
                         <input id="field_4" class="form-control" type="text" name="field_4">
                         <input id="field_5" class="form-control" type="text" name="field_5">
                         <input id="field_6" class="form-control" type="text" name="field_6">

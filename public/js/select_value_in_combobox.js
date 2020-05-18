@@ -2,8 +2,25 @@ jQuery('document').ready(function () {
     var table = jQuery('#table_combobox');
     jQuery('#field_1').show();
     jQuery('#table_combobox_2').hide();
+    jQuery('#table_combobox_3').hide();
     jQuery('#field_1').attr('placeholder','Название кафедры');
     jQuery('#field_1').val('');
+
+    var checkBoxForm = jQuery('.form-check')
+    var checkBox = jQuery('#add_new_authors');
+    checkBoxForm.hide();
+
+    checkBox.on('change',function() {
+        console.log(this.checked);
+        if(this.checked) {
+            jQuery('#table_combobox_3').hide();
+        }
+        else
+        {
+            jQuery('#table_combobox_3').show();
+        }
+    });
+
     table.on('change',function () {
 
         var selected_value = table.val();
@@ -15,6 +32,8 @@ jQuery('document').ready(function () {
         jQuery('#field_5').hide();
         jQuery('#field_6').hide();
         jQuery('#table_combobox_2').hide();
+        jQuery('#table_combobox_3').hide();
+        checkBoxForm.hide();
 
         jQuery('#field_1').val('');
         jQuery('#field_2').val('');
@@ -47,6 +66,7 @@ jQuery('document').ready(function () {
                 break;
             case 'user':
                 jQuery('#table_combobox_2').show();
+                jQuery('#table_combobox_3').show();
                 jQuery('#field_1').show();
                 jQuery('#field_1').val('');
                 jQuery('#field_1').attr('placeholder','Email');
@@ -72,6 +92,8 @@ jQuery('document').ready(function () {
                 jQuery('#field_6').show();
                 jQuery('#field_6').val('');
                 jQuery('#field_6').attr('placeholder','Отчество');
+
+                checkBoxForm.show();
                 //alert('name');
                 break;
             case 'author':

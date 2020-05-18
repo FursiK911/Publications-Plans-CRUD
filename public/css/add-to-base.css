@@ -1,5 +1,10 @@
-#field_1, #field_2, #field_3, #field_4, #field_5, #field_6, #table_combobox_2
+#field_1, #field_2, #field_3, #field_4, #field_5, #field_6, #table_combobox_2, #table_combobox_3
 {
     display: none;
     margin-top: 15px;
+}
+.form-check
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

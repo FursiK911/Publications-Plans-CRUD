@@ -12,8 +12,10 @@ use App\Publications;
 use App\MonthOfSubmission;
 use App\PapersSize;
 use App\TypeOfPublication;
+use App\UsersAuthors;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Session;
@@ -61,6 +63,7 @@ class PublicationPlanController extends Controller
         $select_chair = $request->input('select_chair');
         $select_type = $request->input('select_type');
         $select_status = $request->input('select_status');
+
         $disciplines_table = Discipline::all();
         $autors_table = Author::all();
         $chairs_table = Chair::all();
@@ -83,8 +86,55 @@ class PublicationPlanController extends Controller
 
         }
 
-        $query = $query . ' GROUP BY publications.id  LIMIT 1';
+        $query = $query . ' GROUP BY publications.id';
         $plans = DB::select($query, [1]);
+
+        $user = Auth::user();
+        $roles = $user->getRoleNames(); // Returns a collection
+        $is_admin = false;
+        foreach ($roles as $id => $name_role) // проверяем права админа
+        {
+            if($name_role == 'administrator' || $name_role == 'moderator')
+            {
+                $is_admin = true;
+            }
+        }
+
+        if ($is_admin == false)  //Если пользователь не админ
+        {
+            $id_author = UsersAuthors::where('user_id', '=', $user->id)->first();
+
+            if($id_author == null)
+            {
+                $plans = null;
+                // load the view and pass the plans
+                return view('plans.index')->with([
+                    'plans' => $plans,
+                    'disciplines' => $disciplines_table,
+                    'autors' => $autors_table,
+                    'chairs' => $chairs_table,
+                    'types' => $types_table,
+                    'select_chair' => $select_chair,
+                    'select_type' => $select_type,
+                    'select_year' => $select_year,
+                    'select_author' => $select_author,
+                    'select_discipline' => $select_discipline,
+                    'select_status' => $select_status,
+                ]);
+            }
+
+            $tmp_query = 'SELECT authors_publications.plan_id FROM authors_publications WHERE authors_publications.author_id = ' . $id_author->author_id; // одним запросом не выходит достать всех авторов, поэтому сначала ищем в каких публикациях они используются
+            $selected_plans = DB::select($tmp_query, [1]);
+            $tmp_collection = collect();
+            foreach ($selected_plans as $plan) {
+                foreach ($plans as $key => $value) {
+                    if ($plan->plan_id == $value->id) {
+                        $tmp_collection->push($value);
+                    }
+                }
+            }
+            $plans = $tmp_collection;
+        }
 
         if ($select_discipline != null && $select_discipline != -1)  //Если выбрали фильтр по дисциплине
         {

@@ -156,52 +156,54 @@
             </tr>
             </thead>
             <tbody>
-            <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <tr>
-                    <td><?php echo e($value->name_of_chair); ?></td>
-                    <td><?php echo e($value->name_of_discipline); ?></td>
-                    <td><?php echo e($value->type_publication_name); ?></td>
-                    <td><?php echo e($value->name_of_publication); ?></td>
-                    <td><?php echo e($value->authors); ?></td>
-                    <td><?php echo e($value->format_name); ?></td>
-                    <td><?php echo e($value->number_of_pages); ?></td>
-                    <td><?php echo e($value->number_of_copies); ?></td>
-                    <td><?php echo e($value->cover_type); ?></td>
-                    <td><?php echo e($value->month_name); ?></td>
-                    <td><?php echo e($value->year_of_publication); ?></td>
-                    <td><?php echo e($value->phone_number); ?></td>
-                    <td>
-                        <?php if($value->is_release == 1): ?>
-                            Да
-                        <?php else: ?>
-                            Нет
-                        <?php endif; ?>
-                    </td>
+            <?php if($plans != null): ?>
+                <?php $__currentLoopData = $plans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <tr>
+                        <td><?php echo e($value->name_of_chair); ?></td>
+                        <td><?php echo e($value->name_of_discipline); ?></td>
+                        <td><?php echo e($value->type_publication_name); ?></td>
+                        <td><?php echo e($value->name_of_publication); ?></td>
+                        <td><?php echo e($value->authors); ?></td>
+                        <td><?php echo e($value->format_name); ?></td>
+                        <td><?php echo e($value->number_of_pages); ?></td>
+                        <td><?php echo e($value->number_of_copies); ?></td>
+                        <td><?php echo e($value->cover_type); ?></td>
+                        <td><?php echo e($value->month_name); ?></td>
+                        <td><?php echo e($value->year_of_publication); ?></td>
+                        <td><?php echo e($value->phone_number); ?></td>
+                        <td>
+                            <?php if($value->is_release == 1): ?>
+                                Да
+                            <?php else: ?>
+                                Нет
+                            <?php endif; ?>
+                        </td>
 
-                    <!-- we will also add show, edit, and delete buttons -->
-                    <td>
-                        <?php if(auth()->check() && auth()->user()->hasRole('administrator|moderator')): ?>
-                            <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
-                            <a class="btn btn-block btn-outline-secondary"
-                               href="/plans/<?php echo e($value->id); ?>/edit">Редактировать</a>
+                        <!-- we will also add show, edit, and delete buttons -->
+                        <td>
+                                <!-- edit this plans (uses the edit method found at GET /plans/{id}/edit -->
+                                <a class="btn btn-block btn-outline-secondary"
+                                   href="/plans/<?php echo e($value->id); ?>/edit">Редактировать</a>
 
-                            <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
-                            <!-- we will add this later since its a little more complicated than the other two buttons -->
-                            <form action="<?php echo e(action('PublicationPlanController@destroy', $value->id)); ?>" method="POST">
+                                <!-- delete the plans (uses the destroy method DESTROY /plans/{id} -->
+                                <!-- we will add this later since its a little more complicated than the other two buttons -->
+                                <form action="<?php echo e(action('PublicationPlanController@destroy', $value->id)); ?>" method="POST">
 
-                                <?php echo method_field('DELETE'); ?>
-                                <?php echo e(csrf_field()); ?>
+                                    <?php echo method_field('DELETE'); ?>
+                                    <?php echo e(csrf_field()); ?>
 
 
-                                <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
-                            </form>
-                        <?php endif; ?>
-                        <?php if($value->filePath != 'none'): ?>
-                            <a class="btn btn-block btn-outline-secondary" href="<?php echo e($value->filePath); ?>">Открыть файл в браузере</a>
-                        <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <button class="btn btn-block btn-outline-secondary" type="submit">Удалить</button>
+                                </form>
+                            <?php if($value->filePath != 'none'): ?>
+                                <a class="btn btn-block btn-outline-secondary" href="<?php echo e($value->filePath); ?>">Открыть файл в браузере</a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <?php else: ?>
+                <div class="alert alert-danger">Произошла ошибка! Пользователь не опознан как автор! Пожайлуста обратитесь к администратору, чтобы задать соответствие между пользователем и автором</div>
+            <?php endif; ?>
             </tbody>
         </table>
     </div>
