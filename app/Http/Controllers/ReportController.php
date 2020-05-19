@@ -34,6 +34,7 @@ class ReportController extends Controller
                     $count = DB::table('publications')
                         ->where('chair_id', '=', $chair->id)
                         ->where('publications.year_of_publication', '=', $year)
+                        ->where('publications.is_release', '=', 1)
                         ->count();
                     $counts->push($count);
                 }
@@ -57,6 +58,7 @@ class ReportController extends Controller
                         $count = DB::table('publications')
                             ->where('chair_id', '=', $chair->id)
                             ->where('publications.year_of_publication', '=', $year->year_of_publication)
+                            ->where('publications.is_release', '=', 1)
                             ->count();
                         $counts->push($count);
                     }
@@ -95,6 +97,7 @@ class ReportController extends Controller
                         $count = DB::table('publications')
                             ->where('chair_id', '=', $chair->id)
                             ->where('publications.year_of_publication', '=', $year)
+                            ->where('publications.is_release', '=', 1)
                             ->count();
                         $counts->push($count);
                     }
@@ -137,6 +140,7 @@ class ReportController extends Controller
                         $count = DB::table('publications')
                             ->where('chair_id', '=', $chair->id)
                             ->where('publications.year_of_publication', '=', $year)
+                            ->where('publications.is_release', '=', 1)
                             ->count();
                         $counts->push($count);
                     }
@@ -174,6 +178,7 @@ class ReportController extends Controller
                     $count = DB::table('publications')
                         ->where('type_publication_id', '=', $type->id)
                         ->where('publications.year_of_publication', '=', $year)
+                        ->where('publications.is_release', '=', 1)
                         ->count();
                     $counts->push($count);
                 }
@@ -195,6 +200,7 @@ class ReportController extends Controller
                         $count = DB::table('publications')
                             ->where('chair_id', '=', $type->id)
                             ->where('publications.year_of_publication', '=', $year->year_of_publication)
+                            ->where('publications.is_release', '=', 1)
                             ->count();
                         $counts->push($count);
                     }
@@ -232,6 +238,7 @@ class ReportController extends Controller
                         $count = DB::table('publications')
                             ->where('chair_id', '=', $type->id)
                             ->where('publications.year_of_publication', '=', $year)
+                            ->where('publications.is_release', '=', 1)
                             ->count();
                         $counts->push($count);
                     }
@@ -271,6 +278,7 @@ class ReportController extends Controller
                     $count = DB::table('publications')
                         ->where('type_publication_id', '=', $type->id)
                         ->where('publications.year_of_publication', '=', $year->year_of_publication)
+                        ->where('publications.is_release', '=', 1)
                         ->count();
                     $counts->push($count);
                 }

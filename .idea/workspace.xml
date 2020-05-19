@@ -211,7 +211,7 @@
       <workItem from="1589811647369" duration="10401000" />
       <workItem from="1589828327465" duration="1215000" />
       <workItem from="1589892234797" duration="4582000" />
-      <workItem from="1589907920497" duration="3374000" />
+      <workItem from="1589907920497" duration="4069000" />
     </task>
     <servers />
   </component>
@@ -268,16 +268,5 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1589818576027" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/app/Http/Controllers/ReportController.php</url>
-          <line>47</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
