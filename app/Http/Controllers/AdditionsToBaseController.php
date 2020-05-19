@@ -15,6 +15,7 @@ use App\UsersAuthors;
 use App\UsersPublications;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Session;
 class AdditionsToBaseController extends Controller
@@ -255,6 +256,8 @@ class AdditionsToBaseController extends Controller
                 $data->push($type_publication->type_publication_name);
                 break;
             case 'user':
+                $authors = Author::all();
+
                 $user = User::find($request->data);
                 $data->push($user->email);
                 $data->push($user->last_name);
@@ -294,6 +297,16 @@ class AdditionsToBaseController extends Controller
                         }
                     }
                 }
+
+                $selected_author = UsersAuthors::where('user_id', $user->id)->first();
+
+                return view("update-base")->with([
+                    'select_data' => $select_data,
+                    'data' => $data,
+                    'id' => $request->data,
+                    'authors' => $authors,
+                    'select_author' => $selected_author
+                ]);
                 break;
             case 'author':
                 $author = Author::find($request->data);
@@ -341,6 +354,7 @@ class AdditionsToBaseController extends Controller
                 $request->validate([
                     'user_email' => 'required',
                     'type_user' => 'required',
+                    'user_author' => 'required',
                     'user_last_name' => 'required',
                     'user_name' => 'required',
                     'user_middle_name' => 'required',
@@ -359,6 +373,33 @@ class AdditionsToBaseController extends Controller
                 {
                     $user->password = bcrypt($request->input('user_password'));
                 }
+
+
+                $selected_user_author = UsersAuthors::where('user_id', $user->id)->first();
+                if($request->add_new_authors == null)
+                {
+                    $id_author = $request->user_author;
+                    if($selected_user_author != null && $selected_user_author->author_id != $id_author)
+                    {
+                        $tmp_user = User::find($selected_user_author->user_id);
+                        Session::flash('error', 'У автора уже стоит соответствие с ' . $tmp_user->last_name .' ' . $tmp_user->name . ' ' . $tmp_user->middle_name .'!');
+                        return redirect('/select-table-for-update-base');
+                    }
+                }
+                else
+                {
+                    UsersAuthors::where('user_id', $user->id)->delete();
+                    $new_author = new Author();
+                    $new_author->last_name = $request->input('field_4');
+                    $new_author->name = $request->input('field_5');
+                    $new_author->middle_name = $request->input('field_6');
+                    $new_author->save();
+                    $author_user = new UsersAuthors();
+                    $author_user->user_id = $user->id;
+                    $author_user->author_id = $new_author->id;
+                    $author_user->save();
+                }
+
                 $user->last_name = $request->input('user_last_name');
                 $user->name = $request->input('user_name');
                 $user->middle_name = $request->input('user_middle_name');
@@ -438,16 +479,25 @@ class AdditionsToBaseController extends Controller
                 $type->delete();
                 break;
             case 'user':
+                $deletedRows = UsersAuthors::where('user_id', '=', $id)->delete();
                 $user = User::find($id);
+                $i_am = Auth::user();
+                if($i_am->id == $user->id)
+                {
+                    Session::flash('error', 'Вы не можете удалить свой аккаунт!');
+                    return redirect('/select-table-for-remove-from-base');
+                }
+                UsersAuthors::where('user_id', $id)->delete();
                 $user->delete();
                 DB::table('model_has_roles')->where('model_id', '=', $id)->delete();
                 break;
             case 'author':
+                $deletedRows = UsersAuthors::where('author_id', '=', $id)->delete();
                 $user_publications = AuthorsPublications::all()->where('author_id', '=', $id);
-                $deletedRows = AuthorsPublications::where('author_id', '=', $id)->delete();
                 foreach ($user_publications as $key => $value) {
                     $count_publication = AuthorsPublications::all()->where('plan_id', '=', $value->plan_id)->count();
-                    if ($count_publication == 0) {
+                    if ($count_publication != 0) {
+                        $deletedRows = AuthorsPublications::where('plan_id', '=', $value->plan_id)->delete();
                         $deletedRows = Publications::where('id', '=', $value->plan_id)->delete();
                         $filePath = glob(public_path() . '/docx/Document_id_' . $value->plan_id . '.docx');
                         if ($filePath != null) {
@@ -455,7 +505,9 @@ class AdditionsToBaseController extends Controller
                         }
                     }
                 }
+                $deletedRows = AuthorsPublications::where('author_id', '=', $id)->delete();
                 $autor = Author::find($id);
+                UsersAuthors::where('author_id', $id)->delete();
                 $name_element = $autor->name;
                 $autor->delete();
                 break;

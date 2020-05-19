@@ -14,6 +14,10 @@
         <div class="alert alert-info"><?php echo e(Session::get('message')); ?></div>
     <?php endif; ?>
 
+    <?php if(Session::has('error')): ?>
+        <div class="alert alert-info"><?php echo e(Session::get('error')); ?></div>
+    <?php endif; ?>
+
     <?php if($errors->any()): ?>
         <div class="alert alert-danger">
             <ul>
