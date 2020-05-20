@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreatePapersSizesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('papers_sizes', function (Blueprint $table) {
@@ -19,11 +14,7 @@ class CreatePapersSizesTable extends Migration
             $table->string('format_name');
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::disableForeignKeyConstraints();

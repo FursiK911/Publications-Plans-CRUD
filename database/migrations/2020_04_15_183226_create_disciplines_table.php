@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateDisciplinesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('disciplines', function (Blueprint $table) {
@@ -19,11 +14,7 @@ class CreateDisciplinesTable extends Migration
             $table->string('name_of_discipline');
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::disableForeignKeyConstraints();

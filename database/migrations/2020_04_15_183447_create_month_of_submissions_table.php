@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateMonthOfSubmissionsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('month_of_submissions', function (Blueprint $table) {
@@ -19,11 +14,6 @@ class CreateMonthOfSubmissionsTable extends Migration
             $table->string('month_name');
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();

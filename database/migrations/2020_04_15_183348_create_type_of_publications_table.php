@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateTypeOfPublicationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('type_of_publication', function (Blueprint $table) {
@@ -19,11 +14,6 @@ class CreateTypeOfPublicationsTable extends Migration
             $table->string('type_publication_name');
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();

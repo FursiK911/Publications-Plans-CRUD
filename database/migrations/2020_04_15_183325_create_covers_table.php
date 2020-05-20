@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateCoversTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('covers', function (Blueprint $table) {
@@ -19,11 +14,6 @@ class CreateCoversTable extends Migration
             $table->string('cover_type');
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();
