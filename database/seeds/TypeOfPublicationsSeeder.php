@@ -4,11 +4,6 @@ use Illuminate\Database\Seeder;
 
 class TypeOfPublicationsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('type_of_publication')->insert([

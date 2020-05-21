@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::resource('plans', 'PublicationPlanController');
 
-Route::middleware(['role'])->group(function () {
+Route::middleware(['role','auth'])->group(function () {
     Route::get('add-to-base', 'AdditionsToBaseController@create');
     Route::post('add-to-base', 'AdditionsToBaseController@store');
     Route::get('select-table-for-remove-from-base', 'AdditionsToBaseController@remove');

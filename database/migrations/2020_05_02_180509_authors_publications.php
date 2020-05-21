@@ -17,11 +17,6 @@ class AuthorsPublications extends Migration
             $table->primary(array('author_id', 'plan_id'));
         });
     }
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();

@@ -4,11 +4,6 @@ use Illuminate\Database\Seeder;
 
 class MonthSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         DB::table('month_of_submissions')->insert([

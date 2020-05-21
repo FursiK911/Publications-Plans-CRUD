@@ -6,11 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class UsersAuthors extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('users_authors', function (Blueprint $table) {
@@ -23,11 +18,6 @@ class UsersAuthors extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::disableForeignKeyConstraints();
