@@ -198,7 +198,7 @@ class ReportController extends Controller
                     $counts = collect();
                     foreach ($years as $year) {
                         $count = DB::table('publications')
-                            ->where('chair_id', '=', $type->id)
+                            ->where('type_publication_id', '=', $type->id)
                             ->where('publications.year_of_publication', '=', $year->year_of_publication)
                             ->where('publications.is_release', '=', 1)
                             ->count();
@@ -206,6 +206,7 @@ class ReportController extends Controller
                     }
                     $collection->put($type->type_publication_name, $counts);
                 }
+                //dd($collection);
 
 
                 $tmp_collection = collect();
@@ -263,7 +264,6 @@ class ReportController extends Controller
             }
         }
 
-
         if($selected_types == null &&  $selected_year == null)//Если не выбрали год(а) то выводим за все года что есть
         {
             $years = Publications::groupBy('year_of_publication')
@@ -292,6 +292,8 @@ class ReportController extends Controller
             }
             $years = $tmp_years;
         }
+
+
 
         return view('report_type_publication')->with([
             'collection' => $collection,
