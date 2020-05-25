@@ -20,6 +20,9 @@
             </ul>
         </div>
     <?php endif; ?>
+    <?php if(Session::has('error')): ?>
+        <div class="alert alert-danger"><?php echo e(Session::get('error')); ?></div>
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>

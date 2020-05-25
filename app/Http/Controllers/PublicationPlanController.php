@@ -350,6 +350,47 @@ class PublicationPlanController extends Controller
             'is_release' => 'required|numeric',
         ]);
 
+        //Получаем права
+        $user = Auth::user();
+        $roles = $user->getRoleNames(); // Returns a collection
+        $is_admin = false;
+        foreach ($roles as $id => $name_role)
+        {
+            if($name_role == 'administrator' || $name_role == 'moderator')
+            {
+                $is_admin = true;
+            }
+        }
+
+        //Проверяем наличие себя как автора, если нет прав администратора
+        $array_authors = $request->input('author_id.*');
+        if($is_admin == false)
+        {
+            $have_author = false; //числиться ли пользователь как автор только что созданного издания
+            $author = UsersAuthors::where('user_id', $user->id)->get();
+            if ($author == null)
+            {
+                // redirect
+                Session::flash('error', 'Вы не числитесь автором, пожайлуста попросите администратора привязать аккаунт к автору!');
+                return $this->create();
+            }
+            for ($i = 0; $i < count($array_authors); $i++) {
+                if ($author[0]->author_id == $array_authors[$i])
+                {
+                    $have_author = true;
+                    break;
+                }
+            }
+
+
+            if ($have_author == false)
+            {
+                // redirect
+                Session::flash('error', 'Необходимо что вы числились автором данного издания!');
+                return $this->create();
+            }
+        }
+
         // store
         $plan = new Publications();
         $plan->chair_id = $request->input('chair_id');
@@ -371,7 +412,6 @@ class PublicationPlanController extends Controller
             $file->move(public_path() . '/docx', 'Document_id_' . $newid . '.docx');
         }
 
-        $array_authors = $request->input('author_id.*');
         if (count($array_authors) > 0) {
             for ($i = 0; $i < count($array_authors); $i++) {
                 $plan_author = new AuthorsPublications();
@@ -455,9 +495,52 @@ class PublicationPlanController extends Controller
             'year_of_publication' => 'required|numeric',
             'is_release' => 'required|numeric',
         ]);
+
+
+        //Получаем права
+        $user = Auth::user();
+        $roles = $user->getRoleNames(); // Returns a collection
+        $is_admin = false;
+        foreach ($roles as $id_role => $name_role)
+        {
+            if($name_role == 'administrator' || $name_role == 'moderator')
+            {
+                $is_admin = true;
+            }
+        }
+
+        //Проверяем наличие себя как автора, если нет прав администратора
+        $array_authors = $request->input('author_id.*');
+        if($is_admin == false)
+        {
+            $have_author = false; //числиться ли пользователь как автор только что созданного издания
+            $author = UsersAuthors::where('user_id', $user->id)->get();
+            if ($author == null)
+            {
+                // redirect
+                Session::flash('error', 'Вы не числитесь автором, пожайлуста попросите администратора привязать аккаунт к автору!');
+                return $this->edit($id);
+            }
+            for ($i = 0; $i < count($array_authors); $i++) {
+                if ($author[0]->author_id == $array_authors[$i])
+                {
+                    $have_author = true;
+                    break;
+                }
+            }
+
+
+            if ($have_author == false)
+            {
+                // redirect
+                Session::flash('error', 'Необходимо что вы числились автором данного издания!');
+                return $this->edit($id);
+            }
+        }
+
+
         // store
         DB::table('authors_publications')->where('plan_id', '=', $id)->delete();
-        $array_authors = $request->input('author_id.*');
         if (count($array_authors) > 0) {
             for ($i = 0; $i < count($array_authors); $i++) {
                 $plan_author = new AuthorsPublications();
@@ -466,6 +549,7 @@ class PublicationPlanController extends Controller
                 $plan_author->save();
             }
         }
+
         $plan = Publications::find($id);
         $plan->chair_id = $request->input('chair_id');
         $plan->discipline_id = $request->input('discipline_id');
