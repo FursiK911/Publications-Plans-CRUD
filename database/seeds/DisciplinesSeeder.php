@@ -7,6 +7,7 @@ class DisciplinesSeeder extends Seeder
     public function run()
     {
         DB::table('disciplines')->insert([
+            ['name_of_discipline' => 'None'],
             ['name_of_discipline' => 'Информатика и информационно-коммуникационные технологии'],
             ['name_of_discipline' => 'Дискретная математика'],
             ['name_of_discipline' => 'Математическая логика'],
@@ -20,8 +21,8 @@ class DisciplinesSeeder extends Seeder
             ['name_of_discipline' => 'СУБД Oracle'],
             ['name_of_discipline' => 'Объектно-ориентированное программирование'],
             ['name_of_discipline' => 'Современные информационные системы и технологии'],
-            ['name_of_discipline' => 'Инженерная и компьютерная графика'],
-            ['name_of_discipline' => 'Архитектура ЭВМ и микроконтроллеров'],
+            ['name_of_discipline' => 'Инженерная и компьютерная графика'],//16
+            ['name_of_discipline' => 'Архитектура ЭВМ и микроконтроллеров'],//17
             ['name_of_discipline' => 'ЭВМ и периферийные устройства'],
             ['name_of_discipline' => 'Программирование на языках низкого уровня'],
             ['name_of_discipline' => 'Защита информации'],

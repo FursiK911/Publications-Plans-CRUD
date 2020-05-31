@@ -7,12 +7,13 @@ class TypeOfPublicationsSeeder extends Seeder
     public function run()
     {
         DB::table('type_of_publication')->insert([
-            ['type_publication_name' => 'Учебное пособие'],
+            ['type_publication_name' => 'None'],
+            ['type_publication_name' => 'Учебное пособие'], //2
             ['type_publication_name' => 'Учебное наглядное пособие'],
-            ['type_publication_name' => 'Учебно-методическое пособие'],
-            ['type_publication_name' => 'Учебник'],
+            ['type_publication_name' => 'Учебно-методическое пособие'], //4
+            ['type_publication_name' => 'Учебник'],//5
             ['type_publication_name' => 'Хрестоматия'],
-            ['type_publication_name' => 'Методические рекомендации (методические указания)'],
+            ['type_publication_name' => 'Методические рекомендации (методические указания)'], //7
             ['type_publication_name' => 'Курс лекций'],
             ['type_publication_name' => 'Текст лекций'],
             ['type_publication_name' => 'Конспект лекции'],
@@ -20,7 +21,7 @@ class TypeOfPublicationsSeeder extends Seeder
             ['type_publication_name' => 'Словарь'],
             ['type_publication_name' => 'Энциклопедия'],
             ['type_publication_name' => 'Справочник'],
-            ['type_publication_name' => 'Монография'],
+            ['type_publication_name' => 'Монография'], //14
             ['type_publication_name' => 'Автореферат диссертации'],
             ['type_publication_name' => 'Препринт'],
             ['type_publication_name' => 'Тезисы докладов научной конференции'],

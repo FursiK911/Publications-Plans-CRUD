@@ -7,6 +7,7 @@ class MonthSeeder extends Seeder
     public function run()
     {
         DB::table('month_of_submissions')->insert([
+            ['month_name' => 'None'],
             ['month_name' => 'Январь'],
             ['month_name' => 'Февраль'],
             ['month_name' => 'Март'],

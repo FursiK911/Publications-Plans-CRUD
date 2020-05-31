@@ -12,6 +12,7 @@ class ChairSeeder extends Seeder
     public function run()
     {
         DB::table('chairs')->insert([
+            ['name_of_chair' => 'None'],
             ['name_of_chair' => 'Информатики и вычислительной техники'],
             ['name_of_chair' => 'Нанотехнологии'],
             ['name_of_chair' => 'Радиофизики'],
